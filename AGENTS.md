@@ -30,6 +30,13 @@ The agent should automatically map user intent to skills:
 - Refactoring / simplification → `code-simplification`
 - API or interface design → `api-and-interface-design`
 - UI work → `frontend-ui-engineering`
+- ASP.NET Core API / Minimal API endpoint → `dotnet-webapi`
+- EF Core query optimization / N+1 fix → `optimizing-ef-core-queries`
+- OpenTelemetry / tracing in .NET → `configuring-opentelemetry-dotnet`
+- MSBuild build failure / .binlog analysis → `binlog-failure-analysis`
+- NuGet version centralization / CPM → `convert-to-cpm`
+- .NET SDK setup / preview install → `setup-local-sdk`
+- File upload in ASP.NET Minimal API → `minimal-api-file-upload`
 
 ### Lifecycle Mapping (Implicit Commands)
 

@@ -2,6 +2,10 @@
 
 คู่มือนี้จัดทำขึ้นเพื่อให้คุณเข้าใจโครงสร้าง แนวคิด วิธีการทำงาน และการใช้งานระบบ **Agent Skills** ในโปรเจกต์นี้อย่างละเอียด
 
+> [!NOTE]
+> โปรเจกต์นี้มีคลังสำหรับการรันและปรับแต่ง AI agent skills โดยอ้างอิงหลักมาจาก [Nack-GitHub/agent-skills](https://github.com/Nack-GitHub/agent-skills.git) และมีการดึง/รวม (pull/integrate) ทรัพยากรและเวิร์กโฟลว์เฉพาะของ C#/.NET จากคลังข้อมูลอย่างเป็นทางการของไมโครซอฟท์ที่ [dotnet/skills](https://github.com/dotnet/skills.git) เข้ามาใช้งานร่วมด้วย
+
+
 ---
 
 ## 1. ภาพรวมและเหตุผลเบื้องหลัง (Why & For What Reason)

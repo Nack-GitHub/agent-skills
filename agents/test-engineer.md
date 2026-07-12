@@ -44,6 +44,26 @@ describe('[Module/Function name]', () => {
 });
 ```
 
+For .NET / C# projects using xUnit:
+```csharp
+public class ProductServiceTests
+{
+    [Fact]
+    public void CreateProduct_WithValidInput_ReturnsCreatedProduct()
+    {
+        // Arrange → Act → Assert
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public void CreateProduct_WithInvalidName_ThrowsValidationException(string? name)
+    {
+        // Arrange → Act → Assert
+    }
+}
+```
+
 ### 5. Cover These Scenarios
 
 For every function or component:
@@ -55,6 +75,15 @@ For every function or component:
 | Boundary values | Min, max, zero, negative |
 | Error paths | Invalid input, network failure, timeout |
 | Concurrency | Rapid repeated calls, out-of-order responses |
+
+For .NET/C# projects, also verify:
+
+| Scenario | Example |
+|----------|---------|
+| EF Core queries | Use in-memory database or Testcontainers to verify query correctness (refer to `optimizing-ef-core-queries` skill) |
+| API endpoints | Use `WebApplicationFactory<Program>` for integration testing ASP.NET Core APIs (refer to `dotnet-webapi` skill) |
+| Middleware | Test custom middleware in isolation with `DefaultHttpContext` |
+| DTOs & validation | Test data annotation validators on request DTOs |
 
 ## Output Format
 
@@ -87,6 +116,7 @@ When analyzing test coverage:
 5. Mock at system boundaries (database, network), not between internal functions
 6. Every test name should read like a specification
 7. A test that never fails is as useless as a test that always fails
+8. For .NET projects, use `dotnet test` to run tests and cross-reference the `dotnet-webapi` and `optimizing-ef-core-queries` skills for domain-specific testing patterns
 
 ## Composition
 

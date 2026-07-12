@@ -1,7 +1,7 @@
 # My Agent Skills
 
 > [!NOTE]
-> This is my personal repository for setting up, customizing, and running my own AI agent skills. It is based on and referenced from the original repository: [Nack-GitHub/agent-skills](https://github.com/Nack-GitHub/agent-skills.git).
+> This is my personal repository for setting up, customizing, and running my own AI agent skills. It is based on and referenced from the original repository: [Nack-GitHub/agent-skills](https://github.com/Nack-GitHub/agent-skills.git) and also pulls and integrates .NET/C#-specific skills from the official .NET skills repository: [dotnet/skills](https://github.com/dotnet/skills.git).
 
 **Production-grade engineering skills for AI coding agents.**
 

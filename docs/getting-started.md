@@ -2,6 +2,9 @@
 
 agent-skills works with any AI coding agent that accepts Markdown instructions. This guide covers the universal approach. For tool-specific setup, see the dedicated guides.
 
+> [!NOTE]
+> This repository is based on [Nack-GitHub/agent-skills](https://github.com/Nack-GitHub/agent-skills.git) and integrates the .NET/C# specific engineering skills pulled from the official [dotnet/skills](https://github.com/dotnet/skills.git) repository.
+
 ## How Skills Work
 
 Each skill is a Markdown file (`SKILL.md`) that describes a specific engineering workflow. When loaded into an agent's context, the agent follows the workflow — including verification steps, anti-patterns to avoid, and exit criteria.

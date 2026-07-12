@@ -44,6 +44,15 @@ Evaluate every change across these five dimensions:
 - Any unnecessary re-renders (in UI components)?
 - Any missing pagination on list endpoints?
 
+### 6. .NET / C# Specific (when reviewing .cs, .csproj, or ASP.NET Core code)
+- Are EF Core entities exposed directly in API responses instead of DTOs? (refer to `dotnet-webapi` skill)
+- Are queries missing `.AsNoTracking()` for read-only paths? (refer to `optimizing-ef-core-queries` skill)
+- Is `DateTime` used instead of `DateTimeOffset` in API DTOs?
+- Are `sealed record` types used for request/response DTOs?
+- Is OpenTelemetry configured correctly for tracing and metrics? (refer to `configuring-opentelemetry-dotnet` skill)
+- Are NuGet packages managed via Central Package Management? (refer to `convert-to-cpm` skill)
+- Is the MSBuild project using SDK-style format? (refer to `binlog-failure-analysis` skill for build issues)
+
 ## Output Format
 
 Categorize every finding:
@@ -89,6 +98,7 @@ Categorize every finding:
 4. Don't approve code with Critical issues
 5. Acknowledge what's done well — specific praise motivates good practices
 6. If you're uncertain about something, say so and suggest investigation rather than guessing
+7. When reviewing .NET/C# code, cross-reference the `dotnet-webapi`, `optimizing-ef-core-queries`, `configuring-opentelemetry-dotnet`, and `convert-to-cpm` skills for domain-specific best practices
 
 ## Composition
 
