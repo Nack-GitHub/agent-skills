@@ -90,13 +90,13 @@ graph TD
 ### บุคลากรในระบบ (Personas)
 ในโปรเจกต์นี้มี Personas หลัก 4 บทบาท:
 
-1.  **[code-reviewer](file:///Users/nack/MyProjects/agent-skills/agents/code-reviewer.md) (Senior Staff Engineer)**
+1.  **[code-reviewer](../agents/code-reviewer.md) (Senior Staff Engineer)**
     *   *เน้น:* ตรวจสอบคุณภาพโค้ด ความเข้าใจง่าย โครงสร้างสถาปัตยกรรม และการจัดขนาด Commit ที่ดี
-2.  **[security-auditor](file:///Users/nack/MyProjects/agent-skills/agents/security-auditor.md) (Security Engineer)**
+2.  **[security-auditor](../agents/security-auditor.md) (Security Engineer)**
     *   *เน้น:* วิเคราะห์ช่องโหว่ความปลอดภัย ตรวจหาข้อมูลสำคัญที่อาจรั่วไหล (Secrets) และตรวจสอบความปลอดภัยตามแนวทาง OWASP
-3.  **[test-engineer](file:///Users/nack/MyProjects/agent-skills/agents/test-engineer.md) (QA Engineer)**
+3.  **[test-engineer](../agents/test-engineer.md) (QA Engineer)**
     *   *เน้น:* ออกแบบกลยุทธ์การทดสอบ ตรวจสอบความครอบคลุม (Coverage) และบังคับใช้ Prove-It Pattern
-4.  **[web-performance-auditor](file:///Users/nack/MyProjects/agent-skills/agents/web-performance-auditor.md) (Web Performance Engineer)**
+4.  **[web-performance-auditor](../agents/web-performance-auditor.md) (Web Performance Engineer)**
     *   *เน้น:* ตรวจสอบประสิทธิภาพของเว็บแอปพลิเคชัน วิเคราะห์ Core Web Vitals (LCP, INP, CLS) และทรัพยากรเครือข่าย
 
 ### ใช้เมื่อไหร่ และใช้อย่างไร?

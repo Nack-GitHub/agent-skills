@@ -24,20 +24,20 @@
 ### ขั้นตอนที่ 3: ลงทะเบียนระบบจัดสรรงาน (Intent → Skill Mapping Update)
 *   **เป้าหมาย:** บันทึกเส้นทางการส่งต่อคำสั่งให้เอเจนต์ตัวหลักรู้ตัวทันทีเมื่อตรวจจับคีย์เวิร์ด
 *   **แนวปฏิบัติ:** 
-    *   เปิดไฟล์ [AGENTS.md](file:///Users/nack/MyProjects/agent-skills/AGENTS.md)
+    *   เปิดไฟล์ [AGENTS.md](../AGENTS.md)
     *   เพิ่มความสัมพันธ์ระหว่าง **Intent (ความต้องการของผู้ใช้)** และ **Skill Name** ลงในตาราง `Intent → Skill Mapping` เสมอ
 
 ### ขั้นตอนที่ 4: ปรับปรุงคำนิยามของเอเจนต์ (Agent Persona Synchronization)
 *   **เป้าหมาย:** สื่อสารกับเอเจนต์ย่อยแต่ละตัว (เช่น `code-reviewer`, `security-auditor`, `test-engineer`) ให้เรียกใช้กลยุทธ์ตาม Skill ใหม่ได้ถูกต้อง
 *   **แนวปฏิบัติ:** 
-    *   เปิดไฟล์เอเจนต์ที่เกี่ยวข้องในโฟลเดอร์ `agents/` (เช่น [code-reviewer.md](file:///Users/nack/MyProjects/agent-skills/agents/code-reviewer.md))
+    *   เปิดไฟล์เอเจนต์ที่เกี่ยวข้องในโฟลเดอร์ `agents/` (เช่น [code-reviewer.md](../agents/code-reviewer.md))
     *   เพิ่มกฎหรือหัวข้อย่อยสำหรับงานประเภทนั้น และใส่ลิงก์อ้างอิง `(refer to <new-skill-name> skill)` เพื่อบังคับใช้พฤติกรรม
 
 ### ขั้นตอนที่ 5: ตรวจสอบความถูกต้องทางโครงสร้าง (Operational Checks)
 *   **เป้าหมาย:** แน่ใจว่าไฟล์ที่ถูกเพิ่มเข้ามาไม่มี Syntax ผิดพลาด
 *   **แนวปฏิบัติ:** 
     1.  YAML Frontmatter ต้องมีโครงสร้างครบถ้วน (`name`, `description`, `license`)
-    2.  ลิงก์เชื่อมโยงไปยังไฟล์อื่นต้องใช้ URI แบบสัมบูรณ์ (Absolute URI) เช่น `[link](file:///...)` และไม่มีเครื่องหมาย backticks ครอบลิงก์
+    2.  ลิงก์เชื่อมโยงไปยังไฟล์อื่นต้องใช้ URI แบบสัมพัทธ์ (Relative URI) เช่น `[link](../path/to/file)` และไม่มีเครื่องหมาย backticks ครอบลิงก์
     3.  ทดสอบการรันแบบ dry-run เพื่อสังเกตพฤติกรรมการเรียกใช้งานของเอเจนต์
 
 ---

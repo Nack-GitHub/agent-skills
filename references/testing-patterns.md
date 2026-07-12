@@ -12,6 +12,7 @@ Quick reference for common testing patterns across the stack. Use alongside the 
 - [API / Integration Testing](#api--integration-testing)
 - [E2E Testing (Playwright)](#e2e-testing-playwright)
 - [Test Anti-Patterns](#test-anti-patterns)
+- [Black-Box Code-Level Design Techniques](#black-box-code-level-design-techniques)
 
 ## Test Structure (Arrange-Act-Assert)
 
@@ -233,3 +234,156 @@ test('user can create and complete a task', async ({ page }) => {
 | Using `test.skip` permanently | Dead code | Remove or fix it |
 | Overly broad assertions | Doesn't catch regressions | Be specific |
 | No async error handling | Swallowed errors, false passes | Always `await` async tests |
+
+## Black-Box Code-Level Design Techniques
+
+Apply these 4 black-box techniques when designing unit tests to ensure robust and comprehensive input coverage.
+
+### 1. Equivalence Partitioning (EP)
+
+Divide input domain data into partition classes of valid and invalid values. Test one representative value from each class.
+
+```typescript
+// System under test: validates percentage value (0 to 100)
+function validatePercentage(value: number): boolean {
+  if (value < 0 || value > 100) {
+    throw new Error('Percentage must be between 0 and 100');
+  }
+  return true;
+}
+
+describe('validatePercentage - Equivalence Partitioning', () => {
+  // Partition 1: Valid values [0, 100] -> Representative: 50
+  it('accepts a representative valid percentage', () => {
+    expect(validatePercentage(50)).toBe(true);
+  });
+
+  // Partition 2: Invalid low values (< 0) -> Representative: -15
+  it('rejects a representative negative percentage', () => {
+    expect(() => validatePercentage(-15)).toThrow();
+  });
+
+  // Partition 3: Invalid high values (> 100) -> Representative: 120
+  it('rejects a representative percentage above 100', () => {
+    expect(() => validatePercentage(120)).toThrow();
+  });
+});
+```
+
+### 2. Boundary Value Analysis (BVA)
+
+Test the extreme boundaries of input domains. For any boundary \( B \), test \( B \), \( B - 1 \), and \( B + 1 \).
+
+```typescript
+// System under test: checks if user is of legal age (18 or older)
+function isLegalAge(age: number): boolean {
+  return age >= 18;
+}
+
+describe('isLegalAge - Boundary Value Analysis', () => {
+  // Boundary value: 18
+  
+  it('verifies exact boundary (18)', () => {
+    expect(isLegalAge(18)).toBe(true); // On boundary
+  });
+
+  it('verifies just below boundary (17)', () => {
+    expect(isLegalAge(17)).toBe(false); // Boundary - 1
+  });
+
+  it('verifies just above boundary (19)', () => {
+    expect(isLegalAge(19)).toBe(true); // Boundary + 1
+  });
+});
+```
+
+### 3. Decision Table Testing
+
+Map all true/false input combinations to capture complex business logic rules.
+
+```typescript
+// System under test: Loan approval rules
+// Rule 1: High income && High credit score -> Approved
+// Rule 2: Low income && High credit score && Co-signer -> Approved
+// Otherwise: Rejected
+interface LoanApplication {
+  highIncome: boolean;
+  highCreditScore: boolean;
+  hasCosigner: boolean;
+}
+
+function approveLoan(app: LoanApplication): boolean {
+  if (app.highIncome && app.highCreditScore) return true;
+  if (!app.highIncome && app.highCreditScore && app.hasCosigner) return true;
+  return false;
+}
+
+describe('approveLoan - Decision Table Testing', () => {
+  // Map combinations of: [highIncome, highCreditScore, hasCosigner]
+  
+  it('Rule 1: Approved with high income and high credit score', () => {
+    expect(approveLoan({ highIncome: true, highCreditScore: true, hasCosigner: false })).toBe(true);
+  });
+
+  it('Rule 2: Approved with low income, high credit, and co-signer', () => {
+    expect(approveLoan({ highIncome: false, highCreditScore: true, hasCosigner: true })).toBe(true);
+  });
+
+  it('Rule 3: Rejected with low income, high credit, but no co-signer', () => {
+    expect(approveLoan({ highIncome: false, highCreditScore: true, hasCosigner: false })).toBe(false);
+  });
+
+  it('Rule 4: Rejected with high income, low credit, and no co-signer', () => {
+    expect(approveLoan({ highIncome: true, highCreditScore: false, hasCosigner: false })).toBe(false);
+  });
+});
+```
+
+### 4. State Transition Testing
+
+Test stateful transitions by verifying valid state changes and checking that invalid transitions are blocked.
+
+```typescript
+// System under test: Order status state machine
+// Transitions: PENDING -> SHIPPED -> DELIVERED
+// CANCELLED can only transition from PENDING
+enum OrderStatus {
+  PENDING,
+  SHIPPED,
+  DELIVERED,
+  CANCELLED
+}
+
+class Order {
+  public state: OrderStatus = OrderStatus.PENDING;
+
+  ship() {
+    if (this.state !== OrderStatus.PENDING) {
+      throw new Error('Only pending orders can be shipped');
+    }
+    this.state = OrderStatus.SHIPPED;
+  }
+
+  cancel() {
+    if (this.state !== OrderStatus.PENDING) {
+      throw new Error('Only pending orders can be cancelled');
+    }
+    this.state = OrderStatus.CANCELLED;
+  }
+}
+
+describe('Order State Transitions', () => {
+  it('transitions successfully from PENDING to SHIPPED', () => {
+    const order = new Order();
+    order.ship();
+    expect(order.state).toBe(OrderStatus.SHIPPED);
+  });
+
+  it('blocks invalid transition from SHIPPED to CANCELLED', () => {
+    const order = new Order();
+    order.ship();
+    expect(() => order.cancel()).toThrow('Only pending orders can be cancelled');
+    expect(order.state).toBe(OrderStatus.SHIPPED); // State remains SHIPPED
+  });
+});
+```
