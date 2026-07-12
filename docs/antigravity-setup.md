@@ -34,6 +34,26 @@ If you have already installed `agent-skills` under your legacy Gemini CLI instal
 agy plugin import gemini
 ```
 
+### Option 3: Provider Setup (Gemini API Key & Model Configuration)
+
+Antigravity CLI integrates with Gemini models by default. To configure your Gemini API Key, set the following environment variable:
+
+```bash
+export GEMINI_API_KEY="your-gemini-api-key-here"
+```
+
+To run a session with a specific Gemini model (e.g. `gemini-2.5-pro`):
+
+```bash
+agy --model gemini-2.5-pro
+```
+
+To list all available models:
+
+```bash
+agy models
+```
+
 Once installed, verify the active plugin:
 ```bash
 agy plugin list
