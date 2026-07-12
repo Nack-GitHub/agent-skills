@@ -37,7 +37,7 @@ Every new skill must have:
 
 - `SKILL.md` in the skill directory
 - YAML frontmatter with valid `name` and `description`
-- An eval case file at `evals/cases/<skill-name>.json` — at least 3 positive triggers, 2 negative triggers (with `owner` where possible), and 1 behavioral eval (see [evals/README.md](evals/README.md); warning-level until promoted via [#352](https://github.com/addyosmani/agent-skills/issues/352))
+- An eval case file at `evals/cases/<skill-name>.json` — at least 3 positive triggers, 2 negative triggers (with `owner` where possible), and 1 behavioral eval (see [evals/README.md](evals/README.md); warning-level until promoted via [#352](https://github.com/Nack-GitHub/agent-skills/issues/352))
 
 New skills should generally follow the standard anatomy:
 
@@ -66,7 +66,7 @@ The frontmatter fields above are required. The section anatomy is a recommended 
 
 ## Repo-scoped files
 
-`AGENTS.md` and `CLAUDE.md` at the repo root configure agents working on the [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) repository itself. When writing setup guides or docs, do not instruct users to copy these files into their own projects or into a global agent configuration; the reusable assets are the skills in `skills/`.
+`AGENTS.md` and `CLAUDE.md` at the repo root configure agents working on the [`Nack-GitHub/agent-skills`](https://github.com/Nack-GitHub/agent-skills) repository itself. When writing setup guides or docs, do not instruct users to copy these files into their own projects or into a global agent configuration; the reusable assets are the skills in `skills/`.
 
 ## Translations
 
