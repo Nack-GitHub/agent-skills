@@ -37,6 +37,24 @@ The agent should automatically map user intent to skills:
 - NuGet version centralization / CPM → `convert-to-cpm`
 - .NET SDK setup / preview install → `setup-local-sdk`
 - File upload in ASP.NET Minimal API → `minimal-api-file-upload`
+- Mobile App / React Native / Expo / Flutter → `mobile-design`
+- React / Next.js Web App performance → `nextjs-react-expert`
+- Database schema / migration / index design → `database-design`
+- Architectural decisions / Trade-off analysis / ADR documentation → `architecture`
+- Linux/macOS Shell scripting / Bash execution → `bash-linux`
+- Multi-file bulk edits / Search and replace operations → `batch-operations`
+- Readme / API documentation / Code comments templates → `documentation-templates`
+- Touch UX / Web visual interface design and layouts → `frontend-design`
+- Internationalization / App translation / RTL localizing → `i18n-localization`
+- Code styling / Linting / Static analysis checks → `lint-and-validate`
+- Node.js backend development / Async patterns → `nodejs-best-practices`
+- Windows command execution / PowerShell scripting → `powershell-windows`
+- Python design patterns / Scripting / Packaging → `python-patterns`
+- Process control / PM2 / Server scaling decisions → `server-management`
+- Tailwind CSS v4 styling / Responsive utility classes → `tailwind-patterns`
+- Accessibility audits / UI compliance checking → `web-design-guidelines`
+
+
 
 ### Lifecycle Mapping (Implicit Commands)
 

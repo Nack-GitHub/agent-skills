@@ -21,24 +21,40 @@ Task arrives
     ├── New project/feature/change? ──→ spec-driven-development
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
     ├── Implementing code? ────────────→ incremental-implementation
+    │   ├── Architectural design? ────→ architecture
     │   ├── UI work? ─────────────────→ frontend-ui-engineering
+    │   │   ├── Visual/UX design? ────→ frontend-design
+    │   │   └── Next.js / React performance? ──→ nextjs-react-expert
+    │   ├── Mobile App (Expo/Flutter)? → mobile-design
+    │   ├── Database schema / indexes? → database-design
     │   ├── API work? ────────────────→ api-and-interface-design
-    │   ├── Need better context? ─────→ context-engineering
+    │   ├── Tailwind CSS v4 styling? ─→ tailwind-patterns
+    │   ├── Node.js Backend code? ────→ nodejs-best-practices
+    │   ├── Python code? ─────────────→ python-patterns
     │   ├── Need doc-verified code? ───→ source-driven-development
+    │   ├── Batch / multi-file edits? ─→ batch-operations
+    │   ├── Need better context? ─────→ context-engineering
     │   └── Stakes high / unfamiliar code? ──→ doubt-driven-development
     ├── Writing/running tests? ────────→ test-driven-development
     │   └── Browser-based? ───────────→ browser-testing-with-devtools
+    ├── Operating system / Terminal scripting?
+    │   ├── Linux / macOS? ───────────→ bash-linux
+    │   └── Windows? ─────────────────→ powershell-windows
     ├── Something broke? ──────────────→ debugging-and-error-recovery
     ├── Reviewing code? ───────────────→ code-review-and-quality
     │   ├── Too complex? ─────────────→ code-simplification
     │   ├── Security concerns? ───────→ security-and-hardening
     │   └── Performance concerns? ────→ performance-optimization
+    ├── Quality checks / Linting? ─────→ lint-and-validate
+    │   └── UI compliance? ───────────→ web-design-guidelines
     ├── Committing/branching? ─────────→ git-workflow-and-versioning
     ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
     ├── Deprecating/migrating? ────────→ deprecation-and-migration
     ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
+    │   └── Markdown templates? ──────→ documentation-templates
     ├── Adding logs/metrics/alerts? ───→ observability-and-instrumentation
-    └── Deploying/launching? ─────────→ shipping-and-launch
+    └── Deploying/Server control? ────→ shipping-and-launch
+        └── Process management / PM2? → server-management
 ```
 
 ## Core Operating Behaviors
@@ -169,16 +185,30 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
+| Define | architecture | Architectural decisions, requirements analysis, trade-off evaluation |
+| Define | documentation-templates | Standard structures and templates for markdown documentation |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
 | Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
 | Build | context-engineering | Right context at the right time |
 | Build | frontend-ui-engineering | Production-quality UI with accessibility |
+| Build | nextjs-react-expert | Vercel standards for React and Next.js performance |
+| Build | mobile-design | Mobile-first touch psychology and native platform conventions |
+| Build | database-design | Relational schema design, indexes, ORM selection |
 | Build | api-and-interface-design | Stable interfaces with clear contracts |
+| Build | frontend-design | Visual layout, color systems, typography, and UX design guidelines |
+| Build | nodejs-best-practices | Backend development, Express/Koa architecture, async design |
+| Build | python-patterns | Python structure, type hints, package conventions |
+| Build | tailwind-patterns | Tailwind CSS v4 CSS-first design token configurations |
+| Build | batch-operations | Consistent bulk modifications and replacements across files |
+| Build | bash-linux | Linux/macOS terminal scripting, piping, safety protocols |
+| Build | powershell-windows | Windows PowerShell scripting, pitfalls, cmdlets |
 | Verify | test-driven-development | Failing test first, then make it pass |
 | Verify | browser-testing-with-devtools | Chrome DevTools MCP for runtime verification |
 | Verify | debugging-and-error-recovery | Reproduce → localize → fix → guard |
+| Verify | lint-and-validate | Static analysis, type validation, code style compliance |
+| Verify | web-design-guidelines | Check visual interfaces against usability standards |
 | Review | code-review-and-quality | Five-axis review with quality gates |
 | Review | code-simplification | Preserve behavior while reducing unnecessary complexity |
 | Review | security-and-hardening | OWASP prevention, input validation, least privilege |
@@ -189,3 +219,5 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Ship | documentation-and-adrs | Document the why, not just the what |
 | Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
+| Ship | server-management | Process monitoring, PM2, and server scaling decisions |
+
