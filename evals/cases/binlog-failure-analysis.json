@@ -1,0 +1,43 @@
+{
+  "skill_name": "binlog-failure-analysis",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Help me diagnose why this MSBuild build failed using the .binlog file",
+        "top_k": 3
+      },
+      {
+        "prompt": "Trace the MSBuild target execution order from this binary log",
+        "top_k": 3
+      },
+      {
+        "prompt": "I have a build failure in a multi-project dotnet solution, analyze the binlog",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "The dotnet build failed, help me recover",
+        "owner": "debugging-and-error-recovery"
+      },
+      {
+        "prompt": "Set up a NestJS backend application route",
+        "owner": "nodejs-best-practices"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Analyze the build.binlog file to find which target failed and why.",
+      "expected_output": "The binlog diagnostics are extracted from the binary log file.",
+      "expectations": [
+        "The binlog MCP server or tool is invoked",
+        "Diagnostics are extracted from the binary log file",
+        "The root cause target execution failure is pinpointed",
+        "A mitigation step is recommended based on log details"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

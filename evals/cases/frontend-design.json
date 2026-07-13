@@ -1,0 +1,43 @@
+{
+  "skill_name": "frontend-design",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design a modern dark-mode color scheme and component layout for our dashboard",
+        "top_k": 3
+      },
+      {
+        "prompt": "Help me choose typography and layout principles for an aesthetic landing page",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I design a glassmorphic card design with CSS?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Make this React page load 2 seconds faster",
+        "owner": "nextjs-react-expert"
+      },
+      {
+        "prompt": "Audit the WCAG color contrast compliance of this form",
+        "owner": "web-design-guidelines"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design the visual layout and CSS variables for a modern dashboard sidebar, prioritizing layout aesthetics.",
+      "expected_output": "Modern layout styles and theme-consistent typography are generated.",
+      "expectations": [
+        "A cohesive color scheme using CSS variables is defined",
+        "Modern layout styles (Flexbox/Grid, spacing tokens) are used",
+        "Visual hierarchy is established using font weights and typography",
+        "Interactive state designs (hover, active) are specified"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

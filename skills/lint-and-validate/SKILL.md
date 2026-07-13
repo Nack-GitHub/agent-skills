@@ -1,6 +1,6 @@
 ---
 name: lint-and-validate
-description: "Automatic quality control, linting, and static analysis procedures. Use after every code modification to ensure syntax correctness and project standards. Triggers on keywords: lint, format, check, validate, types, static analysis. Use when running linters, type checkers, or code formatters after any code change that needs quality validation."
+description: Automatic quality control, ESLint, Prettier, and TypeScript static analysis. Use when configuring ESLint or Prettier, running linters, type checkers, formatters, or validating TypeScript projects.
 ---
 # Lint and Validate Skill
 

@@ -1,0 +1,43 @@
+{
+  "skill_name": "bash-linux",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write a bash script to parse these logs and dump them to JSON",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I redirect stderr to stdout in a Linux shell command?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create a shell script to automate our backup procedure on macOS",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a PowerShell script to clean up Windows registry keys",
+        "owner": "powershell-windows"
+      },
+      {
+        "prompt": "Implement a FastAPI controller for user login in Python",
+        "owner": "python-patterns"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a bash script to find all .log files in a directory, compress them, and Traps errors.",
+      "expected_output": "The script begins with a #!/bin/bash shebang and uses set -e for fail-fast error behavior.",
+      "expectations": [
+        "The script begins with a #!/bin/bash shebang",
+        "Uses set -e for fail-fast error behavior",
+        "Handles cleanup traps for temporary files",
+        "Outputs status to stderr and output/JSON to stdout"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

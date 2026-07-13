@@ -1,0 +1,43 @@
+{
+  "skill_name": "documentation-templates",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Create a comprehensive README template for our microservices",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write the API documentation template for our public endpoints",
+        "top_k": 3
+      },
+      {
+        "prompt": "Draft a template for code comments and documentation headers in this project",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Document this single architectural decision",
+        "owner": "documentation-and-adrs"
+      },
+      {
+        "prompt": "Run ESLint checks and format this source file",
+        "owner": "lint-and-validate"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Generate a README.md template for a new node library project.",
+      "expected_output": "README.md template generated with sections for install, usage and contribution.",
+      "expectations": [
+        "A clear structure with installation, usage, and contribution sections is created",
+        "Code snippets are included as templates",
+        "Prerequisites are specified",
+        "Documentation is clear and follows markdown best practices"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

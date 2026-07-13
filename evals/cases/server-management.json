@@ -1,0 +1,43 @@
+{
+  "skill_name": "server-management",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Configure PM2 cluster mode to scale our Node.js app on a production server",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write a PM2 ecosystem.config.js file for managing backend processes",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I scale server resources and manage environment variables with PM2?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a bash script to compress log files",
+        "owner": "bash-linux"
+      },
+      {
+        "prompt": "Configure the deployment pipeline for Firebase hosting",
+        "owner": "ci-cd-and-automation"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a PM2 ecosystem config file with cluster mode and automated memory-based restarts.",
+      "expected_output": "ecosystem.config.js configured in cluster mode with automatic restart variables.",
+      "expectations": [
+        "Ecosystem config file (ecosystem.config.js) is created",
+        "Cluster mode (exec_mode: 'cluster') is configured",
+        "Automatic restart thresholds (max_memory_restart) are specified",
+        "Environment variable injection is defined"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

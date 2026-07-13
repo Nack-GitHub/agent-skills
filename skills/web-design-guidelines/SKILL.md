@@ -1,6 +1,6 @@
 ---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices". Use when when auditing web ui for best practices, checking accessibility, or reviewing design against web interface guidelines.
+description: Review UI code for Web Interface Guidelines compliance. Audit web design accessibility, keyboard tab navigation, screen reader contrast, and ARIA labels. Use when checking accessibility, auditing design, or reviewing UX against web interface guidelines.
 ---
 # Web Interface Guidelines
 

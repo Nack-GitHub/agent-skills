@@ -1,0 +1,43 @@
+{
+  "skill_name": "python-patterns",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design a python script using the Singleton pattern or Factory pattern",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create a python library package structure with pyproject.toml",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I manage async event loops in python backend services?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Configure OpenTelemetry exporter in a C# dotnet app",
+        "owner": "configuring-opentelemetry-dotnet"
+      },
+      {
+        "prompt": "Run static analysis checks on typescript files",
+        "owner": "lint-and-validate"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Implement a Python client class that implements the Strategy pattern to handle multiple export formats.",
+      "expected_output": "Python classes use PEP-8 standards, hints and Strategy design patterns.",
+      "expectations": [
+        "Python classes are structured using design patterns (Strategy)",
+        "Type hinting is applied for method contracts",
+        "Exception handling for invalid formats is implemented",
+        "Code adheres to Python PEP 8 style guidelines"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

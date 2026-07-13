@@ -1,0 +1,43 @@
+{
+  "skill_name": "nextjs-react-expert",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Optimize the page loading speed and Core Web Vitals for this Next.js app",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I configure Server-Side Rendering (SSR) and routing in Next.js?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Profile and resolve rendering performance bottlenecks in our React components",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Design CSS variables for a dark mode layout",
+        "owner": "frontend-design"
+      },
+      {
+        "prompt": "Write a backend Node.js worker service",
+        "owner": "nodejs-best-practices"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Optimize a React page rendering a large list by implementing virtualization or dynamic loading.",
+      "expected_output": "Rendering overhead is profiles, dynamic loading or virtualization added, re-renders eliminated.",
+      "expectations": [
+        "Component render profiling or performance analysis is conducted",
+        "Dynamic loading (e.g. next/dynamic) or list virtualization is implemented",
+        "Unnecessary state updates and re-renders are eliminated",
+        "Improvements to Core Web Vitals (INP, LCP) are verified"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

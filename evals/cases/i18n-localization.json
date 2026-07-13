@@ -1,0 +1,43 @@
+{
+  "skill_name": "i18n-localization",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Set up internationalization (i18n) and localization in this React application",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add translation files for Spanish and French to our app",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I support RTL layout direction for Arabic localization?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Apply Tailwind CSS styles to this form component",
+        "owner": "tailwind-patterns"
+      },
+      {
+        "prompt": "Write a bash script to translate text files",
+        "owner": "bash-linux"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add i18next configuration and localization resources for English and Japanese translations.",
+      "expected_output": "Translation resources formatted in JSON and dynamic localization hooks used.",
+      "expectations": [
+        "Translation keys are structured logically in JSON format",
+        "Localization hooks or helpers are used instead of hardcoded strings",
+        "Language switching utility is implemented",
+        "RTL layout considerations are addressed if needed"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

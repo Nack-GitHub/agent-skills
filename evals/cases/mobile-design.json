@@ -1,0 +1,43 @@
+{
+  "skill_name": "mobile-design",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design a React Native layout with accessible touch targets for mobile",
+        "top_k": 3
+      },
+      {
+        "prompt": "Help me build an Expo component grid responsive to small screens",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I design touch UX and gestures for a mobile app feed?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Design the layout and color scheme of a web UI landing page",
+        "owner": "frontend-design"
+      },
+      {
+        "prompt": "Audit the ARIA labels on a web application",
+        "owner": "web-design-guidelines"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a touch-friendly card feed layout for a mobile app using React Native, including tap areas.",
+      "expected_output": "Generates a responsive mobile layout adhering to touch guidelines.",
+      "expectations": [
+        "Touch targets satisfy minimum size recommendations (e.g. 48x48 dp)",
+        "Gestures or pull-to-refresh interactions are considered",
+        "Layout behaves responsively across iOS and Android device widths",
+        "Typography and visual contrast are optimized for mobile screens"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

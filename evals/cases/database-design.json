@@ -1,0 +1,43 @@
+{
+  "skill_name": "database-design",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Design the database schema for an e-commerce order and payment system",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create an indexing strategy for a high-write users table",
+        "top_k": 3
+      },
+      {
+        "prompt": "Help me select between PostgreSQL and Firebase Firestore for a relational model",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Optimize this slow EF Core linq query",
+        "owner": "optimizing-ef-core-queries"
+      },
+      {
+        "prompt": "Design the REST API endpoints for orders",
+        "owner": "api-and-interface-design"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a relational database schema for a blog post and tag system, including foreign keys and indexes.",
+      "expected_output": "Relational integrity constraints and index configurations are specified.",
+      "expectations": [
+        "Relational integrity constraints (foreign keys) are specified",
+        "Indexes are added for common query paths like post tags",
+        "The schema is documented with correct data types",
+        "Normalization rules are followed to reduce redundancy"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

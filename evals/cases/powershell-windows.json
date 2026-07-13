@@ -1,0 +1,43 @@
+{
+  "skill_name": "powershell-windows",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write a PowerShell script to automate Windows folder cleanups",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I run a silent install via PowerShell command line?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create a PowerShell script to monitor Windows service status",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a bash shell script for macOS backup processes",
+        "owner": "bash-linux"
+      },
+      {
+        "prompt": "Search and replace text in multiple files using sed",
+        "owner": "batch-operations"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a PowerShell script to recursively delete all files older than 30 days in a folder.",
+      "expected_output": "Recursive deletion cmdlet is used with error boundaries.",
+      "expectations": [
+        "PowerShell cmdlets (Get-ChildItem, Remove-Item) are used correctly",
+        "Input parameters are validated",
+        "Error handling (Try/Catch) is implemented",
+        "Verbose or log output is provided during script run"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

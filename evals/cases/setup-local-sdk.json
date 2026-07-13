@@ -1,0 +1,43 @@
+{
+  "skill_name": "setup-local-sdk",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "How do I install a local preview version of the .NET SDK?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Create a global.json file to lock our .NET SDK version locally",
+        "top_k": 3
+      },
+      {
+        "prompt": "Write a script to install .NET SDK preview workloads on my local machine",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Centralize NuGet packages with Directory.Packages.props",
+        "owner": "convert-to-cpm"
+      },
+      {
+        "prompt": "Implement a minimal API endpoint",
+        "owner": "dotnet-webapi"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a global.json file specifying a .NET SDK version and configure a local preview SDK environment.",
+      "expected_output": "global.json locks SDK version locally without affecting systems global configuration.",
+      "expectations": [
+        "A global.json file is correctly formatted in JSON",
+        "The target SDK version is locked",
+        "Environment path routing is checked or configured",
+        "System-wide installations are protected from changes"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

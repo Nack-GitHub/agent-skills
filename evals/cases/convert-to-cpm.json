@@ -1,0 +1,43 @@
+{
+  "skill_name": "convert-to-cpm",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Convert this .NET solution to use NuGet Central Package Management",
+        "top_k": 3
+      },
+      {
+        "prompt": "Centralize package versions into Directory.Packages.props",
+        "top_k": 3
+      },
+      {
+        "prompt": "Our NuGet versions are drifting across projects, help us align them with CPM",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Install a preview version of the .NET SDK",
+        "owner": "setup-local-sdk"
+      },
+      {
+        "prompt": "Write an API endpoint in minimal APIs",
+        "owner": "dotnet-webapi"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Migrate the projects in this solution to use Directory.Packages.props.",
+      "expected_output": "Directory.Packages.props file is created at the solution root with central package management enabled.",
+      "expectations": [
+        "A Directory.Packages.props file is created at the solution root",
+        "ManagePackageVersionsCentrally is set to true",
+        "Versions are moved from individual .csproj files to Directory.Packages.props",
+        "Individual .csproj files use PackageReference without Version attributes"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

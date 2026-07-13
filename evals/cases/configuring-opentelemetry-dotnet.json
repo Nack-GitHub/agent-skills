@@ -1,0 +1,43 @@
+{
+  "skill_name": "configuring-opentelemetry-dotnet",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Set up OpenTelemetry tracing in my ASP.NET Core API project",
+        "top_k": 3
+      },
+      {
+        "prompt": "Configure OpenTelemetry logs and metrics exporter for dotnet console application",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add telemetry instrumentation for EF Core in our C# app",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Instrument trace logging in a python django app",
+        "owner": "python-patterns"
+      },
+      {
+        "prompt": "Write an EF Core database migration",
+        "owner": "database-design"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Configure OpenTelemetry in Program.cs to export traces to a local OTLP endpoint.",
+      "expected_output": "OTLP exporter is configured with an endpoint and trace settings.",
+      "expectations": [
+        "The OpenTelemetry NuGet packages are referenced or configured",
+        "Tracing is enabled via AddOpenTelemetry().WithTracing()",
+        "Resource builder details like service name are configured",
+        "OTLP exporter is configured with an endpoint"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

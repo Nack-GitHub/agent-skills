@@ -1,0 +1,43 @@
+{
+  "skill_name": "minimal-api-file-upload",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Implement a file upload endpoint using IFormFile in .NET Minimal API",
+        "top_k": 3
+      },
+      {
+        "prompt": "Configure request size limits and content type validation for minimal API uploads",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I stream large file uploads in ASP.NET Core?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Design a generic API endpoint controller",
+        "owner": "dotnet-webapi"
+      },
+      {
+        "prompt": "Optimize an EF Core database query",
+        "owner": "optimizing-ef-core-queries"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a minimal API endpoint to upload a PDF file with a 5MB size limit validation.",
+      "expected_output": "PDF size and content type validation are checked during MapPost.",
+      "expectations": [
+        "Endpoint is created using MapPost()",
+        "Accepts IFormFile or standard upload streams",
+        "File content type and size validation is performed",
+        "Correct HTTP status codes and error shapes are returned on failure"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

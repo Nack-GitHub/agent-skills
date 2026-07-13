@@ -1,0 +1,43 @@
+{
+  "skill_name": "web-design-guidelines",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Audit the accessibility (a11y) of our web forms for WCAG compliance",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add ARIA labels and keyboard navigation to this modal popup",
+        "top_k": 3
+      },
+      {
+        "prompt": "Check and fix color contrast compliance for screen readers",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Style a responsive flexbox layout using Tailwind",
+        "owner": "tailwind-patterns"
+      },
+      {
+        "prompt": "Design a dark mode color scheme for a dashboard",
+        "owner": "frontend-design"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit and fix a form page to support keyboard tab navigation and correct ARIA descriptors.",
+      "expected_output": "Tab indexing and ARIA descriptors are explicitly fixed for assistive technologies.",
+      "expectations": [
+        "Form inputs are associated with descriptive label elements",
+        "Tab index and keyboard focus states are explicitly styled/handled",
+        "ARIA descriptors (e.g. aria-invalid, aria-describedby) are correctly applied",
+        "Verification steps confirm page screen reader and keyboard accessibility"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

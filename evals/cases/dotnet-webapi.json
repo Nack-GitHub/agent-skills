@@ -1,0 +1,43 @@
+{
+  "skill_name": "dotnet-webapi",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Create an ASP.NET Core Minimal API endpoint for fetching users",
+        "top_k": 3
+      },
+      {
+        "prompt": "Add OpenAPI annotations and swagger metadata to this controller endpoint",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up global error handling middleware in Program.cs",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Implement a file upload endpoint in C# minimal API",
+        "owner": "minimal-api-file-upload"
+      },
+      {
+        "prompt": "Write a SQL query for EF Core optimization",
+        "owner": "optimizing-ef-core-queries"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a Minimal API endpoint for POST /api/items with request validation and OpenAPI metadata.",
+      "expected_output": "Endpoint is defined using MapPost() in Program.cs with correct return values.",
+      "expectations": [
+        "Endpoint is defined using MapPost() in Program.cs",
+        "Request body validation is implemented",
+        "Produces/ProducesProblem metadata is added for OpenAPI documentation",
+        "Returns correct HTTP status codes (201 Created, 400 Bad Request)"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

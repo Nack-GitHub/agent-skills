@@ -1,0 +1,43 @@
+{
+  "skill_name": "nodejs-best-practices",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Write a Node.js Express backend API router with error boundaries",
+        "top_k": 3
+      },
+      {
+        "prompt": "Implement async/await exception handling in our Node.js middleware",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I optimize CPU-bound tasks in a Node.js service using workers?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write a bash script for Linux shell commands",
+        "owner": "bash-linux"
+      },
+      {
+        "prompt": "Design a React component UI layout",
+        "owner": "frontend-design"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create an Express async request handler that correctly catches and forwards exceptions to middleware.",
+      "expected_output": "Handler uses proper async/await boundary and forwards errors via next(err).",
+      "expectations": [
+        "Async/await pattern is used with proper try/catch boundaries",
+        "Errors are forwarded to the express error handler via next(err)",
+        "No unhandled promise rejections are possible in the handler",
+        "Consistent JSON error response structures are returned"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

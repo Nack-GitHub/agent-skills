@@ -1,0 +1,43 @@
+{
+  "skill_name": "architecture",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Help me analyze this architecture and document our design choices in an ADR",
+        "top_k": 3
+      },
+      {
+        "prompt": "Evaluate the trade-offs of microservices vs monolith for this project",
+        "top_k": 3
+      },
+      {
+        "prompt": "Which system architecture pattern should we select for a real-time analytics app?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Write the SQL migrations for the users table",
+        "owner": "database-design"
+      },
+      {
+        "prompt": "Fix the styling on the homepage layout",
+        "owner": "frontend-ui-engineering"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Evaluate whether we should use Redis or PostgreSQL for a distributed lock mechanism, trade-offs, and document it in an ADR.",
+      "expected_output": "An ADR structure is drafted with status, context, decision, and consequences",
+      "expectations": [
+        "An ADR structure is drafted with status, context, decision, and consequences",
+        "Clear trade-offs of Redis vs PostgreSQL for locks are evaluated",
+        "The decision prioritizes system simplicity",
+        "No code implementation is written"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "skill_name": "tailwind-patterns",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Style this form component with responsive Tailwind CSS v4 grid and flex utilities",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I configure a custom theme extend in Tailwind v4?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Build a responsive mobile-first navigation bar using Tailwind CSS classes",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Create CSS variables and design principles for typography",
+        "owner": "frontend-design"
+      },
+      {
+        "prompt": "Audit the WCAG accessibility and screen reader support of a navbar",
+        "owner": "web-design-guidelines"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a responsive three-column grid layout with mobile-first breakpoints using Tailwind CSS classes.",
+      "expected_output": "Grid columns are styled responsive layout matches on mobile and desktops.",
+      "expectations": [
+        "Grid layout uses responsive breakpoints (sm:, md:, lg:)",
+        "Mobile-first grid columns (grid-cols-1 md:grid-cols-3) are applied",
+        "Consistent padding and gap utilities are used",
+        "Layout renders correctly on mobile and desktop viewports"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

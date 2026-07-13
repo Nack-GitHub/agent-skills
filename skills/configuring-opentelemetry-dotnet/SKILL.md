@@ -1,6 +1,6 @@
 ---
 name: configuring-opentelemetry-dotnet
-description: Configure OpenTelemetry distributed tracing, metrics, and logging in ASP.NET Core using the .NET OpenTelemetry SDK. Use when adding observability, setting up OTLP exporters, creating custom metrics/spans, or troubleshooting distributed trace correlation. DO NOT USE FOR: non-.NET projects (use observability-and-instrumentation), or general non-OpenTelemetry logging configurations.
+description: Configure OpenTelemetry distributed tracing, metrics, logging, and telemetry instrumentation in ASP.NET Core and .NET C# applications. Use when setting up OpenTelemetry OTLP exporters, EF Core telemetry instrumentation, or C# distributed trace correlation.
 license: MIT
 ---
 

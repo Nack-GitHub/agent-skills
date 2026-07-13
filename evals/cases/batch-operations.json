@@ -1,0 +1,43 @@
+{
+  "skill_name": "batch-operations",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Search and replace all instances of deprecatedLogger with newLogger across the project",
+        "top_k": 3
+      },
+      {
+        "prompt": "Help me rename the namespace in 50 C# files",
+        "top_k": 3
+      },
+      {
+        "prompt": "Perform a bulk refactoring of export formats across all component files",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Optimize the performance of this specific React component",
+        "owner": "nextjs-react-expert"
+      },
+      {
+        "prompt": "Write a unit test for this single helper method",
+        "owner": "test-driven-development"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Rename the class oldHelper to newHelper across all files in the src/utils/ directory.",
+      "expected_output": "Multi-file replacements are made cleanly and systematically across files.",
+      "expectations": [
+        "A list of target files is gathered before editing",
+        "Multi-file replacements are made cleanly and systematically",
+        "Imports and exports are adjusted to match the renamed symbol",
+        "File changes are verified for compile-time correctness"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

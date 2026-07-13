@@ -1,0 +1,43 @@
+{
+  "skill_name": "lint-and-validate",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Fix all linting and code styling issues in the src/ directory",
+        "top_k": 3
+      },
+      {
+        "prompt": "Set up Prettier and ESLint configurations for a TypeScript project",
+        "top_k": 3
+      },
+      {
+        "prompt": "Run the static analysis checks and resolve formatting violations",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Refactor this complex method to improve readability",
+        "owner": "code-simplification"
+      },
+      {
+        "prompt": "Refactor all imports using a bulk search and replace",
+        "owner": "batch-operations"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Configure ESLint to enforce import sorting and run lint fixes on the src/utils folder.",
+      "expected_output": "Import sorting rule configured and styling violations solved cleanly.",
+      "expectations": [
+        "An ESLint rule for import sorting is configured in eslint.config.js",
+        "Linting is executed across target files",
+        "Syntax and styling violations are resolved",
+        "No regression is introduced to existing build configurations"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}

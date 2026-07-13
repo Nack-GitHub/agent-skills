@@ -1,0 +1,43 @@
+{
+  "skill_name": "optimizing-ef-core-queries",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "Optimize this slow EF Core Linq query to fix an N+1 loading issue",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I use AsNoTracking and projection in Entity Framework Core?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Profile and optimize generated SQL queries in EF Core",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "Design a new database schema and define primary keys",
+        "owner": "database-design"
+      },
+      {
+        "prompt": "Configure an OpenTelemetry collector in C#",
+        "owner": "configuring-opentelemetry-dotnet"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Optimize an EF Core Linq query that loads orders and order items to avoid N+1 queries.",
+      "expected_output": "N+1 query loading patterns are replaced with eager loading or projections.",
+      "expectations": [
+        "Eager loading (Include/ThenInclude) or projection (Select) is implemented",
+        "AsNoTracking is applied for read-only database fetches",
+        "The SQL generated is analyzed or optimized for execution cost",
+        "The N+1 loading pattern is completely eliminated"
+      ],
+      "trust_level": "provisional"
+    }
+  ]
+}
