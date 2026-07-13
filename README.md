@@ -358,6 +358,22 @@ agent-skills/
 
 ---
 
+## Evaluation & Optimization (SkillOpt Principles)
+
+This repository integrates a multi-tier testing framework under [evals/](../evals/) to ensure quality and route prompts correctly:
+
+* **Tier 1 (Structural & Command Parity)**: Validates required markdown sections and CLI command metadata using [validate-skills.js](../scripts/validate-skills.js).
+* **Tier 2 (Trigger & Routing)**: Simulates prompt routing using TF-IDF cosine similarity via [run-evals.js](../scripts/run-evals.js). We apply text-space instruction tuning principles inspired by [Microsoft's SkillOpt](https://github.com/microsoft/SkillOpt) to refine skill descriptions and avoid prompt routing collisions.
+* **Tier 3 (Behavioral)**: Validates agent execution traces against detailed, step-by-step expectations using headless simulation.
+
+To execute structural validation and trigger tests locally:
+```bash
+node scripts/validate-skills.js
+node scripts/run-evals.js
+```
+
+---
+
 ## Why Agent Skills?
 
 AI coding agents default to the shortest path - which often means skipping specs, tests, security reviews, and the practices that make software reliable. Agent Skills gives agents structured workflows that enforce the same discipline senior engineers bring to production code.
