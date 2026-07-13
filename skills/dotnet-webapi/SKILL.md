@@ -1,15 +1,6 @@
 ---
 name: dotnet-webapi
-description: >
-  Guides creation and modification of ASP.NET Core Web API endpoints with
-  correct HTTP semantics, OpenAPI metadata, and error handling.
-  USE FOR: adding new API endpoints (controllers or minimal APIs), wiring up
-  OpenAPI/Swagger, creating .http test files, setting up global error handling
-  middleware.
-  DO NOT USE FOR: general C# coding style, EF Core data access or query
-  optimization (use optimizing-ef-core-queries), frontend/Blazor work, gRPC
-  services, SignalR hubs, general language-agnostic API design (use api-and-interface-design),
-  or file upload endpoints specifically (use minimal-api-file-upload).
+description: Guides creation and modification of ASP.NET Core Web API endpoints with correct HTTP semantics, OpenAPI metadata, and error handling. Use when adding new API endpoints (controllers or minimal APIs), wiring up OpenAPI/Swagger, creating .http test files, or setting up global error handling middleware.
 license: MIT
 ---
 

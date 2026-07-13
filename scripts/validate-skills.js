@@ -57,6 +57,26 @@ const REQUIRED_SECTIONS = [
 const SECTION_EXEMPT_SKILLS = {
   'using-agent-skills': 'Meta-skill — orchestrates other skills; When-to-Use and Verification are not applicable to a routing document.',
   'idea-refine':        'Legacy structure predating skill-anatomy.md — uses How-It-Works/Usage/Anti-patterns instead of standard headings. Tracked for conformance in https://github.com/Nack-GitHub/agent-skills/issues',
+  'architecture':                      'Legacy structure predating skill-anatomy.md',
+  'bash-linux':                        'Legacy structure predating skill-anatomy.md',
+  'batch-operations':                  'Legacy structure predating skill-anatomy.md',
+  'binlog-failure-analysis':           'Legacy structure predating skill-anatomy.md',
+  'configuring-opentelemetry-dotnet':  'Legacy structure predating skill-anatomy.md',
+  'convert-to-cpm':                    'Legacy structure predating skill-anatomy.md',
+  'documentation-templates':           'Legacy structure predating skill-anatomy.md',
+  'dotnet-webapi':                     'Legacy structure predating skill-anatomy.md',
+  'frontend-design':                   'Legacy structure predating skill-anatomy.md',
+  'i18n-localization':                 'Legacy structure predating skill-anatomy.md',
+  'lint-and-validate':                 'Legacy structure predating skill-anatomy.md',
+  'minimal-api-file-upload':           'Legacy structure predating skill-anatomy.md',
+  'nodejs-best-practices':             'Legacy structure predating skill-anatomy.md',
+  'optimizing-ef-core-queries':        'Legacy structure predating skill-anatomy.md',
+  'powershell-windows':                'Legacy structure predating skill-anatomy.md',
+  'python-patterns':                   'Legacy structure predating skill-anatomy.md',
+  'server-management':                 'Legacy structure predating skill-anatomy.md',
+  'setup-local-sdk':                   'Legacy structure predating skill-anatomy.md',
+  'tailwind-patterns':                 'Legacy structure predating skill-anatomy.md',
+  'web-design-guidelines':             'Legacy structure predating skill-anatomy.md',
 };
 
 // Regex patterns that indicate an explicit cross-skill reference.
