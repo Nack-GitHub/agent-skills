@@ -186,6 +186,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
+| Define | constraint-driven-development | Written quality bar in CONSTRAINTS.md that agents cannot quietly lower |
 | Define | architecture | Architectural decisions, requirements analysis, trade-off evaluation |
 | Define | documentation-templates | Standard structures and templates for markdown documentation |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |

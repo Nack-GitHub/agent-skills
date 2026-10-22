@@ -73,3 +73,23 @@ node scripts/run-evals.js
 
 1. **ยกระดับ Legacy Skills**: ทยอยแปลงโครงสร้างเอกสารของ 20 สกิลเก่าให้มีหัวข้อ `## Overview`, `## Verification` ครบถ้วน เพื่อเอาชื่อออกจากรายการยกเว้น (`SECTION_EXEMPT_SKILLS`)
 2. **ผสานเข้ากับ CI/CD**: นำคำสั่ง `node scripts/validate-skills.js && node scripts/run-evals.js` ไปผสานเข้ากับระบบ GitHub Actions ในการตรวจโค้ดเวลามี Pull Request ส่งเข้ามาใหม่
+
+---
+
+## 5. อัปเดต 2026-10-22: Sync กับ upstream v0.6.13
+
+Merge `addyosmani/agent-skills` ถึง commit `aeac41d` (v0.6.13) และปรับ repo ให้ผ่าน CI ชุดใหม่ของ upstream ซึ่งเข้มขึ้นกว่ารอบที่แล้ว
+
+| การตรวจ | ก่อน sync | หลัง sync |
+|---|---|---|
+| `validate-skills.js` | 47 skills ผ่าน | 48 skills + 4 personas ผ่าน (exemption ย้ายไปที่ `scripts/lib/skill-lint.js`) |
+| `run-evals.js --min-rank1 95` | 86% (ยังไม่มี gate) | **100%** (160/160) ไม่มี overlap warning |
+| `validate-reference-links.js` | ยังไม่มี | ผ่าน (เพิ่ม reference 5 ไฟล์ของ `convert-to-cpm` ที่หายไป) |
+| `validate-versions.js`, `validate-commands.js`, `validate-artifact-paths.js` | ยังไม่มี | ผ่าน |
+| unit tests (`node --test`) + hook tests | บางส่วน | ผ่านทั้งหมด |
+
+สิ่งที่เปลี่ยน:
+
+1. **Behavioral evals ของ 23 สกิลที่นำเข้า**: เลิกใช้ `trust_level: "provisional"` และเปลี่ยนเป็น `kind: "execution"` ที่มี fixture จริงใน `evals/fixtures/<skill>/` ตามกฎใหม่ของ upstream
+2. **Description**: เขียน description ของสกิลที่นำเข้าใหม่ให้ไม่แย่ง prompt ของสกิลอื่น และครอบ quote ให้ description ที่มี `: ` เพื่อให้ YAML parse ได้ถูกต้อง
+3. **SessionStart hook**: upstream ลบ `hooks/hooks.json` แล้ว ทำให้ `using-agent-skills` ไม่ถูก inject อัตโนมัติอีก การเลือกสกิลจึงอาศัย description ของแต่ละสกิลเป็นหลัก
