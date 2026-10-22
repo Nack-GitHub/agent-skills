@@ -1,6 +1,6 @@
 ---
 name: i18n-localization
-description: Internationalization and localization patterns. Detecting hardcoded strings, managing translations, locale files, RTL support. Use when when internationalizing an app, managing translations, detecting hardcoded strings, or adding rtl support.
+description: Internationalization and localization patterns. Detecting hardcoded strings, managing translations, locale files, RTL support. Use when internationalizing an app, managing translations, detecting hardcoded strings, or adding rtl support.
 ---
 # i18n & Localization
 

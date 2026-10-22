@@ -1,6 +1,6 @@
 ---
 name: bash-linux
-description: Bash/Linux terminal patterns. Critical commands, piping, error handling, scripting. Use when working on macOS or Linux systems. Use when when working on macos or linux systems, writing bash scripts, or using terminal commands. not for windows/powershell environments.
+description: Writes and runs Bash shell scripts and terminal commands on macOS and Linux, covering pipelines, error handling (set -euo pipefail, traps), and safe file operations. Use when writing a shell script, automating a task from the macOS or Linux terminal, or composing command pipelines. Not for Windows or PowerShell.
 ---
 # Bash Linux Patterns
 

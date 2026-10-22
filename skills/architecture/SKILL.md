@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Architectural decision-making framework. Requirements analysis, trade-off evaluation, ADR documentation. Use when making architecture decisions or analyzing system design. Use when when making architectural decisions, evaluating trade-offs, writing adrs, or analyzing system design. not for direct code implementation.
+description: Evaluates architectural options and their trade-offs before a system design is committed to. Use when choosing an architecture pattern (monolith vs microservices, event-driven, layered, CQRS), comparing technologies for a component, analyzing requirements and constraints, or analyzing a system for an ADR. Not for direct code implementation.
 ---
 # Architecture Decision Framework
 

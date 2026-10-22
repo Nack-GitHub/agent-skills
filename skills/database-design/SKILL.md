@@ -1,6 +1,6 @@
 ---
 name: database-design
-description: Database design principles and decision-making. Schema design, indexing strategy, ORM and database selection (MSSQL, PostgreSQL, Firebase, EF Core, LINQ, Prisma, Drizzle). Use when designing database schemas, choosing ORMs, planning migrations, or optimizing queries.
+description: Designs schemas for relational and document stores, covering tables, keys, constraints, normalization, an indexing strategy for read-heavy and high-write tables, schema migrations, and engine or ORM selection (PostgreSQL, MSSQL, Firebase, Prisma, Drizzle, EF Core). Use when designing a schema or its tables, writing schema migrations, or picking a storage engine or ORM.
 ---
 
 # Database Design

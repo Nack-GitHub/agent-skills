@@ -1,6 +1,6 @@
 ---
 name: documentation-templates
-description: Documentation templates and structure guidelines. README, API docs, code comments, and AI-friendly documentation. Use when when writing readme files, api documentation, code comments, or generating ai-friendly documentation.
+description: Documentation templates and structure guidelines. README, API docs, code comments, and AI-friendly documentation. Use when writing readme files, api documentation, code comments, or generating ai-friendly documentation.
 ---
 # Documentation Templates
 

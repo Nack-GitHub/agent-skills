@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Design thinking and decision-making for web UI. Use when designing components, layouts, color schemes, typography, or creating aesthetic interfaces. Teaches principles, not fixed values. Use when when designing web ui components, choosing color schemes, typography, layouts, or creating aesthetic interfaces. not for mobile apps.
+description: Makes visual design decisions for web UIs, covering layout, color systems, typography, spacing, motion, and visual effects such as shadows, gradients, and glassmorphic surfaces. Use when designing how a page or component should look, choosing a color scheme or type scale, styling cards and panels with CSS, or making an interface feel less generic. Not for mobile apps.
 ---
 # Frontend Design System
 

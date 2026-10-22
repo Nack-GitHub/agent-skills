@@ -1,6 +1,6 @@
 ---
 name: minimal-api-file-upload
-description: Guides implementation of file upload endpoints in ASP.NET Core minimal APIs (.NET 8+). Use when handling IFormFile or IFormFileCollection in minimal APIs, configuring size limits, validating content types, or streaming large files in .NET.
+description: Implements file uploads in ASP.NET Core (.NET 8+) with IFormFile and IFormFileCollection binding, request size limits, content-type and signature validation, antiforgery, and streaming large bodies to storage. Use when accepting uploaded documents or images in a .NET API, limiting request size, or streaming large request bodies.
 license: MIT
 ---
 

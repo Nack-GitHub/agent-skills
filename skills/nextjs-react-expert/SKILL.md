@@ -1,6 +1,6 @@
 ---
 name: nextjs-react-expert
-description: React and Next.js performance optimization. Optimize page loading speed, bundle size, and Core Web Vitals for Next.js applications. Use when building React components, optimizing page load times, or fixing rendering performance.
+description: Optimizes React and Next.js applications, covering rendering strategy (server-side rendering, static generation, server components), App Router routing, bundle size, re-renders, and Core Web Vitals. Use when building or tuning Next.js pages and React components, configuring SSR or routing in Next.js, or fixing slow rendering and page loads.
 ---
 
 # Next.js & React Performance Expert

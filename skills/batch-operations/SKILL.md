@@ -1,6 +1,6 @@
 ---
 name: batch-operations
-description: Apply operations across multiple files simultaneously. Pattern-based bulk modifications, search-and-replace across codebases, consistent changes to many files at once. Use when when the user needs to change multiple files with the same pattern, rename across a codebase, add imports to many files, update versions, or apply consistent modifications. not for single-file edits.
+description: Apply operations across multiple files simultaneously. Pattern-based bulk modifications, search-and-replace across codebases, consistent changes to many files at once. Use when the user needs to change multiple files with the same pattern, rename across a codebase, add imports to many files, update versions, or apply consistent modifications. Not for single-file edits.
 ---
 # Batch Operations — Multi-File Changes
 

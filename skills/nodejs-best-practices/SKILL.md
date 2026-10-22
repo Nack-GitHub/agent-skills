@@ -1,6 +1,6 @@
 ---
 name: nodejs-best-practices
-description: Node.js development principles and decision-making. Framework selection, async patterns, security, and architecture. Teaches thinking, not copying. Use when when building node.js backends, selecting frameworks (express/fastify/nestjs), or implementing async patterns.
+description: Guides Node.js backend design, covering framework selection (Express, Fastify, NestJS), async error handling, event-loop safety and worker threads for CPU-bound tasks, security, and project structure. Use when building or reviewing a Node.js service, handling async errors in Express, or keeping CPU-heavy tasks off the event loop.
 ---
 # Node.js Best Practices
 

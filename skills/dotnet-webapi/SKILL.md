@@ -1,6 +1,6 @@
 ---
 name: dotnet-webapi
-description: Guides creation and modification of ASP.NET Core Web API endpoints with correct HTTP semantics, OpenAPI metadata, and error handling. Use when adding new API endpoints (controllers or minimal APIs), wiring up OpenAPI/Swagger, creating .http test files, or setting up global error handling middleware.
+description: Builds ASP.NET Core Web APIs, controllers or Minimal API routes (MapGet, MapPost), with correct HTTP semantics, OpenAPI/Swagger metadata, and problem-details error handling. Use when adding or changing a .NET API endpoint, wiring up OpenAPI, creating .http test files, or setting up global exception-handling middleware.
 license: MIT
 ---
 

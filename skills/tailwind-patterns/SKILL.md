@@ -1,6 +1,6 @@
 ---
 name: tailwind-patterns
-description: Tailwind CSS v4 principles. CSS-first configuration, container queries, modern patterns, design token architecture. Use when when using tailwind css v4, implementing design tokens, container queries, or modern css patterns with tailwind.
+description: Applies Tailwind CSS v4 conventions, including CSS-first configuration with @theme, design tokens, container queries, and responsive utility classes. Use when styling with Tailwind utility classes, configuring Tailwind v4, or migrating from tailwind.config.js.
 ---
 # Tailwind CSS Patterns (v4)
 

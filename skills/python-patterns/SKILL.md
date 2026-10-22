@@ -1,6 +1,6 @@
 ---
 name: python-patterns
-description: Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying. Use when when writing python code, selecting python frameworks, implementing type hints, or structuring python projects.
+description: Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying. Use when writing python code, selecting python frameworks, implementing type hints, or structuring python projects.
 ---
 # Python Patterns
 

@@ -1,6 +1,6 @@
 ---
 name: server-management
-description: Server management principles and decision-making. Process management, monitoring strategy, and scaling decisions. Teaches thinking, not commands. Use when when managing servers, configuring process managers (pm2), setting up monitoring, or planning scaling strategies.
+description: Runs Node.js services in production under a process manager such as PM2, covering ecosystem files, cluster mode, memory-based restarts, log rotation, health monitoring, and when to scale up or out. Use when configuring PM2, keeping backend processes alive on a host, or deciding how to scale a running service.
 ---
 # Server Management
 

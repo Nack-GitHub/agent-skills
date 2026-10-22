@@ -1,6 +1,6 @@
 ---
 name: mobile-design
-description: Mobile-first design thinking and decision-making for iOS and Android apps. Touch interaction, performance patterns, platform conventions. Use when building React Native, Expo, Flutter, or native mobile apps. DO NOT USE FOR web apps or backend APIs.
+description: Designs iOS and Android app interfaces with mobile-first thinking, covering touch targets, gestures, navigation patterns, platform conventions, and performance on small screens. Use when building screens or components in React Native, Expo, Flutter, or native mobile apps, or making a layout work across phone screen sizes. Not for web apps or backend APIs.
 ---
 
 # Mobile Design
