@@ -1,6 +1,6 @@
 ---
 name: optimizing-ef-core-queries
-description: Optimize Entity Framework Core queries by fixing N+1 problems, choosing correct tracking modes, using compiled queries, and avoiding common performance traps. Use when EF Core queries are slow, generating excessive SQL, or causing high database load. DO NOT USE FOR: general performance optimization (use performance-optimization), database schema/indexing, or non-EF Core query issues.
+description: "Optimize Entity Framework Core queries by fixing N+1 problems, choosing correct tracking modes, using compiled queries, and avoiding common performance traps. Use when EF Core queries are slow, generating excessive SQL, or causing high database load. DO NOT USE FOR: general performance optimization (use performance-optimization), database schema/indexing, or non-EF Core query issues."
 license: MIT
 ---
 
