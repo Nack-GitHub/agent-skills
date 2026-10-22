@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Migrate the projects in this solution to use Directory.Packages.props.",
+      "kind": "execution",
+      "prompt": "Migrate the projects under src/ to NuGet Central Package Management with a Directory.Packages.props at the repository root.",
       "expected_output": "Directory.Packages.props file is created at the solution root with central package management enabled.",
-      "expectations": [
-        "A Directory.Packages.props file is created at the solution root",
-        "ManagePackageVersionsCentrally is set to true",
-        "Versions are moved from individual .csproj files to Directory.Packages.props",
-        "Individual .csproj files use PackageReference without Version attributes"
+      "files": [
+        "convert-to-cpm"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "A baseline build and package list are captured before any project file is changed",
+        "The Newtonsoft.Json version conflict (13.0.3 vs 12.0.3) is surfaced to the user with resolution options instead of being silently resolved",
+        "Directory.Packages.props is created at the root with ManagePackageVersionsCentrally set to true and a PackageVersion per package",
+        "Version attributes are removed from the PackageReference items, and the $(SerilogVersion) property is handled deliberately (inlined or kept with import order considered)"
+      ]
     }
   ]
 }

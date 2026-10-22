@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Generate a README.md template for a new node library project.",
+      "kind": "execution",
+      "prompt": "Write the README.md for this Node library, based on package.json and src/index.js.",
       "expected_output": "README.md template generated with sections for install, usage and contribution.",
-      "expectations": [
-        "A clear structure with installation, usage, and contribution sections is created",
-        "Code snippets are included as templates",
-        "Prerequisites are specified",
-        "Documentation is clear and follows markdown best practices"
+      "files": [
+        "documentation-templates"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "README.md has installation, usage, API/options, and contributing sections",
+        "Usage examples are accurate code snippets that match the real retry() signature and defaults (retries 3, baseMs 100, jitter true)",
+        "Prerequisites are stated from package.json (Node >= 18) along with the license",
+        "No features are documented that the source does not implement"
+      ]
     }
   ]
 }

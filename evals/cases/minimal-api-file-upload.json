@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Write a minimal API endpoint to upload a PDF file with a 5MB size limit validation.",
+      "kind": "execution",
+      "prompt": "Implement the contract upload endpoint described in REQUIREMENTS.md in this Minimal API.",
       "expected_output": "PDF size and content type validation are checked during MapPost.",
-      "expectations": [
-        "Endpoint is created using MapPost()",
-        "Accepts IFormFile or standard upload streams",
-        "File content type and size validation is performed",
-        "Correct HTTP status codes and error shapes are returned on failure"
+      "files": [
+        "minimal-api-file-upload"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The endpoint is created with MapPost and accepts IFormFile (or a streamed body) with antiforgery handled explicitly",
+        "Size is limited to 5 MB and content is verified as PDF by its signature, not only by extension or Content-Type",
+        "Files are saved under ./uploads with a server-generated name",
+        "Failures return problem-details responses with correct status codes (400, 413 or 415)"
+      ]
     }
   ]
 }

@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Create an Express async request handler that correctly catches and forwards exceptions to middleware.",
+      "kind": "execution",
+      "prompt": "The GET /orders/:id handler in src/app.js leaks unhandled promise rejections. Make async errors in this Express app reach a central error handler with a consistent JSON error shape.",
       "expected_output": "Handler uses proper async/await boundary and forwards errors via next(err).",
-      "expectations": [
-        "Async/await pattern is used with proper try/catch boundaries",
-        "Errors are forwarded to the express error handler via next(err)",
-        "No unhandled promise rejections are possible in the handler",
-        "Consistent JSON error response structures are returned"
+      "files": [
+        "nodejs-best-practices"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "Async handler errors are forwarded to Express error middleware via next(err) or an async wrapper",
+        "A central error-handling middleware returns a consistent JSON error body using the error's status (400/404) and 500 otherwise",
+        "No unhandled promise rejection is possible from the route",
+        "Internal error details are not leaked for 500 responses"
+      ]
     }
   ]
 }

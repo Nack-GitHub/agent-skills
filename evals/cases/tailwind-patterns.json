@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Build a responsive three-column grid layout with mobile-first breakpoints using Tailwind CSS classes.",
+      "kind": "execution",
+      "prompt": "Lay out the three pricing cards in index.html as a responsive, mobile-first grid with Tailwind CSS v4 utility classes: one column on phones, three columns from the md breakpoint.",
       "expected_output": "Grid columns are styled responsive layout matches on mobile and desktops.",
-      "expectations": [
-        "Grid layout uses responsive breakpoints (sm:, md:, lg:)",
-        "Mobile-first grid columns (grid-cols-1 md:grid-cols-3) are applied",
-        "Consistent padding and gap utilities are used",
-        "Layout renders correctly on mobile and desktop viewports"
+      "files": [
+        "tailwind-patterns"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The section uses a grid with mobile-first columns (grid-cols-1 md:grid-cols-3)",
+        "Responsive breakpoint prefixes are used only to add columns or spacing at larger sizes",
+        "Consistent gap and padding utilities are applied to the grid and cards",
+        "The CSS build is run or the verification at mobile and desktop widths is described"
+      ]
     }
   ]
 }

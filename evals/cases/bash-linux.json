@@ -29,15 +29,19 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Write a bash script to find all .log files in a directory, compress them, and Traps errors.",
+      "kind": "execution",
+      "prompt": "Write scripts/compress-logs.sh: given a directory argument, find every .log file under it (recursively), compress each one with gzip, and trap errors so temporary files are cleaned up on failure. Status messages go to stderr; print a JSON summary of compressed files to stdout. Run it against logs/ to show it works.",
       "expected_output": "The script begins with a #!/bin/bash shebang and uses set -e for fail-fast error behavior.",
-      "expectations": [
-        "The script begins with a #!/bin/bash shebang",
-        "Uses set -e for fail-fast error behavior",
-        "Handles cleanup traps for temporary files",
-        "Outputs status to stderr and output/JSON to stdout"
+      "files": [
+        "bash-linux"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "scripts/compress-logs.sh starts with a bash shebang and enables fail-fast behavior (set -e or set -euo pipefail)",
+        "A trap cleans up temporary files on error or exit",
+        "Only .log files are compressed, recursively, and logs/notes.txt is left untouched",
+        "Status output goes to stderr and the JSON summary goes to stdout",
+        "The script is run against logs/ and the result is shown"
+      ]
     }
   ]
 }

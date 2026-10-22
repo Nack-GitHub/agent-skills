@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Rename the class oldHelper to newHelper across all files in the src/utils/ directory.",
+      "kind": "execution",
+      "prompt": "Rename the class oldHelper to newHelper everywhere it is defined, imported, exported, or used in this repository (it lives in src/utils/), renaming the file to match. Keep the test suite passing.",
       "expected_output": "Multi-file replacements are made cleanly and systematically across files.",
-      "expectations": [
-        "A list of target files is gathered before editing",
-        "Multi-file replacements are made cleanly and systematically",
-        "Imports and exports are adjusted to match the renamed symbol",
-        "File changes are verified for compile-time correctness"
+      "files": [
+        "batch-operations"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The full list of files referencing oldHelper is gathered (for example with grep) before editing",
+        "The class, its file name, every import and export, and the usage in src/app.js are renamed consistently",
+        "No reference to oldHelper remains anywhere in the repository",
+        "The test suite (npm test) is run after the rename and passes"
+      ]
     }
   ]
 }

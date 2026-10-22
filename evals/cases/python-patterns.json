@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Implement a Python client class that implements the Strategy pattern to handle multiple export formats.",
+      "kind": "execution",
+      "prompt": "Refactor exporter.py into an exporter client that uses the Strategy pattern so new export formats can be added without editing an if/elif chain. Keep test_exporter.py passing and add a test for an unknown format.",
       "expected_output": "Python classes use PEP-8 standards, hints and Strategy design patterns.",
-      "expectations": [
-        "Python classes are structured using design patterns (Strategy)",
-        "Type hinting is applied for method contracts",
-        "Exception handling for invalid formats is implemented",
-        "Code adheres to Python PEP 8 style guidelines"
+      "files": [
+        "python-patterns"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "Each format is a separate strategy class or callable implementing a common Protocol or ABC, selected through a registry",
+        "Type hints describe the strategy contract and the client API",
+        "An unknown format raises a specific exception instead of returning None, and a test covers it",
+        "The existing tests pass (pytest is run) and the code follows PEP 8"
+      ]
     }
   ]
 }

@@ -1,0 +1,1 @@
+not a log file; must not be compressed

@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Configure ESLint to enforce import sorting and run lint fixes on the src/utils folder.",
+      "kind": "execution",
+      "prompt": "Configure ESLint in eslint.config.js to enforce sorted imports, then run the linter with fixes on src/utils and make sure nothing else breaks.",
       "expected_output": "Import sorting rule configured and styling violations solved cleanly.",
-      "expectations": [
-        "An ESLint rule for import sorting is configured in eslint.config.js",
-        "Linting is executed across target files",
-        "Syntax and styling violations are resolved",
-        "No regression is introduced to existing build configurations"
+      "files": [
+        "lint-and-validate"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "An import-sorting rule is configured in eslint.config.js (the built-in sort-imports rule or a plugin added to devDependencies)",
+        "ESLint is executed against src/utils and its output is shown",
+        "Import order violations in src/utils are fixed",
+        "The test suite still passes after the lint fixes"
+      ]
     }
   ]
 }

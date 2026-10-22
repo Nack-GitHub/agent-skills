@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Design a touch-friendly card feed layout for a mobile app using React Native, including tap areas.",
+      "kind": "execution",
+      "prompt": "Redesign src/FeedScreen.tsx as a touch-friendly card feed for iOS and Android: fix the tap areas, add pull-to-refresh, and make the cards readable on small screens.",
       "expected_output": "Generates a responsive mobile layout adhering to touch guidelines.",
-      "expectations": [
-        "Touch targets satisfy minimum size recommendations (e.g. 48x48 dp)",
-        "Gestures or pull-to-refresh interactions are considered",
-        "Layout behaves responsively across iOS and Android device widths",
-        "Typography and visual contrast are optimized for mobile screens"
+      "files": [
+        "mobile-design"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "Touch targets meet platform minimums (44pt iOS / 48dp Android), using hitSlop or padding for the like button",
+        "Pull-to-refresh is implemented on the list (refreshing/onRefresh or RefreshControl)",
+        "Cards adapt to device width and safe areas instead of fixed sizes",
+        "Typography sizes and color contrast are raised to readable mobile levels (the 9-11px text and #bbb on white are fixed)"
+      ]
     }
   ]
 }

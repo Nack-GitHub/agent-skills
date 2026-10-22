@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Create a Minimal API endpoint for POST /api/items with request validation and OpenAPI metadata.",
+      "kind": "execution",
+      "prompt": "Add a POST /api/items Minimal API endpoint to Program.cs that validates the request (name required, price greater than zero), uses ItemStore.Add, and carries OpenAPI metadata.",
       "expected_output": "Endpoint is defined using MapPost() in Program.cs with correct return values.",
-      "expectations": [
-        "Endpoint is defined using MapPost() in Program.cs",
-        "Request body validation is implemented",
-        "Produces/ProducesProblem metadata is added for OpenAPI documentation",
-        "Returns correct HTTP status codes (201 Created, 400 Bad Request)"
+      "files": [
+        "dotnet-webapi"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The endpoint is defined with MapPost in Program.cs and uses a request DTO rather than binding Item directly",
+        "Invalid requests are rejected with a 400 validation problem response",
+        "Produces/ProducesValidationProblem (or equivalent typed results) metadata is added for OpenAPI",
+        "A successful request returns 201 Created with a Location header pointing at the GET endpoint"
+      ]
     }
   ]
 }

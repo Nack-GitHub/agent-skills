@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Add i18next configuration and localization resources for English and Japanese translations.",
+      "kind": "execution",
+      "prompt": "Add i18next with English and Japanese resources to this app and localize src/Checkout.jsx, including a way to switch language.",
       "expected_output": "Translation resources formatted in JSON and dynamic localization hooks used.",
-      "expectations": [
-        "Translation keys are structured logically in JSON format",
-        "Localization hooks or helpers are used instead of hardcoded strings",
-        "Language switching utility is implemented",
-        "RTL layout considerations are addressed if needed"
+      "files": [
+        "i18n-localization"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "An i18n setup module initializes i18next/react-i18next with en and ja resources",
+        "Translation keys are structured logically in JSON or resource objects, with plural forms for the item count",
+        "Checkout.jsx uses the translation hook instead of hard-coded strings, and the total uses locale-aware currency formatting",
+        "A language switching utility or control is implemented"
+      ]
     }
   ]
 }

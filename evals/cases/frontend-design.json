@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Design the visual layout and CSS variables for a modern dashboard sidebar, prioritizing layout aesthetics.",
+      "kind": "execution",
+      "prompt": "Design the visual layout of the dashboard sidebar in sidebar.css, following brand.md: define the color and spacing tokens as CSS variables and style the markup in sidebar.html.",
       "expected_output": "Modern layout styles and theme-consistent typography are generated.",
-      "expectations": [
-        "A cohesive color scheme using CSS variables is defined",
-        "Modern layout styles (Flexbox/Grid, spacing tokens) are used",
-        "Visual hierarchy is established using font weights and typography",
-        "Interactive state designs (hover, active) are specified"
+      "files": [
+        "frontend-design"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "A cohesive palette is defined as CSS custom properties that follow brand.md (teal primary, amber accent reserved for the active item) with a dark-mode variant",
+        "Layout uses Flexbox or Grid with spacing tokens rather than ad-hoc pixel values",
+        "Visual hierarchy is established through typography (brand, links, footer differ in weight or size)",
+        "Hover, active, and keyboard focus-visible states are styled"
+      ]
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "@acme/retry-kit",
+  "version": "0.3.0",
+  "description": "Retry async functions with exponential backoff and jitter.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test"
+  }
+}

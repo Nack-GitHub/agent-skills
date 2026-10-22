@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Optimize a React page rendering a large list by implementing virtualization or dynamic loading.",
+      "kind": "execution",
+      "prompt": "The /products page in app/products renders 10,000 rows and typing in the filter is sluggish. Optimize its rendering.",
       "expected_output": "Rendering overhead is profiles, dynamic loading or virtualization added, re-renders eliminated.",
-      "expectations": [
-        "Component render profiling or performance analysis is conducted",
-        "Dynamic loading (e.g. next/dynamic) or list virtualization is implemented",
-        "Unnecessary state updates and re-renders are eliminated",
-        "Improvements to Core Web Vitals (INP, LCP) are verified"
+      "files": [
+        "nextjs-react-expert"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The bottleneck is identified (all 10,000 rows rendered and re-rendered on each keystroke) before changing code",
+        "The list is virtualized or paginated, and the heavy ChartPanel is loaded with next/dynamic or otherwise deferred",
+        "Unnecessary re-renders are removed (memoized rows and callbacks, deferred or transitioned filtering)",
+        "The change states how the improvement is verified (React Profiler or INP/LCP measurement)"
+      ]
     }
   ]
 }

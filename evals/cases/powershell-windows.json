@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Write a PowerShell script to recursively delete all files older than 30 days in a folder.",
+      "kind": "execution",
+      "prompt": "Write scripts/Remove-OldFiles.ps1: recursively delete files older than N days (default 30) under a given folder, following the conventions in README.md. Show how to dry-run it against sample/.",
       "expected_output": "Recursive deletion cmdlet is used with error boundaries.",
-      "expectations": [
-        "PowerShell cmdlets (Get-ChildItem, Remove-Item) are used correctly",
-        "Input parameters are validated",
-        "Error handling (Try/Catch) is implemented",
-        "Verbose or log output is provided during script run"
+      "files": [
+        "powershell-windows"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "Get-ChildItem -Recurse -File with a LastWriteTime filter and Remove-Item are used correctly",
+        "Parameters are validated (mandatory existing path, positive day count) and SupportsShouldProcess enables -WhatIf",
+        "Errors are handled with try/catch (or -ErrorAction Stop) without aborting the whole run on one locked file",
+        "Each removed file is logged with Write-Verbose or Write-Information, and a -WhatIf dry run against sample/ is shown"
+      ]
     }
   ]
 }

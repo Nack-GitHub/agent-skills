@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Audit and fix a form page to support keyboard tab navigation and correct ARIA descriptors.",
+      "kind": "execution",
+      "prompt": "Audit signup.html for keyboard and screen-reader accessibility and fix what you find.",
       "expected_output": "Tab indexing and ARIA descriptors are explicitly fixed for assistive technologies.",
-      "expectations": [
-        "Form inputs are associated with descriptive label elements",
-        "Tab index and keyboard focus states are explicitly styled/handled",
-        "ARIA descriptors (e.g. aria-invalid, aria-describedby) are correctly applied",
-        "Verification steps confirm page screen reader and keyboard accessibility"
+      "files": [
+        "web-design-guidelines"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "Inputs get associated label elements and appropriate types and autocomplete attributes",
+        "The removed focus outline is replaced with a visible focus style, and the div button becomes a real button reachable by Tab",
+        "Error messaging uses aria-invalid and aria-describedby (and an announced region where appropriate) with sufficient color contrast",
+        "The findings are listed, and verification with keyboard-only navigation or an accessibility checker is described"
+      ]
     }
   ]
 }

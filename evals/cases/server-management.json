@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Create a PM2 ecosystem config file with cluster mode and automated memory-based restarts.",
+      "kind": "execution",
+      "prompt": "Create a PM2 ecosystem config for this service following DEPLOY.md: cluster mode across the host's cores, memory-based restarts, and production environment variables.",
       "expected_output": "ecosystem.config.js configured in cluster mode with automatic restart variables.",
-      "expectations": [
-        "Ecosystem config file (ecosystem.config.js) is created",
-        "Cluster mode (exec_mode: 'cluster') is configured",
-        "Automatic restart thresholds (max_memory_restart) are specified",
-        "Environment variable injection is defined"
+      "files": [
+        "server-management"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "ecosystem.config.js (or .cjs) is created and points at server.js",
+        "Cluster mode is configured (exec_mode 'cluster' with instances 'max' or 4)",
+        "max_memory_restart is set to 400M per DEPLOY.md",
+        "An env_production block sets NODE_ENV=production and PORT=8080"
+      ]
     }
   ]
 }

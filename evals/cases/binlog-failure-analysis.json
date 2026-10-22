@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Analyze the build.binlog file to find which target failed and why.",
+      "kind": "execution",
+      "prompt": "The Inventory solution fails to build. Analyze build.binlog to find which target failed and why, and recommend a fix. Do not rebuild before reading the binlog.",
       "expected_output": "The binlog diagnostics are extracted from the binary log file.",
-      "expectations": [
-        "The binlog MCP server or tool is invoked",
-        "Diagnostics are extracted from the binary log file",
-        "The root cause target execution failure is pinpointed",
-        "A mitigation step is recommended based on log details"
+      "files": [
+        "binlog-failure-analysis"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "build.binlog is read with a binlog tool (binlog MCP server, MSBuild Structured Log Viewer CLI, or dotnet msbuild replay) rather than guessed from the source",
+        "The failing target (GenerateBuildInfo in Inventory.Api) and error INV001 are identified from the log",
+        "The root cause is explained: the BuildChannel property is empty",
+        "A concrete mitigation is recommended (pass -p:BuildChannel=stable or set a default in the project)"
+      ]
     }
   ]
 }

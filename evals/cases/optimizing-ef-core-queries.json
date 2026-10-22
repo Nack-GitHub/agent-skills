@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Optimize an EF Core Linq query that loads orders and order items to avoid N+1 queries.",
+      "kind": "execution",
+      "prompt": "OrderReport.RecentAsync is slow on the dashboard. Optimize the EF Core query so it no longer issues one query per order.",
       "expected_output": "N+1 query loading patterns are replaced with eager loading or projections.",
-      "expectations": [
-        "Eager loading (Include/ThenInclude) or projection (Select) is implemented",
-        "AsNoTracking is applied for read-only database fetches",
-        "The SQL generated is analyzed or optimized for execution cost",
-        "The N+1 loading pattern is completely eliminated"
+      "files": [
+        "optimizing-ef-core-queries"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The N+1 pattern (one OrderItems query per order) is identified as the cause",
+        "The query is rewritten as a single projection (Select into OrderSummary) or eager load (Include) so it issues one round trip",
+        "The read-only path avoids change tracking (projection or AsNoTracking)",
+        "The resulting SQL or query count is inspected or explained (for example ToQueryString or logging)"
+      ]
     }
   ]
 }

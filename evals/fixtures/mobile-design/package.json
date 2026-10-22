@@ -1,0 +1,11 @@
+{
+  "name": "feed-app",
+  "version": "1.0.0",
+  "private": true,
+  "main": "App.tsx",
+  "dependencies": {
+    "expo": "~51.0.0",
+    "react": "18.2.0",
+    "react-native": "0.74.5"
+  }
+}

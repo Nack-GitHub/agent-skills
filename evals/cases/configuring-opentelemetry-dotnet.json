@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Configure OpenTelemetry in Program.cs to export traces to a local OTLP endpoint.",
+      "kind": "execution",
+      "prompt": "Configure OpenTelemetry tracing in this ASP.NET Core service so traces export to the local OTLP endpoint described in OPERATIONS.md, with incoming HTTP requests instrumented.",
       "expected_output": "OTLP exporter is configured with an endpoint and trace settings.",
-      "expectations": [
-        "The OpenTelemetry NuGet packages are referenced or configured",
-        "Tracing is enabled via AddOpenTelemetry().WithTracing()",
-        "Resource builder details like service name are configured",
-        "OTLP exporter is configured with an endpoint"
+      "files": [
+        "configuring-opentelemetry-dotnet"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "The OpenTelemetry packages (hosting extensions, ASP.NET Core instrumentation, OTLP exporter) are added to OrdersApi.csproj",
+        "Tracing is enabled via AddOpenTelemetry().WithTracing() with ASP.NET Core instrumentation",
+        "The resource is configured with service name orders-api and version 1.4.0",
+        "The OTLP exporter targets http://localhost:4317, preferably from configuration rather than a hard-coded literal"
+      ]
     }
   ]
 }

@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Design a relational database schema for a blog post and tag system, including foreign keys and indexes.",
+      "kind": "execution",
+      "prompt": "Using requirements.md, design the relational schema for posts and tags and write it as a migration in db/, including foreign keys and indexes for the hot queries.",
       "expected_output": "Relational integrity constraints and index configurations are specified.",
-      "expectations": [
-        "Relational integrity constraints (foreign keys) are specified",
-        "Indexes are added for common query paths like post tags",
-        "The schema is documented with correct data types",
-        "Normalization rules are followed to reduce redundancy"
+      "files": [
+        "database-design"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "A db/NNN_*.sql migration defines posts, tags, and a post_tags join table with primary and foreign keys",
+        "Foreign key actions match the requirements: deleting a post cascades to its links, deleting an in-use tag is restricted",
+        "Indexes cover the hot queries (tag to published posts by date, unique slug, case-insensitive unique tag name)",
+        "Column types and constraints are appropriate (status constrained to the three values, timestamps with time zone)"
+      ]
     }
   ]
 }

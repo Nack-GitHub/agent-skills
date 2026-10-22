@@ -29,15 +29,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Evaluate whether we should use Redis or PostgreSQL for a distributed lock mechanism, trade-offs, and document it in an ADR.",
+      "kind": "execution",
+      "prompt": "Read lock-context.md. Evaluate whether the report scheduler should use Redis or PostgreSQL for its distributed job lock, weigh the trade-offs against the constraints in that file, and record the decision as an ADR under docs/adr/. Do not implement the lock.",
       "expected_output": "An ADR structure is drafted with status, context, decision, and consequences",
-      "expectations": [
-        "An ADR structure is drafted with status, context, decision, and consequences",
-        "Clear trade-offs of Redis vs PostgreSQL for locks are evaluated",
-        "The decision prioritizes system simplicity",
-        "No code implementation is written"
+      "files": [
+        "architecture"
       ],
-      "trust_level": "provisional"
+      "expectations": [
+        "An ADR file is added under docs/adr/ following the README's numbering, with Status, Context, Decision, and Consequences sections",
+        "The trade-offs of Redis versus PostgreSQL locks are evaluated against the stated constraints (unowned non-persistent Redis, duplicate runs being unrecoverable, low contention)",
+        "The decision favors operational simplicity for a two-person team and names the chosen mechanism (for example PostgreSQL advisory locks or a lease table)",
+        "No lock implementation code is written"
+      ]
     }
   ]
 }
