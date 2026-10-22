@@ -1,41 +1,59 @@
-# Audit Complexities Checklist
+# Audit Complexities
 
-Used by Step 4. Check every item before writing `Directory.Packages.props`, and present the findings to the user.
+Audit only the resolved scope. Use the baseline package snapshot plus one targeted search across in-scope project, `.props`, and `.targets` files; do not explore unrelated repository files. Read the sections below only for complexities that were actually detected.
 
-## Checklist
+## 1. Version set via MSBuild property
 
-- [ ] **Same package with different versions** across projects (see below).
-- [ ] **MSBuild property versions**, such as `Version="$(SerilogVersion)"`. Record where each property is defined, and see [msbuild-property-handling.md](msbuild-property-handling.md).
-- [ ] **Conditional references**: `<ItemGroup Condition="'$(TargetFramework)' == 'net48'">`. The condition stays in the project, and the version may need a conditional `PackageVersion` (see [directory-packages-props.md](directory-packages-props.md)).
-- [ ] **Shared imports**: `.props`/`.targets` files pulled in with `<Import>` or `Directory.Build.props` that declare `PackageReference` items. They need the same `Version` removal.
-- [ ] **Existing `VersionOverride`** or a partial CPM setup. Note it, and do not silently remove it.
-- [ ] **`GlobalPackageReference`** candidates, such as analyzers referenced by every project with `PrivateAssets="all"`. Only suggest these, and do not convert them without asking.
-- [ ] **Floating versions** (`1.*`, `[1.0,2.0)`). CPM accepts them, but floating versions make the comparison non-deterministic. Flag them.
-- [ ] **Security advisories**: `dotnet package list --vulnerable`. Report them as follow-up items. Do not upgrade them as part of the conversion.
-- [ ] **Deprecated packages**: `dotnet package list --deprecated`. Report them as follow-up items.
-- [ ] **`Update=` instead of `Include=`** on `PackageReference`. Treat it the same way, but check that a matching `Include` exists somewhere.
+If a `PackageReference` uses a property for its version (e.g., `Version="$(SomePackageVersion)"`), trace the property definition. If the property is defined in a `Directory.Build.props`, `.props` import, or the project file itself, note it for the user. These require manual decisions about whether to replace the property with a literal version in `Directory.Packages.props` or to keep the property and use it within `Directory.Packages.props`.
 
-## Same package with different versions
+See [msbuild-property-handling.md](msbuild-property-handling.md) for decision workflow.
 
-Present each conflict on its own, in this format:
+## 2. Conditional PackageReference items
 
-```markdown
-### Newtonsoft.Json — 2 versions
+If a `PackageReference` is inside a conditional `<ItemGroup>` (e.g., `Condition="'$(TargetFramework)' == 'net8.0'"`), the version must still be centralized. The `PackageVersion` entry in `Directory.Packages.props` can use the same condition, or the project can use `VersionOverride` if the condition is project-specific.
 
-| Version | Projects |
-|---------|----------|
-| 13.0.3  | Api, Worker |
-| 12.0.3  | Legacy.Importer |
+## 3. Same package with different versions
 
-Options:
-1. **Align to highest (13.0.3).** One central version. Legacy.Importer moves up a major version, so check its release notes and tests.
-2. **Central 13.0.3 + `VersionOverride="12.0.3"` in Legacy.Importer.** Behavior does not change, but the project keeps a pinned version outside central control.
+If the same package ID appears with different versions across projects, this is a **version conflict** that requires a user decision before proceeding. CPM requires a single `<PackageVersion>` per package (unless `VersionOverride` is used), so conflicts must be resolved.
 
-Which option should I use for this package?
-```
+For each conflict, present a focused summary showing:
 
-Rules:
+- The package name and all distinct versions found
+- Which projects use each version, so the user can see the scope of the disagreement
+- Whether the difference is major, minor, or patch — this signals the level of risk
+- Any known security advisories on the lower versions (cross-reference with `dotnet package list --vulnerable` if available)
 
-- Never pick a version higher than the highest one already in use within the scope.
-- Ask for a decision on each conflict. A single blanket answer is acceptable only when the user gives one explicitly.
-- Record every decision for Section 2 of the report.
+Then present the resolution options with their trade-offs:
+
+1. **Align to the highest version** — simplest path; all projects get the latest. Risk: a major version bump may introduce breaking API changes in projects that were on an older version.
+2. **Align to the lowest version** — conservative; avoids pulling in untested changes. Risk: projects already on higher versions would be downgraded, which may break them or regress security fixes.
+3. **Use `VersionOverride`** — projects that need a different version keep it via `VersionOverride` in their project file. The central `<PackageVersion>` holds the default. This preserves the status quo but partially undermines centralization for that package.
+
+Do not upgrade any package beyond the highest version already in use across the scope — this avoids introducing version incompatibilities or breaking changes that are unrelated to the CPM conversion itself. Instead, note any known advisories or upgrade opportunities as follow-up items in the post-conversion report for the user to address after the conversion is complete.
+
+If the user already supplied a conflict strategy, treat that as the decision and do not ask again. Otherwise ask the user to choose for each conflict and stop before editing. After each decision, record which projects will see a version change and which will stay the same.
+
+- **Major version difference**: Emphasize the risk of breaking API changes. Recommend `VersionOverride` unless the user is prepared to validate all affected projects.
+- **Minor or patch difference**: Prefer the highest version but highlight any security advisories. Note that patch-level alignment is usually safe.
+- **One version is vulnerable**: Note the advisory in the post-conversion report as a follow-up item. Do not upgrade the version as part of the CPM conversion.
+
+## 4. Known security advisories
+
+If the user requested security information, a known advisory must be verified, or conflict resolution crosses a major package version, prefer one scoped vulnerability query after the baseline restore:
+
+- SDK 10+: `dotnet package list --project <scope> --vulnerable --include-transitive --format json --no-restore`
+- SDK 7.0.200–9.x: `dotnet list <scope> package --vulnerable --include-transitive --format json --no-restore`
+
+Extract only package ID, resolved version, advisory severity/URL, and affected projects into the audit summary. Preserve the full output as an optional artifact if useful, but do not read it repeatedly. Do not also run deprecated or outdated scans by default. Do not upgrade beyond the highest version already in scope; record advisory remediation as a follow-up item instead.
+
+## 5. Packages without a Version attribute
+
+These may already be managed by CPM from a parent directory or may be using a default version. Verify whether a `Directory.Packages.props` in an ancestor directory already provides the version.
+
+## 6. PackageReference in imported .props/.targets files
+
+Scan for `<Import>` elements in project files and `Directory.Build.props` to discover shared `.props` or `.targets` files that may contain `PackageReference` items. Search those imported files for package references — they need the same treatment but modifying shared build files has broader impact. Flag these to the user.
+
+## 7. VersionOverride already in use
+
+If any project already uses `VersionOverride`, note it — this suggests partial CPM adoption may already be in progress.

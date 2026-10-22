@@ -1,35 +1,65 @@
-# MSBuild Version Property Handling
+# MSBuild Property Handling
 
-Used by Step 7, for references like `<PackageReference Include="Serilog" Version="$(SerilogVersion)" />`.
+This covers how to handle MSBuild properties that define package versions (for example, `Version="$(PackageVersionProperty)"`) during CPM conversion.
 
-## Decide: inline or keep
+## Import order guidance
 
-| Situation | Choice |
-|---|---|
-| The property is used only for package versions | **Inline**: put the literal version in `PackageVersion`. |
-| The property also feeds other build logic (assembly version, `DefineConstants`, a `.targets` condition) | **Keep**: `<PackageVersion Include="Serilog" Version="$(SerilogVersion)" />`. |
-| One property drives a family of packages (`$(AspNetCoreVersion)` for several ids) | Either works. Keeping it preserves one-line upgrades. Ask the user. |
-| The property is defined per project with different values | Treat it as a version conflict (see [audit-complexities.md](audit-complexities.md)). |
+If keeping a property reference in `Directory.Packages.props` (e.g., `Version="$(PackageAVersion)"`), the property must be defined in a file that MSBuild evaluates before `Directory.Packages.props`. Properties in `Directory.Build.props` satisfy this requirement because MSBuild imports `Directory.Build.props` before `Directory.Packages.props`.
 
-Find every use before deciding:
+## Part 1: Make property decisions
+
+For each `PackageReference` that used an MSBuild property for its version:
+
+### 1.1. Check if the property is used elsewhere
+
+Search all project files, `.props`, and `.targets` files in scope for references to the property name:
 
 ```bash
-grep -rn 'SerilogVersion' --include='*.props' --include='*.targets' --include='*.*proj' .
+# Unix/macOS
+grep -r '$(PropertyName)' --include='*.csproj' --include='*.props' --include='*.targets' .
+
+# Windows (PowerShell)
+Get-ChildItem -Recurse -Include *.csproj,*.props,*.targets | Select-String '$(PropertyName)'
 ```
 
-## Import order (when keeping a property)
+If it appears only in `PackageReference` version attributes, it is safe to remove after inlining.
 
-`Directory.Packages.props` is imported early, from `Microsoft.Common.props`. A property referenced there must already be defined at that point:
+### 1.2. Property only used for versioning (in scope)
 
-- Defined in `Directory.Build.props`: available, because that file is imported before `Directory.Packages.props`.
-- Defined in a project file or `Directory.Build.targets`: **not** available. The version evaluates to empty, and restore fails with NU1015 or resolves the wrong version.
+If the property is defined in a file within scope (e.g., `Directory.Build.props`), ask the user whether to:
 
-If the property lives in a late file, either move it into `Directory.Packages.props` itself or inline it.
+- **Inline**: Replace the property usage with a literal version in `Directory.Packages.props` and remove the property definition before final validation, after verifying no references remain
+- **Keep**: Reference the property from `Directory.Packages.props` (e.g., `<PackageVersion Include="PackageA" Version="$(PackageAVersion)" />`)
 
-## Cleanup (after Step 8 passes)
+### 1.3. Property used for other purposes
 
-1. Re-run the search above. Remove the property definition only when no remaining references exist.
-2. Rebuild from clean, and confirm the package comparison is unchanged.
-3. List every removed or inlined property in Section 1 of the report.
+If the property is used beyond package versioning, do not remove it. Use the property's resolved value in `Directory.Packages.props` and inform the user.
 
-Never remove a property before validation passes. It is the easiest thing to roll back to.
+### 1.4. Property defined outside scope
+
+If the property is defined outside the conversion scope (e.g., in parent repository build infrastructure), stop before editing that package. Ask the user to choose one safe option:
+
+1. Expand the conversion scope to include the defining file.
+2. Use the resolved literal value in `Directory.Packages.props` and leave the external property unchanged.
+3. Keep the property reference in `Directory.Packages.props` only after confirming its definition is evaluated before that file.
+
+Do not skip the central `PackageVersion` and continue: after CPM is enabled that would leave the project with either `NU1008` or `NU1010`.
+
+## Part 2: Clean up obsolete properties
+
+After updating all package references and before the final restore/build, remove property definitions that the user chose to inline. Match the XML element structurally rather than depending on a particular newline style. Before removing any property, verify it has zero remaining references outside its own definition:
+
+```bash
+# Unix/macOS
+grep -r '$(PropertyName)' --include='*.csproj' --include='*.props' --include='*.targets' .
+
+# Windows (PowerShell)
+Get-ChildItem -Recurse -Include *.csproj,*.props,*.targets | Select-String '$(PropertyName)'
+```
+
+Only remove a property if it has zero remaining references outside its own definition. Preserve all non-versioning properties in the same file (e.g., `OutputPath`, `LangVersion`). Then run two distinct checks:
+
+- Search for `$(PropertyName)` to confirm no uses remain.
+- Search for the XML element name (for example, `<PropertyName>`) to confirm the obsolete definition itself is gone.
+
+Both checks must pass before final validation.

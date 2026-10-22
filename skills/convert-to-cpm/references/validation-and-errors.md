@@ -1,32 +1,34 @@
 # Validation and Common Errors
 
-Used by Step 8 when restore or build fails after the conversion.
+## Diagnose a failed validation batch
+
+The main workflow already ran clean, restore, and build. Do not repeat them merely to diagnose the same failure. First inspect the relevant error lines and determine whether the failure is caused by CPM edits.
+
+For multi-target framework projects (those with `<TargetFrameworks>` containing multiple TFMs), verify restore works for each framework. If restoration errors are framework-specific, the solution may require conditional `<PackageVersion>` entries or `VersionOverride` for specific projects.
 
 ## NuGet error codes
 
-| Code | Meaning | Fix |
-|---|---|---|
-| NU1008 | A `PackageReference` still has a `Version` attribute while CPM is on | Remove `Version`, or change it to `VersionOverride` if an override was agreed. Check shared `.props`/`.targets` too. |
-| NU1010 | A `PackageReference` has no matching `PackageVersion` | Add the missing `PackageVersion`. This is often a package that only appears in a conditional group or an imported file. |
-| NU1009 | An implicitly defined package (such as `Microsoft.NETCore.App`) is listed centrally | Remove that `PackageVersion`. The SDK manages it. |
-| NU1506 | Duplicate `PackageVersion` entries | Keep one `Include`, and use `Update` in conditional groups. |
-| NU1507 | Multiple package sources without source mapping | This is a warning from CPM-adjacent restore hardening. Report it. Configure `packageSourceMapping` only if the user asks. |
-| NU1015 | A `PackageVersion` has an empty version | Usually an MSBuild property that is undefined at import time (see [msbuild-property-handling.md](msbuild-property-handling.md)). |
-| NU1605 | Detected package downgrade | Alignment pulled a dependency below what another package requires. Revisit that conflict decision with the user. |
+| Error | Meaning | Fix |
+|-------|---------|-----|
+| **NU1008** | A `PackageReference` still has a `Version` attribute when CPM is enabled | Remove the `Version` attribute or convert to `VersionOverride` |
+| **NU1010** | A `PackageReference` has no corresponding `PackageVersion` entry | Add the missing `<PackageVersion>` entry to `Directory.Packages.props` |
+| **NU1507** | Multiple package sources without package source mapping | Configure [package source mapping](https://learn.microsoft.com/nuget/consume-packages/package-source-mapping) |
 
-## Multi-targeting
+Keep full build output out of the conversation. On success, report a concise status. On failure, inspect only the relevant error lines or a short tail before making a targeted correction.
 
-- Run the package comparison for **every** target framework. `dotnet package list` reports each TFM separately.
-- A package referenced only for one TFM keeps its `Condition` on the `ItemGroup` in the project. The `PackageVersion` can stay unconditional unless versions differ per TFM.
-- If the versions differ per TFM, use conditional `PackageVersion Update` entries (see [directory-packages-props.md](directory-packages-props.md)).
+Only after one CPM-specific correction should you rerun the failed final validation batch from the main workflow. Do not start a separate open-ended validation sequence.
 
-## Final checks
+Do not run tests for a version-neutral conversion unless the user explicitly requested them. When the main workflow runs one scoped test pass because resolved versions changed, treat a failure separately unless the evidence clearly ties it to CPM package resolution; avoid unrelated dependency or test-host debugging.
 
-```bash
-dotnet clean
-dotnet restore --force-evaluate
-dotnet build -bl:after-cpm.binlog
-dotnet package list --format json > after-cpm-packages.json
-```
+Only CPM-related restore/build errors justify an automatic correction and retry. Do not install SDKs, change `global.json` or roll-forward policy, invoke SDK-internal DLLs, kill processes, or debug file locks/package sources as part of this skill. Report those environmental blockers with the failed command and required user action.
 
-`--force-evaluate` ignores a stale lock file. If the repository uses `packages.lock.json`, regenerate it and include the updated lock files in the change.
+## Common pitfalls
+
+| Pitfall | Solution |
+|---------|----------|
+| `Directory.Packages.props` not picked up | Ensure it is in the project directory or an ancestor directory. Only the closest one is evaluated |
+| Multiple `Directory.Packages.props` files conflict | Use `Import` to chain files, or consolidate into one. Only the nearest file is evaluated per project |
+| Version properties in `.props` files cause build errors | Decide whether to inline the version or keep the property. See [msbuild-property-handling.md](msbuild-property-handling.md) |
+| Conditional PackageReference loses its condition | Move the condition to the `PackageVersion` entry in `Directory.Packages.props`, or use `VersionOverride` in the project |
+| `packages.config` projects are in scope | These must first be [migrated to PackageReference](https://learn.microsoft.com/nuget/consume-packages/migrate-packages-config-to-package-reference) before CPM conversion |
+| Global tools or CLI tool references affected | `DotNetCliToolReference` items are deprecated and not managed by CPM. They can be ignored |

@@ -1,8 +1,18 @@
-# Directory.Packages.props Patterns
+# Directory.Packages.props Creation
 
-Used by Step 5.
+## Placement
 
-## Minimal file
+- **Repository scope**: First group projects by the central version policy they must share. If all in-scope projects share one policy, place one file at their first common ancestor. If independent solutions or existing nearest-file boundaries require separate policies, place one file at each group's first common ancestor. This may produce one or more files, and none must be at the repository root.
+- **Solution scope**: Place at the first common ancestor of all governed projects, while respecting existing nearest-file boundaries. This is the solution directory only when it is an ancestor of every governed project.
+- **Single project scope**: Default to the project directory. If the project is inside a repository with other projects that may be converted later, ask the user where to place it.
+
+Only the nearest `Directory.Packages.props` is evaluated per project. CPM also supports `Directory.Packages.props` in sub-folders — for example, test projects may have different dependencies than source code and can use a separate `Directory.Packages.props` in their sub-folder. A `Directory.Packages.props` in a sub-folder does not implicitly override or extend a parent file; it is independent and replaces the parent for projects in that folder. To share settings, explicitly chain files using MSBuild `<Import>` elements. See [Central Package Management rules](https://github.com/NuGet/docs.microsoft.com-nuget/blob/main/docs/consume-packages/Central-Package-Management.md#central-package-management-rules) for how NuGet resolves which file applies. When in doubt about placement, ask the user.
+
+CLI targets and CPM management scopes are different concepts. Multiple solution or project targets can use one common `Directory.Packages.props`, while one repository conversion can require separate files for independent project groups. Compute placement from the projects that share policy, not from the number or location of solution files.
+
+## Creating the file
+
+Create the file directly so the workflow does not depend on whether the installed SDK includes the `packagesprops` template:
 
 ```xml
 <Project>
@@ -10,54 +20,37 @@ Used by Step 5.
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.1" />
-    <PackageVersion Include="Serilog" Version="3.1.1" />
+    <!-- PackageVersion items will be added here -->
   </ItemGroup>
 </Project>
 ```
 
-- Place the file in the first common ancestor directory of all in-scope projects. NuGet uses the nearest `Directory.Packages.props` found walking up from each project.
-- Sort `PackageVersion` entries alphabetically by `Include`.
-- `dotnet new packagesprops` (.NET 8+) produces the skeleton.
+## Adding PackageVersion entries
+
+Add a `<PackageVersion>` entry for each unique package, using the resolved version from the audit. Sort entries alphabetically by package ID:
+
+```xml
+<PackageVersion Include="PackageA" Version="1.2.3" />
+<PackageVersion Include="PackageB" Version="4.5.6" />
+```
 
 ## Conditional versions
 
-Use these when different target frameworks need different versions of the same package:
+If the same package needs different versions for different target frameworks, use MSBuild conditions:
 
 ```xml
-<ItemGroup>
-  <PackageVersion Include="System.Text.Json" Version="8.0.5" />
-</ItemGroup>
-<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-  <PackageVersion Update="System.Text.Json" Version="6.0.10" />
-</ItemGroup>
+<PackageVersion Include="PackageA" Version="1.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+<PackageVersion Include="PackageA" Version="2.0.0" Condition="'$(TargetFramework)' == 'net8.0'" />
 ```
 
-Use `Update` in the conditional group so the package has one unconditional entry. Two `Include` entries for the same id produce NU1506 (duplicate `PackageVersion`).
+Preserve an existing target-framework-specific version split when a single version is incompatible. Ask only when multiple valid policies remain and the user has not already supplied a strategy. Record the preserved condition in the report.
 
 ## VersionOverride
 
-Use this for a single project that must stay on a different version (with user approval only):
+If a project intentionally needs a different version than the centrally defined one, use `VersionOverride` in the project file instead of removing the `Version` attribute:
 
 ```xml
-<!-- Legacy.Importer.csproj -->
-<PackageReference Include="Newtonsoft.Json" VersionOverride="12.0.3" />
+<PackageReference Include="System.Text.Json" VersionOverride="9.0.0" />
 ```
 
-To forbid overrides repo-wide after the conversion settles, set `<CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>`.
-
-## GlobalPackageReference
-
-Use this for packages every project needs, typically analyzers:
-
-```xml
-<ItemGroup>
-  <GlobalPackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
-</ItemGroup>
-```
-
-Remove the per-project `PackageReference` for that package once it is global. Suggest this pattern and ask first; it is not part of a default conversion.
-
-## Transitive pinning
-
-`<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>` makes central versions apply to transitive dependencies as well. It changes resolved versions, so it is out of scope for a version-neutral conversion. Mention it as a follow-up item instead.
+Apply `VersionOverride` only when the user's chosen strategy requires it. If no strategy was supplied, ask before applying it; in most cases, version alignment is preferred.
