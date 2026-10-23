@@ -1,6 +1,6 @@
 ---
 name: nextjs-react-expert
-description: Optimizes React and Next.js applications, covering rendering strategy (server-side rendering, static generation, server components), App Router routing, bundle size, re-renders, and Core Web Vitals. Use when building or tuning Next.js pages and React components, configuring SSR or routing in Next.js, or fixing slow rendering and page loads.
+description: Optimizes React and Next.js applications, covering rendering strategy (server-side rendering, static generation, server components), App Router routing, bundle size, re-renders, and Core Web Vitals. Use when building or tuning Next.js pages and React components, configuring SSR or routing in Next.js, fixing slow rendering and page loads, or when excess re-renders, laggy typing, or a large bundle slow the app down.
 ---
 
 # Next.js & React Performance Expert
@@ -29,7 +29,7 @@ Modern React and Next.js applications face complex performance challenges across
 ## Process
 
 ### Phase 1: Performance Triage & Impact Mapping
-Before optimizing, check the symptom using this mapping:
+Before changing any code, name the bottleneck in one or two sentences: what is slow, what causes it, and the number that shows it (for example "all 10,000 rows re-render on every keystroke"). Then check the symptom using this mapping:
 - **Sequential API fetches / slow load:** Read [1-async-eliminating-waterfalls.md](references/1-async-eliminating-waterfalls.md) and [3-server-server-side-performance.md](references/3-server-server-side-performance.md).
 - **Bundle size > 200KB / slow TTI:** Read [2-bundle-bundle-size-optimization.md](references/2-bundle-bundle-size-optimization.md).
 - **Client-side state latency:** Read [4-client-client-side-data-fetching.md](references/4-client-client-side-data-fetching.md).
@@ -91,3 +91,5 @@ Before marking the task as complete, verify:
 - [ ] Next.js build runs successfully without bundle size warnings
 - [ ] React Performance Checker script (`react_performance_checker.py`) executed and passed
 - [ ] No sequential awaits detected in the added/modified modules
+- [ ] The improvement is measured before and after: React Profiler render count and time, or INP/LCP from Lighthouse or `web-vitals`
+- [ ] Any check that could not run is reported as described in [Checks You Could Not Run](../../references/definition-of-done.md#checks-you-could-not-run)

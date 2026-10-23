@@ -50,6 +50,14 @@ The depth behind these items lives in `code-review-and-quality` (the five-axis r
 - [ ] Rollback path exists for anything risky (see `shipping-and-launch`)
 - [ ] The human has reviewed and approved before merge or deploy
 
+## Checks You Could Not Run
+
+A check that was skipped is not a check that passed. When a verification step cannot run in the current environment (no browser, no database, no CI, a missing tool):
+
+- Give the exact command or steps, and the result that counts as a pass.
+- Mark the change "not verified" in the final message and name each check that is still open.
+- Never end the task on "I couldn't run it", and never present the change as done.
+
 ## How to Apply
 
 - **Per task**: confirm the Correctness and Quality sections before checking the task off.

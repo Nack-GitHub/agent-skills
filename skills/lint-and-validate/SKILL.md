@@ -1,6 +1,6 @@
 ---
 name: lint-and-validate
-description: Automatic quality control, ESLint, Prettier, and TypeScript static analysis. Use when configuring ESLint or Prettier, running linters, type checkers, formatters, or validating TypeScript projects.
+description: Runs and configures static analysis for JavaScript and TypeScript, covering ESLint, Prettier, and the TypeScript compiler. Use when configuring ESLint or Prettier, running linters, type checkers, or formatters, fixing lint, formatting, or `tsc` errors, or validating a TypeScript project before commit.
 ---
 # Lint and Validate Skill
 

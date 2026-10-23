@@ -188,6 +188,10 @@ Use two complementary layers when the surface is user-facing:
 When either guard fires, return to Step 1 and establish a fresh baseline before
 proposing another fix.
 
+No CI is not a reason to skip the guard. Write it as a test or script in the
+repo that fails when the metric exceeds its budget, and say how to wire it into
+CI. A guard suggested only in prose does not count.
+
 **Set budgets and enforce them:**
 
 ```
@@ -264,4 +268,5 @@ After any performance-related change:
 - [ ] Any new index is justified by a query plan before and after, and its write cost was considered
 - [ ] Any new cache states what it keys on and how it goes stale
 - [ ] The measured user-facing metric has a synthetic budget or field monitor that can detect regression
+- [ ] Any check that could not run is reported as described in [Checks You Could Not Run](../../references/definition-of-done.md#checks-you-could-not-run)
 - [ ] Existing tests still pass (optimization didn't break behavior)

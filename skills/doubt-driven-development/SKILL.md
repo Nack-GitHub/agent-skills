@@ -82,6 +82,8 @@ A fresh-context reviewer needs the **artifact** and the **contract**, not the jo
 
 Strip your reasoning. If you hand over conclusions, you'll get back validation of your conclusions. The unit must be small enough that a reviewer can hold it in mind in one read — if it's a 500-line PR, decompose first.
 
+When the artifact is a plan or a decision, the author's factual assertions (row counts, "foreign keys are recreated automatically", "the backup is enough") are part of the artifact, not reasoning. List each one as a numbered claim for the reviewer to attack. Strip only your own conclusion that the plan is sound.
+
 ### Step 3: DOUBT — Invoke the fresh-context reviewer
 
 The reviewer's prompt **must be adversarial**. Framing decides the answer.
@@ -117,7 +119,7 @@ A single-model reviewer shares blind spots with the original author — a colder
 
 **Step 1: Ask the user**
 
-After the single-model review in Step 3 above, but before RECONCILE, pause and ask:
+After the single-model review in Step 3, run a first RECONCILE pass (Step 4) and present its provisional verdict table. Presenting the verdict first lets the user decide with the findings in view, and a cycle that ends at the question below still leaves a usable result. Then pause and ask:
 
 > *"Single-model review complete. Want a cross-model second opinion? Options: Gemini CLI, Codex CLI, manual external review (you paste it elsewhere), or skip."*
 
@@ -156,7 +158,7 @@ Surface the failure explicitly. Offer: run it manually, try a different tool, or
 
 **Step 4: If the user skips**
 
-Acknowledge the skip in the output (*"Proceeding with single-model findings only"*) and continue to RECONCILE. Skipping is fine; silent skipping is not.
+Acknowledge the skip in the output (*"Proceeding with single-model findings only"*) and keep the provisional verdict as the final one. Skipping is fine; silent skipping is not.
 
 **Non-interactive contexts** (CI, `/loop`, autonomous-loop, scheduled runs):
 
@@ -169,6 +171,8 @@ Cross-model adds cost, latency, and tool fragility. The agent surfaces the choic
 
 The reviewer's output is data, not verdict. **You are still the orchestrator.** Re-read the artifact text against each finding before classifying — rubber-stamping the reviewer is the same failure mode as ignoring it.
 
+**Test before you classify.** For each claim or finding that can be checked cheaply (count the rows, read the schema, dry-run on a copy, run the test, check the official docs), check at least one with a tool. Reasoning from the text alone is not a test.
+
 For each finding, classify in this **precedence order** (first matching class wins):
 
 1. **Contract misread** — reviewer flagged something specifically because the CONTRACT you provided was unclear or incomplete. Fix the contract first, re-classify on the next cycle.
@@ -177,6 +181,14 @@ For each finding, classify in this **precedence order** (first matching class wi
 4. **Noise** — reviewer flagged something that's actually correct under context the reviewer didn't have. Note it, move on, and ask: would adding that context to the contract have prevented the false flag?
 
 A fresh reviewer can be wrong because it lacks context. Don't defer just because it's "fresh."
+
+Close the pass with a verdict that separates what was checked from what still stands on trust:
+
+```
+| Claim or finding | Status | Evidence |
+|---|---|---|
+| <claim> | verified / refuted / surviving doubt | <command run, file read, or why it is untested> |
+```
 
 ### Step 5: STOP — Bounded loop, not recursion
 
@@ -218,6 +230,8 @@ If 3 cycles is "obviously insufficient" because the artifact is large: the artif
 - **Silently skipping cross-model in an interactive doubt cycle.** Even when not recommending it, the offer must be visible. Skipping is fine; silent skipping is not.
 - Falling back silently when an external CLI errors or is missing — surface the failure and let the user redirect
 - Stripping the contract from the reviewer's input
+- Classifying a finding by reasoning alone when one command or file read could have checked it
+- Ending the cycle on a question to the user without a verdict on the table
 - Passing the CLAIM to the reviewer (biases toward agreement)
 
 ## Interaction with Other Skills
@@ -237,6 +251,8 @@ After applying doubt-driven development:
 - [ ] The reviewer received ARTIFACT + CONTRACT — NOT the CLAIM, NOT your reasoning
 - [ ] The reviewer's prompt was adversarial ("find issues"), not validating ("is it good")
 - [ ] Findings were classified against the artifact text (not rubber-stamped) using the precedence: contract misread / actionable / trade-off / noise
+- [ ] At least one claim was tested with a tool, not only reasoned about
+- [ ] The verdict separates verified claims, refuted claims, and surviving doubts, each with its evidence
 - [ ] A stop condition was met (trivial findings, 3 cycles, or user override)
 - [ ] In interactive mode, cross-model was **explicitly offered** to the user (regardless of artifact stakes) and the response was acknowledged in the output
 - [ ] In non-interactive mode, cross-model was skipped and the skip was announced

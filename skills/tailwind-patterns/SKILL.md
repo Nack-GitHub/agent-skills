@@ -1,6 +1,6 @@
 ---
 name: tailwind-patterns
-description: Applies Tailwind CSS v4 conventions, including CSS-first configuration with @theme, design tokens, container queries, and responsive utility classes. Use when styling with Tailwind utility classes, configuring Tailwind v4, or migrating from tailwind.config.js.
+description: Applies Tailwind CSS v4 conventions, including CSS-first configuration with @theme, design tokens, container queries, and responsive utility classes. Use when markup carries Tailwind utility classes in `class` or `className`, when the project has `@theme` or `tailwind.config.*`, when making a layout responsive with Tailwind breakpoints, or when migrating from tailwind.config.js.
 ---
 # Tailwind CSS Patterns (v4)
 
@@ -261,6 +261,15 @@ description: Applies Tailwind CSS v4 conventions, including CSS-first configurat
 | **Avoid dynamism** | No template string classes |
 | **Use Oxide** | Default in v4 (full builds ~5x, incremental >100x) |
 | **Cache builds** | CI/CD caching |
+
+---
+
+## 13. Verification
+
+- [ ] The project's CSS build ran (its build script, or `npx @tailwindcss/cli -i <input.css> -o <output.css>`) and the output contains the new utilities
+- [ ] No class names are assembled from template strings, so the build can detect every utility
+- [ ] The layout was checked at a mobile width (375px) and a desktop width (1024px or wider)
+- [ ] Any check that could not run is reported as described in [Checks You Could Not Run](../../references/definition-of-done.md#checks-you-could-not-run)
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: powershell-windows
-description: PowerShell Windows patterns. Critical pitfalls, operator syntax, error handling. Use when working on windows systems, writing powershell scripts, or using windows-specific commands. Not for macos/linux.
+description: Writes PowerShell scripts and commands for Windows, covering operator syntax, null checks, string interpolation, error handling, and common pitfalls. Use when writing or fixing a `.ps1` script, running commands in PowerShell or pwsh, or automating a task on Windows. Not for macOS or Linux shells.
 ---
 # PowerShell Windows Patterns
 

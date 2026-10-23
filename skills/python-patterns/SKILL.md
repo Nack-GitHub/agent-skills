@@ -1,6 +1,6 @@
 ---
 name: python-patterns
-description: Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying. Use when writing python code, selecting python frameworks, implementing type hints, or structuring python projects.
+description: Guides Python backend design, covering framework selection (FastAPI, Django, Flask), async patterns, type hints, and project structure. Use when writing or reviewing `.py` files, choosing a Python web framework, adding type hints or asyncio code, or setting up `pyproject.toml` and the package layout.
 ---
 # Python Patterns
 

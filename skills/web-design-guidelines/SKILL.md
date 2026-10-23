@@ -1,6 +1,6 @@
 ---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Audit web design accessibility, keyboard tab navigation, screen reader contrast, and ARIA labels. Use when checking accessibility, auditing design, or reviewing UX against web interface guidelines.
+description: Reviews UI code for Web Interface Guidelines compliance. Audits web design accessibility, keyboard tab navigation, screen reader contrast, and ARIA labels. Use when checking accessibility, auditing design, reviewing UX against web interface guidelines, or reviewing UI code before merge.
 ---
 # Web Interface Guidelines
 
@@ -32,6 +32,14 @@ When a user provides a file or pattern argument:
 4. Output findings using the format specified in the guidelines
 
 If no files specified, ask the user which files to review.
+
+## Verification
+
+- [ ] Every finding is listed in `file:line` format with the rule it breaks
+- [ ] A keyboard-only pass was run or described: Tab order follows the visual order, focus is always visible, Escape closes dialogs and menus, and nothing traps focus
+- [ ] Form errors set `aria-invalid="true"` on the invalid field, link the message with `aria-describedby`, reveal the message when the error occurs, announce it through a live region, and meet contrast
+- [ ] An automated checker (axe DevTools, `npx @axe-core/cli <url>`, or Lighthouse accessibility) was run
+- [ ] Any check that could not run is reported as described in [Checks You Could Not Run](../../references/definition-of-done.md#checks-you-could-not-run)
 
 ---
 

@@ -161,11 +161,12 @@ var results = await db.Orders
 
 ## Validation
 
-- [ ] SQL logging shows expected number of queries (no N+1)
+- [ ] Generated SQL inspected with `ToQueryString()` or `LogTo` logging, and the query count before and after the change is stated (no N+1)
 - [ ] Read-only queries use `AsNoTracking()`
 - [ ] Hot-path queries use compiled queries
 - [ ] No client-side evaluation warnings in logs
 - [ ] Include/split strategy matches data shape
+- [ ] Any check that could not run is reported as described in [Checks You Could Not Run](../../references/definition-of-done.md#checks-you-could-not-run)
 
 ## Common Pitfalls
 
