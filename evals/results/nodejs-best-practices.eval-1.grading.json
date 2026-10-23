@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Async handler errors are forwarded to Express error middleware via next(err) or an async wrapper",
+      "passed": true,
+      "evidence": "app.js now defines asyncHandler = (fn) => (req,res,next) => Promise.resolve(fn(...)).catch(next) and wraps the /orders/:id handler with it."
+    },
+    {
+      "id": 2,
+      "text": "A central error-handling middleware returns a consistent JSON error body using the error's status (400/404) and 500 otherwise",
+      "passed": true,
+      "evidence": "A 4-arg error middleware computes status from err.status (valid 400-599) else 500 and responds with JSON { error: { code, message } }. Tests pass for 404, 400, and unknown route."
+    },
+    {
+      "id": 3,
+      "text": "No unhandled promise rejection is possible from the route",
+      "passed": true,
+      "evidence": "The only async route is wrapped in asyncHandler, which catches rejections and passes them to next, so none escape unhandled."
+    },
+    {
+      "id": 4,
+      "text": "Internal error details are not leaked for 500 responses",
+      "passed": true,
+      "evidence": "For status >= 500 the message is the generic 'Internal server error' with code 'internal_error'. The full error is only logged via console.error server-side."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:52:29.186Z"
+  }
+}

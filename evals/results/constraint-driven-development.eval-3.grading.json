@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The agent names axe-core and gives the install and run commands rather than only stating a violation threshold",
+      "passed": false,
+      "evidence": "The agent names axe-core and states a threshold (zero critical/serious violations, WCAG 2.0/2.1 A and AA). It gives no install or run commands and says it would leave the install step until there is an app."
+    },
+    {
+      "id": 2,
+      "text": "It notes that axe needs a running URL and asks for one, or drops the dimension if the project has no URL to hit",
+      "passed": true,
+      "evidence": "The agent says axe only works against a running URL. It asks what kind of project this is and how it will be served. For option (c), with no URL, it says it would drop the dimension."
+    },
+    {
+      "id": 3,
+      "text": "The command that produces the verdict is recorded alongside the rule in CONSTRAINTS.md",
+      "passed": false,
+      "evidence": "The agent describes a CONSTRAINTS.md row with the threshold only. It names no command and does not say a command would be recorded with the rule. Nothing has been written yet."
+    },
+    {
+      "id": 4,
+      "text": "The check is placed at the preview-deploy stage rather than in the per-edit loop",
+      "passed": true,
+      "evidence": "The agent says the accessibility row would run at the preview deploy."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:46:30.638Z"
+  }
+}

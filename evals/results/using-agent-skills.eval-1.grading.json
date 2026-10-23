@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The chosen skill matches the decision tree in the meta-skill",
+      "passed": true,
+      "evidence": "The agent chose `debugging-and-error-recovery` for a login page that broke after a deploy. It said \"Something broke?\" maps to that skill in the discovery tree. That is the expected route for a broken-behavior report."
+    },
+    {
+      "id": 2,
+      "text": "The rationale references the routing logic rather than guessing",
+      "passed": true,
+      "evidence": "The rationale cites the discovery tree's \"Something broke?\" branch. It also explains why spec, planning and implementation skills don't apply because nothing is being designed or built. The agent never read the meta-skill file in the trace, so it relied on prior knowledge of the tree. Even so, the stated reasoning is routing-based and not a guess."
+    },
+    {
+      "id": 3,
+      "text": "Core operating behaviors (assumptions surfaced) are respected",
+      "passed": true,
+      "evidence": "The agent has an explicit \"Assumptions I'm making (correct me if they're wrong)\" section with three items: the repo contains the login page and the deploy is visible, \"broken\" means a functional failure, and the user wants the root cause fixed. It also said it would need the deploy's commit or tag, or the error symptom, before it could localize the cause."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:18:54.490Z"
+  }
+}

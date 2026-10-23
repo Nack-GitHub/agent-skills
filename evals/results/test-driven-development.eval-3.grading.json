@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The repository's stack (Python, unittest) is identified before any test command is chosen",
+      "passed": true,
+      "evidence": "The agent listed files and read README.md, ledger.py and test_ledger.py (README says `python3 -m unittest`, tests import unittest). It then stated 'The repo uses stdlib unittest' before running any test command."
+    },
+    {
+      "id": 2,
+      "text": "Tests are run with the repository's own command (python3 -m unittest), not npm test or another ecosystem's tool",
+      "passed": true,
+      "evidence": "Both test runs used `python3 -m unittest 2>&1 | tail -30` from the project directory. No npm or other ecosystem tool was used."
+    },
+    {
+      "id": 3,
+      "text": "A failing test is written and shown failing before the implementation",
+      "passed": true,
+      "evidence": "The agent edited test_ledger.py to add the debit tests, then ran the suite. It showed 'FAILED (errors=3)' with 'ValueError: unsupported entry kind: debit'. Only after that did it edit ledger.py."
+    },
+    {
+      "id": 4,
+      "text": "The below-zero rule gets its own test case",
+      "passed": true,
+      "evidence": "The agent added `test_rejects_a_debit_that_drives_balance_below_zero` (debit 51 from 50 raises ValueError). It also added a separate exactly-zero test and an overdraw-before-credit test."
+    },
+    {
+      "id": 5,
+      "text": "The full suite is run after the change",
+      "passed": true,
+      "evidence": "After the ledger.py edit, the agent ran `python3 -m unittest`. All tests in the repo were run, and the result was 'Ran 8 tests ... OK'."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:18:32.050Z"
+  }
+}

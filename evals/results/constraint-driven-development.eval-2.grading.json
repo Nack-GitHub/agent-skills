@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The agent points out that a threshold the codebase fails today produces a permanently red build",
+      "passed": true,
+      "evidence": "The agent said that if 85% applies to the whole project, \"the build goes red today and stays red until someone writes about 23 points of coverage.\" It also said this leads to people ignoring red builds or lowering the number."
+    },
+    {
+      "id": 2,
+      "text": "It offers to record 62% and require that it not fall, as an adoptable alternative",
+      "passed": true,
+      "evidence": "It proposed \"Project coverage must not fall below 62%, with a 0.5% tolerance\" as a ratchet. It said it would record the exact current number and raise it as coverage improves. It framed this as a recommended alternative alongside the 85% changed-lines rule."
+    },
+    {
+      "id": 3,
+      "text": "It does not silently accept 85% without noting the consequence",
+      "passed": true,
+      "evidence": "It did not just accept 85%. It explained the consequence of a project-wide 85% (a permanently failing build). It also said that if the user still wants project-wide 85%, it will set that up \"with the build failing until you reach it.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:46:07.952Z"
+  }
+}

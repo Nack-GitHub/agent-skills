@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Keyboard interaction and focus management are implemented, not just mouse clicks",
+      "passed": true,
+      "evidence": "DropdownMenu.tsx has onTriggerKeyDown (ArrowDown/ArrowUp open with first/last focus) and onMenuKeyDown (ArrowUp/Down wrap, Home, End, Escape, Tab). close(true) returns focus to the trigger. A useEffect focuses the first or last enabled item on open. Disabled items are excluded from navigation."
+    },
+    {
+      "id": 2,
+      "text": "ARIA roles or semantic elements are used correctly",
+      "passed": true,
+      "evidence": "The trigger is a real <button> with aria-haspopup=\"menu\", aria-expanded and aria-controls (a useId id). The list is <ul role=\"menu\" aria-label>. Each <li> has role=\"none\" and holds a <button role=\"menuitem\" tabIndex={-1}>. The disabled attribute is used for disabled items. This matches the WAI-ARIA menu button pattern."
+    },
+    {
+      "id": 3,
+      "text": "Component state is managed deliberately rather than ad hoc",
+      "passed": true,
+      "evidence": "A single isOpen useState drives the menu. A pendingFocus ref records which item to focus after render. The open() and close(returnFocus) helpers centralize transitions. Effects handle focus-on-open and outside-click, and clean up their listeners. Refs are used for the DOM nodes."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:49:28.168Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Inputs get associated label elements and appropriate types and autocomplete attributes",
+      "passed": true,
+      "evidence": "The Write replaced the divs with <label for=\"email\"> and <label for=\"password\">. The email input became type=\"email\" with name and autocomplete=\"email\". The password input got name and autocomplete=\"new-password\"."
+    },
+    {
+      "id": 2,
+      "text": "The removed focus outline is replaced with a visible focus style, and the div button becomes a real button reachable by Tab",
+      "passed": true,
+      "evidence": "The rewrite removed `input:focus { outline: none; }` and added `input:focus-visible, button:focus-visible { outline: 2px solid #1a56db; outline-offset: 2px; }`. The `<div class=\"btn\" onclick>` became `<button type=\"submit\">`."
+    },
+    {
+      "id": 3,
+      "text": "Error messaging uses aria-invalid and aria-describedby (and an announced region where appropriate) with sufficient color contrast",
+      "passed": true,
+      "evidence": "The email input has aria-describedby=\"email-error\", and the error span has aria-live=\"polite\". The submit handler sets aria-invalid=\"true\". The error colour changed from #f88 to #b00020, which has high contrast on white."
+    },
+    {
+      "id": 4,
+      "text": "The findings are listed, and verification with keyboard-only navigation or an accessibility checker is described",
+      "passed": true,
+      "evidence": "The final message lists the findings with line references. It says no axe, Lighthouse, browser keyboard pass or screen reader test was run. It does describe a markup-based keyboard check: Tab order is email, password, button, and focus is visible. It does not describe how a keyboard-only or checker verification would be done, but it does address verification. This is a borderline pass."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T17:40:41.958Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The OpenTelemetry packages (hosting extensions, ASP.NET Core instrumentation, OTLP exporter) are added to OrdersApi.csproj",
+      "passed": true,
+      "evidence": "The agent ran `dotnet add package` for OpenTelemetry.Extensions.Hosting, OpenTelemetry.Instrumentation.AspNetCore, OpenTelemetry.Instrumentation.Http and OpenTelemetry.Exporter.OpenTelemetryProtocol. Each output line says 'PackageReference ... version 1.20.1 added to file .../OrdersApi.csproj'."
+    },
+    {
+      "id": 2,
+      "text": "Tracing is enabled via AddOpenTelemetry().WithTracing() with ASP.NET Core instrumentation",
+      "passed": true,
+      "evidence": "Program.cs was rewritten with `builder.Services.AddOpenTelemetry().ConfigureResource(...).WithTracing(tracing => tracing.AddAspNetCoreInstrumentation().AddHttpClientInstrumentation().AddOtlpExporter())`. The build succeeded."
+    },
+    {
+      "id": 3,
+      "text": "The resource is configured with service name orders-api and version 1.4.0",
+      "passed": true,
+      "evidence": "Program.cs calls `.ConfigureResource(resource => resource.AddService(serviceName: \"orders-api\", serviceVersion: \"1.4.0\"))`."
+    },
+    {
+      "id": 4,
+      "text": "The OTLP exporter targets http://localhost:4317, preferably from configuration rather than a hard-coded literal",
+      "passed": false,
+      "evidence": "The code calls `.AddOtlpExporter()` with no endpoint. It relies on the library default, which happens to be gRPC on localhost:4317. Nothing in Program.cs or appsettings.json sets http://localhost:4317, and appsettings.json was not touched. The endpoint is not explicitly targeted or configured, and the code comment mentions OTEL_EXPORTER_OTLP_ENDPOINT only as an override."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:45:53.567Z"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Findings are grounded in observed runtime data (console, network, DOM), not static code reading alone",
+      "passed": true,
+      "evidence": "The agent drove headless Chrome over CDP and captured the POST /api/signup request, the 500 text/html response, a console error log, an uncaught SyntaxError exception, and the DOM state (#status empty, email value retained)."
+    },
+    {
+      "id": 2,
+      "text": "The report distinguishes what was observed from what is inferred",
+      "passed": true,
+      "evidence": "The report has a separate section, 'What happened when I submitted test@example.com', for the observed network, console and DOM data. A separate 'Root cause' section covers the inferences, such as the missing response.ok check and the exception firing before the #status write. It also hedges that the hard-coded 500 'may be deliberate'. It does not label the root-cause claims as inferred, but the two parts are clearly separated."
+    },
+    {
+      "id": 3,
+      "text": "A concrete next step or fix hypothesis is provided",
+      "passed": true,
+      "evidence": "The report suggests client fixes (check response.ok, show an error in #status, wrap in try/catch) and server fixes (return JSON with a message field on errors, fix the database). It also offers to apply the fixes and re-verify them in the browser."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:44:50.393Z"
+  }
+}

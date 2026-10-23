@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "ecosystem.config.js (or .cjs) is created and points at server.js",
+      "passed": true,
+      "evidence": "Write created server-management/ecosystem.config.cjs with script: './server.js'."
+    },
+    {
+      "id": 2,
+      "text": "Cluster mode is configured (exec_mode 'cluster' with instances 'max' or 4)",
+      "passed": true,
+      "evidence": "The config sets exec_mode: 'cluster' and instances: 'max'."
+    },
+    {
+      "id": 3,
+      "text": "max_memory_restart is set to 400M per DEPLOY.md",
+      "passed": true,
+      "evidence": "The config sets max_memory_restart: '400M'. DEPLOY.md says to restart any worker above 400 MB."
+    },
+    {
+      "id": 4,
+      "text": "An env_production block sets NODE_ENV=production and PORT=8080",
+      "passed": true,
+      "evidence": "The config has env_production: { NODE_ENV: 'production', PORT: 8080 }."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:54:39.549Z"
+  }
+}

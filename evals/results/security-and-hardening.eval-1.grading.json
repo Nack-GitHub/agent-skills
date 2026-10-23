@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Trust boundaries are identified before controls are proposed",
+      "passed": false,
+      "evidence": "The agent read the code and wrote the fix, with only a one-line note that the code was a vulnerable bare fetch. It never mapped trust boundaries, such as untrusted user URL to server to internal network, before it added controls. The final summary describes what was blocked, not the boundaries."
+    },
+    {
+      "id": 2,
+      "text": "SSRF protections cover private and reserved addresses, not just scheme checks",
+      "passed": true,
+      "evidence": "webhook.js builds a net.BlockList covering IPv4 and IPv6 private, loopback, link-local (169.254/16), CGNAT, multicast, reserved, NAT64, 6to4 and ULA ranges. It checks every DNS record and pins the address at connect time with pinnedLookup. Tests cover 169.254.169.254, 127.0.0.1, ::1 and v4-mapped forms, and a real-transport check rejected localhost."
+    },
+    {
+      "id": 3,
+      "text": "Input validation is enforced at the boundary",
+      "passed": true,
+      "evidence": "parseAllowedUrl runs first in previewWebhook. It enforces URL parse validity, the https scheme, no credentials, port 443 and an exact host allowlist, and it fails closed with no allowlist. Tests cover each rejection and assert fetchImpl is never called."
+    },
+    {
+      "id": 4,
+      "text": "No secrets are logged or exposed in errors",
+      "passed": true,
+      "evidence": "WebhookRejectedError carries only the generic message 'webhook url rejected', with a short reason code. No logging was added. Neither the URL nor any credentials appear in error messages."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:12:39.875Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Findings cover more than one axis (correctness, readability, architecture, security, performance)",
+      "passed": true,
+      "evidence": "The review has findings on correctness (route shadowing, req.user crash), security (SQLi, missing auth, log injection), performance (unbounded results, LIKE scan) and architecture (a data-access layer). Its checklist table also lists each axis."
+    },
+    {
+      "id": 2,
+      "text": "Every finding carries a severity label from the skill's taxonomy",
+      "passed": false,
+      "evidence": "Findings 1-3 are under 'Critical (blocks merge)'. Items 4-8 are under 'Required changes', which is not a taxonomy label. The last section is 'Optional / Nit', with 'Consider' and 'Nit' prefixes. The skill's own taxonomy isn't visible, because the agent never loaded the review skill. Items 4-8 have no per-finding severity label, so the labeling is not consistently from a taxonomy."
+    },
+    {
+      "id": 3,
+      "text": "Security of user input is explicitly considered for the new endpoint",
+      "passed": true,
+      "evidence": "Finding 1 covers SQL injection from req.query.q with example payloads and a parameterized-query fix. Finding 5 covers input validation (undefined, array and object q). Finding 7 covers log injection through the raw query."
+    },
+    {
+      "id": 4,
+      "text": "The review leads with high-leverage findings rather than nits",
+      "passed": true,
+      "evidence": "The order is Critical blockers first (SQL injection, missing auth, route shadowing), then required changes, then the nits at the end."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:45:17.963Z"
+  }
+}

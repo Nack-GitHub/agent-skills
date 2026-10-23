@@ -1,0 +1,34 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The endpoint is defined with MapPost in Program.cs and uses a request DTO rather than binding Item directly",
+      "passed": true,
+      "evidence": "The Edit to Program.cs added app.MapPost(\"/api/items\", ... CreateItemRequest request, ItemStore store ...). CreateItemRequest is a new sealed record DTO with Name and Price, so Item is not bound directly."
+    },
+    {
+      "id": 2,
+      "text": "Invalid requests are rejected with a 400 validation problem response",
+      "passed": true,
+      "evidence": "The handler returns TypedResults.ValidationProblem(errors) when Name is blank or Price <= 0. A live curl with {\"name\":\"\",\"price\":0} returned HTTP/1.1 400 Bad Request with a validation problem body listing both errors."
+    },
+    {
+      "id": 3,
+      "text": "Produces/ProducesValidationProblem (or equivalent typed results) metadata is added for OpenAPI",
+      "passed": true,
+      "evidence": "The endpoint chains .Produces<Item>(StatusCodes.Status201Created) and .ProducesValidationProblem(). It also declares the return type Results<Created<Item>, ValidationProblem> and uses TypedResults."
+    },
+    {
+      "id": 4,
+      "text": "A successful request returns 201 Created with a Location header pointing at the GET endpoint",
+      "passed": true,
+      "evidence": "The handler returns TypedResults.Created($\"/api/items/{item.Id}\", item). A live curl with a valid body returned HTTP/1.1 201 Created with Location: /api/items/1, which matches the GET route /api/items/{id:int}."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  }
+}

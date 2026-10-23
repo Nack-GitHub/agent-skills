@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "An import-sorting rule is configured in eslint.config.js (the built-in sort-imports rule or a plugin added to devDependencies)",
+      "passed": true,
+      "evidence": "The agent rewrote eslint.config.js to import eslint-plugin-simple-import-sort and enabled 'simple-import-sort/imports' and 'simple-import-sort/exports' as 'error'. It installed the plugin with `npm install -D eslint-plugin-simple-import-sort`, which adds it to devDependencies."
+    },
+    {
+      "expectations_note": "see next",
+      "id": 2,
+      "text": "ESLint is executed against src/utils and its output is shown",
+      "passed": true,
+      "evidence": "The agent ran `npx eslint src/utils --fix; echo lint=$?` and `npm run lint`. The output shows `lint=0` and the npm lint banner, so ESLint ran against src/utils. The `--fix` run was the first run with the rule enabled, so no pre-fix violation report was shown. The command output still appeared in the trace."
+    },
+    {
+      "id": 3,
+      "text": "Import order violations in src/utils are fixed",
+      "passed": true,
+      "evidence": "The git diff shows src/utils/dates.js changed. The `./constants.js` import now comes before `./strings.js`, which fixes the order violation. The following `npm run lint` printed no errors."
+    },
+    {
+      "id": 4,
+      "text": "The test suite still passes after the lint fixes",
+      "passed": true,
+      "evidence": "`npm test` ran after the fix and reported `# tests 1`, `# pass 1`, `# fail 0`."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:50:51.343Z"
+  }
+}

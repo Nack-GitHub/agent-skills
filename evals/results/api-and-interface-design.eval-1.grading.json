@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Error responses are specified with status codes and a consistent error shape, not just happy paths",
+      "passed": true,
+      "evidence": "Each endpoint has a status table (400/401/403/404/409/410/422/429). A single APIError shape `{error:{code,message,details?}}` is defined and used throughout, and 5xx returns INTERNAL_ERROR."
+    },
+    {
+      "expectations_note": "",
+      "id": 2,
+      "text": "Input validation at the boundary is addressed for user-supplied URLs",
+      "passed": true,
+      "evidence": "CreateLinkInput states targetUrl must be an absolute http(s) URL, ≤2048 chars, with no userinfo. The 422 row lists bad URL scheme, target on own domain, and blocked target as VALIDATION_ERROR."
+    },
+    {
+      "id": 3,
+      "text": "Versioning or compatibility strategy is stated",
+      "passed": true,
+      "evidence": "The Conventions table says: URL prefix /v1, additive changes within a version, one version live at a time. The response also says clients must ignore unknown fields."
+    },
+    {
+      "id": 4,
+      "text": "The response does not silently invent unstated requirements",
+      "passed": false,
+      "evidence": "The design adds many requirements the prompt never stated, and most are not flagged as assumptions. These include required Idempotency-Key semantics with a 30-day retention, API-key bearer auth, rate limiting, custom aliases, expiresAt, bot filtering, and a 60s stats lag. The 30-day retention is justified by a '7-day dead-letter replay plus provider dispute buffer' that doesn't exist in the scenario. Only stats auth ownership is listed as an open question."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:43:42.947Z"
+  }
+}

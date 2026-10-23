@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The spec includes explicit boundaries and non-goals",
+      "passed": false,
+      "evidence": "No spec was written. The agent only wrote CAPABILITY-MAP.md, which has no boundaries or non-goals section. It only asks whether payments are in scope."
+    },
+    {
+      "id": 2,
+      "text": "Ambiguities are surfaced as questions rather than silently resolved",
+      "passed": true,
+      "evidence": "CAPABILITY-MAP.md has an 'Open decisions' table covering meters, correction rules, pricing tiers, tax and visibility, and a 'Questions for reviewer' list. The reply says nothing is decided by assumption. It does state a few assumptions, such as monthly billing, and asks the user to correct them."
+    },
+    {
+      "id": 3,
+      "text": "A testing strategy is part of the spec",
+      "passed": false,
+      "evidence": "No spec was produced and the capability map has no testing strategy. The only related text is a remark that modules 'could be verified separately'."
+    },
+    {
+      "id": 4,
+      "text": "No implementation code is written",
+      "passed": true,
+      "evidence": "The only file written was CAPABILITY-MAP.md, which is a markdown planning document with no code."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:15:58.452Z"
+  }
+}

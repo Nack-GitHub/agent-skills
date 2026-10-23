@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The response diagnoses probable context causes rather than blaming the model generally",
+      "passed": true,
+      "evidence": "The agent attributed the failures to context problems: it said the session was loading the 1,800-file archive, generated output, transcripts and all ADRs, and not the active CONTRIBUTING.md or architecture doc. It said these were the likely cause of the generic answers and that the current session was polluted by stale tool traces. It did not blame the model."
+    },
+    {
+      "id": 2,
+      "text": "A specific context-loading plan is produced (what to load, when, and why)",
+      "passed": true,
+      "evidence": "The agent wrote a CLAUDE.md that imports CONTRIBUTING.md and docs/current-architecture.md at startup. The audit file gained a 'Per-task context' section listing the handler, its Vitest file, an existing validated handler as the pattern, and any repository it calls. It also gave a 'Session practice' of starting fresh and trimming at ~75%. The rationale for each item is clear, though the 'when' is only partly explicit."
+    },
+    {
+      "id": 3,
+      "text": "Context is scoped to the task instead of loading everything",
+      "passed": true,
+      "evidence": "The CLAUDE.md says not to bulk-load docs/archive, generated output, transcripts or the full ADR set, and to open a specific ADR only when the task touches it. The per-task context for the handler-validation task is limited to four items."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:46:26.788Z"
+  }
+}

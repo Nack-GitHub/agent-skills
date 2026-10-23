@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Claims about framework behavior cite official documentation",
+      "passed": true,
+      "evidence": "The agent fetched the official Express pages (session middleware, best-practice-security, behind-proxies, migrating-5). The code comments and the final summary cite those URLs for MemoryStore, secret rotation, cookie options, trust proxy and clearCookie. It also marks the connect-redis README as the store's own repo, not an Express page."
+    },
+    {
+      "id": 2,
+      "text": "Unverified assumptions are flagged rather than presented as fact",
+      "passed": true,
+      "evidence": "The summary has an 'Unverified assumptions' list: proxy hop count, HTTPS everywhere, Redis availability and the untested redis ^6.3.0 pairing, the placeholder login, the TTL mismatch, and CSRF and rate limiting not covered. The code carries an 'ASSUMPTION (unverifiable from repo)' comment. It also says the code was not run and that the 1 hour and lax values are its own picks."
+    },
+    {
+      "id": 3,
+      "text": "Deprecated patterns are avoided in favor of documented current ones",
+      "passed": true,
+      "evidence": "The code sets resave:false and saveUninitialized:false explicitly because the docs call the defaults deprecated. It avoids MemoryStore and the default cookie name. It uses the Express 5 async style, ES module imports, regenerate on login, and clearCookie without maxAge or expires."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:15:23.740Z"
+  }
+}

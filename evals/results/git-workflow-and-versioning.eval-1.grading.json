@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Refactor, fix, and feature land as separate commits",
+      "passed": true,
+      "evidence": "The agent made three commits on branch feature/csv-export: cbc2064 \"refactor: extract sumPrices from total\", 234e08d \"fix: round total to two decimals\", and 0e6fa95 \"feat: add exportCsv for item prices\". Each contains only its own change to app.js."
+    },
+    {
+      "id": 2,
+      "text": "Commit messages are imperative and standalone",
+      "passed": true,
+      "evidence": "The subjects use imperative verbs (\"extract\", \"round\", \"add\") and the refactor and fix commits have bodies that explain why. Each message makes sense without the others. The \"refactor:\", \"fix:\" and \"feat:\" prefixes are conventional-commit tags. The refactor body says \"so the next change can...\", which refers to a following commit but is still understandable alone."
+    },
+    {
+      "id": 3,
+      "text": "Each commit leaves the tree in a working state",
+      "passed": true,
+      "evidence": "Before each commit the agent ran `node --test` and chained the commit on its success. The output shows \"# pass 1 / # fail 0\" three times, once per commit, and the commits were made after those runs. The final git status was clean."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  }
+}

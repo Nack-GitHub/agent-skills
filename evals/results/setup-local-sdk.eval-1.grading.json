@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "global.json is valid JSON that pins the 8.0.4xx band (version plus a rollForward policy such as latestPatch)",
+      "passed": false,
+      "evidence": "No global.json was created. The agent only ran read-only commands (ls, cat, git ls-files) and then stopped to ask the user which option to take."
+    },
+    {
+      "id": 2,
+      "text": "The preview SDK is installed or scripted into ./.dotnet using the dotnet-install script with an install-dir, not a system installer",
+      "passed": false,
+      "evidence": "The agent ran no dotnet-install command and wrote no install script. `./.dotnet` was confirmed missing (\"not found\") and remained so."
+    },
+    {
+      "id": 3,
+      "text": "PATH or DOTNET_ROOT routing for the local SDK is configured or documented and verified with dotnet --info or --list-sdks",
+      "passed": false,
+      "evidence": "No PATH or DOTNET_ROOT configuration was written or documented, and neither `dotnet --info` nor `dotnet --list-sdks` was run. The only dotnet call was `dotnet --version`, which printed 10.0.402."
+    },
+    {
+      "id": 4,
+      "text": "Nothing is installed or changed in the system-wide dotnet location",
+      "passed": true,
+      "evidence": "The agent made no installs or file changes at all. The only commands were read-only inspections, so the system dotnet was untouched."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 3,
+    "total": 4,
+    "pass_rate": 0.25
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:13:18.911Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The N+1 pattern (one OrderItems query per order) is identified as the cause",
+      "passed": true,
+      "evidence": "The final summary says the method loaded orders then ran a separate OrderItems query inside the loop per order, giving 1 + N queries."
+    },
+    {
+      "id": 2,
+      "text": "The query is rewritten as a single projection (Select into OrderSummary) or eager load (Include) so it issues one round trip",
+      "passed": true,
+      "evidence": "The Edit replaced the loop with db.Orders.Where(...).Select(o => new OrderSummary(o.Id, o.CustomerEmail, o.Items.Count, o.Items.Sum(...))).ToListAsync(). That is a single projection query."
+    },
+    {
+      "id": 3,
+      "text": "The read-only path avoids change tracking (projection or AsNoTracking)",
+      "passed": true,
+      "evidence": "The rewritten query includes .AsNoTracking() and also uses a projection."
+    },
+    {
+      "id": 4,
+      "text": "The resulting SQL or query count is inspected or explained (for example ToQueryString or logging)",
+      "passed": true,
+      "evidence": "The agent did not inspect SQL; it said ToQueryString and LogTo could not run because the project has no database provider. It did explain the expected query count (1 instead of 1 + N), with the count and sum computed in SQL. It suggested LogTo to confirm. This meets the 'explained' part of the expectation."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T16:47:26.519Z"
+  }
+}

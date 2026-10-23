@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Each format is a separate strategy class or callable implementing a common Protocol or ABC, selected through a registry",
+      "passed": true,
+      "evidence": "exporter.py defines an ExportStrategy Protocol, with separate CsvStrategy and JsonStrategy classes. The Exporter holds a dict registry (self._strategies) populated via register() and the constructor, and dispatches by format name."
+    },
+    {
+      "id": 2,
+      "text": "Type hints describe the strategy contract and the client API",
+      "passed": true,
+      "evidence": "ExportStrategy.export(self, rows: Rows) -> str is typed, and a Rows alias is defined. Exporter.__init__, register and export, plus the module-level export(), are all annotated with parameter and return types."
+    },
+    {
+      "id": 3,
+      "text": "An unknown format raises a specific exception instead of returning None, and a test covers it",
+      "passed": true,
+      "evidence": "UnknownFormatError(ValueError) is raised in Exporter.export on KeyError. test_unknown_format uses pytest.raises(UnknownFormatError, match=\"xml\") and passed."
+    },
+    {
+      "id": 4,
+      "text": "The existing tests pass (pytest is run) and the code follows PEP 8",
+      "passed": true,
+      "evidence": "pytest was run in a scratch venv after the system python lacked it, and 4 passed. The code looks PEP 8 compliant: 4-space indents, two blank lines between top-level definitions, and lines under 80 characters. The one line near the limit is the Exporter.__init__ signature, which is about 83 characters. That is a minor overrun of 79 but within the 88-char black convention, and no linter was run."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:54:04.610Z"
+  }
+}

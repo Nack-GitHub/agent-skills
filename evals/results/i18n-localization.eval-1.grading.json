@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "An i18n setup module initializes i18next/react-i18next with en and ja resources",
+      "passed": true,
+      "evidence": "The agent created src/i18n.js, which calls i18n.use(initReactI18next).init({...}). Its resources object has en and ja entries built from the imported en/ja checkout.json files."
+    },
+    {
+      "id": 2,
+      "text": "Translation keys are structured logically in JSON or resource objects, with plural forms for the item count",
+      "passed": true,
+      "evidence": "The agent created src/locales/en/checkout.json and src/locales/ja/checkout.json with keys title, total, pay and language. The English file has itemCount_one and itemCount_other. The Japanese file has itemCount_other only, which fits Japanese's single plural category."
+    },
+    {
+      "id": 3,
+      "text": "Checkout.jsx uses the translation hook instead of hard-coded strings, and the total uses locale-aware currency formatting",
+      "passed": true,
+      "evidence": "Checkout.jsx calls useTranslation('checkout') and renders all text through t('title'), t('itemCount', {count}), t('total', {amount}) and t('pay'). The amount comes from new Intl.NumberFormat(i18n.language, {style:'currency', currency:'USD'}).format(total). The currency is fixed to USD, but the formatting follows the locale."
+    },
+    {
+      "id": 4,
+      "text": "A language switching utility or control is implemented",
+      "passed": true,
+      "evidence": "Checkout.jsx has a <select> that lists supportedLanguages and calls i18n.changeLanguage(e.target.value) on change. i18n.js also stores the chosen language in localStorage and updates <html lang> and dir through a languageChanged listener."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:50:13.010Z"
+  }
+}

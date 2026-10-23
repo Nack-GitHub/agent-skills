@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "A test reproducing the lost-cent case from BUG.md is added and shown failing before src/split.js is modified",
+      "passed": true,
+      "evidence": "The agent appended a test for splitCents(10000, 3) == [3334, 3333, 3333] and ran npm test. Output showed 'not ok 3..6' and '# fail 4'. Only after that did it overwrite src/split.js."
+    },
+    {
+      "expectations_note": "",
+      "id": 2,
+      "text": "The final implementation satisfies the full README fairness invariant (leftover cents go to the earliest shares): splitCents(10000, 3) returns [3334, 3333, 3333] as BUG.md expects and splitCents(100, 7) returns [15, 15, 14, 14, 14, 14, 14] as the README example shows; dumping the whole remainder on a single share would violate both",
+      "passed": true,
+      "evidence": "The implementation computes share = floor(total/n) and remainder, then gives share+1 to indices i < remainder. That yields [3334,3333,3333] and [15,15,14,14,14,14,14]. The tests for both passed (6 pass, 0 fail)."
+    },
+    {
+      "id": 3,
+      "text": "The fairness invariant from the README has its own test case in the suite on an input with remainder of at least 2 (such as splitCents(100, 7)), where dumping the whole remainder on one share would fail it, beyond the reported lost-cent case",
+      "passed": true,
+      "evidence": "The agent added 'distributes multiple leftover cents to the earliest shares, one each', which asserts splitCents(100, 7) deepEquals [15,15,14,14,14,14,14]. The remainder is 2, so dumping it all on one share would fail. It also added a sweep test and a splitCents(2, 4) test."
+    },
+    {
+      "id": 4,
+      "text": "The full suite is run with the repository's own command after the fix",
+      "passed": true,
+      "evidence": "After rewriting src/split.js, the agent ran `npm test`, which is the package.json script ('node --test'). The output showed '# pass 6 # fail 0'."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:17:26.827Z"
+  }
+}

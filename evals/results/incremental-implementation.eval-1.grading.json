@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Work proceeds in thin vertical slices rather than one large change",
+      "passed": true,
+      "evidence": "The agent split the work into the plan's tasks: slice 1 was the reportsToCsv formatter with tests, and slice 2 was the downloadCsv adapter with its own test. It stopped before task 3 because there was no reports page. Each slice was small."
+    },
+    {
+      "id": 2,
+      "text": "Each slice is verified (tests or build) before the next begins",
+      "passed": true,
+      "evidence": "It ran the baseline tests first. Slice 1 ended with `node --test`, which showed 4 pass and 0 fail. Slice 2 ended with `node --test`, which showed 5 pass and 0 fail. Each run came before the corresponding commit and before the next slice began."
+    },
+    {
+      "id": 3,
+      "text": "Each slice is committed separately",
+      "passed": true,
+      "evidence": "Slice 1 was committed as b3659dc 'Add reportsToCsv formatter', touching reports.js and reports.test.js. Slice 2 was committed as db04278 'Add downloadCsv browser adapter', touching download.js and download.test.js. These are two separate commits."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:50:34.624Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The workflow triggers on pull requests",
+      "passed": true,
+      "evidence": "The written ci.yml has `on: pull_request: branches: [main]` (plus push to main)."
+    },
+    {
+      "id": 2,
+      "text": "Failure of any quality gate fails the pipeline run",
+      "passed": true,
+      "evidence": "Lint, test and audit are plain `run` steps in one job: `npm run lint`, `npm test`, `npm audit --audit-level=high`. None uses `continue-on-error` or `|| true`, so any non-zero exit fails the job and the run."
+    },
+    {
+      "id": 3,
+      "text": "Steps are ordered logically and cache or setup steps are sane",
+      "passed": true,
+      "evidence": "Order is checkout, setup-node (Node 22, npm cache, cache-dependency-path pointing at the generated package-lock.json), `npm ci`, lint, test, audit. The agent created a lockfile so `npm ci` and the cache work, and set `defaults.run.working-directory` to the subproject."
+    },
+    {
+      "id": 4,
+      "text": "No secrets are hardcoded in the workflow",
+      "passed": true,
+      "evidence": "The workflow contains no tokens, passwords or keys. Its only expression is `${{ github.ref }}` in the concurrency group, and permissions are `contents: read`."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:44:48.955Z"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The ADR states context, decision, alternatives, and consequences distinctly",
+      "passed": true,
+      "evidence": "The written ADR has separate '## Context', '## Decision', '## Alternatives Considered', and '## Consequences' sections, each with its own content."
+    },
+    {
+      "id": 2,
+      "text": "Trade-offs and rejected options are recorded, not just the winning choice",
+      "passed": true,
+      "evidence": "The 'Alternatives Considered' section lists the audit table and CDC options with Pros, Cons and 'Not chosen' reasons. The Consequences section lists benefits and costs, including eventual consistency, projection rebuilds, event versioning, and the open reporting-service issue."
+    },
+    {
+      "id": 3,
+      "text": "The ADR records a status from the skill's lifecycle (Proposed, Accepted, Superseded or Deprecated) and a date",
+      "passed": true,
+      "evidence": "The ADR has '## Status' set to 'Accepted' and '## Date' set to '2026-10-22'."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:47:41.953Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Get-ChildItem -Recurse -File with a LastWriteTime filter and Remove-Item are used correctly",
+      "passed": true,
+      "evidence": "Script uses `Get-ChildItem -LiteralPath $root -Recurse -File -Force | Where-Object { $_.LastWriteTime -lt $cutoff }` and `Remove-Item -LiteralPath $full -Force -ErrorAction Stop`."
+    },
+    {
+      "id": 2,
+      "text": "Parameters are validated (mandatory existing path, positive day count) and SupportsShouldProcess enables -WhatIf",
+      "passed": true,
+      "evidence": "`[CmdletBinding(SupportsShouldProcess = $true)]`, `[Parameter(Mandatory = $true)] $Path` with a Test-Path Container check that throws if missing, and `[ValidateRange(0, 36500)] $Days`. The range allows 0, so the day count is not strictly positive. The path check runs in the body rather than in a ValidateScript attribute, but it still validates the path exists."
+    },
+    {
+      "id": 3,
+      "text": "Errors are handled with try/catch (or -ErrorAction Stop) without aborting the whole run on one locked file",
+      "passed": true,
+      "evidence": "Each file's Remove-Item sits in its own try/catch with `-ErrorAction Stop`. The catch increments `$failed` and logs, and the loop continues. The exit code 2 is applied only after the loop."
+    },
+    {
+      "id": 4,
+      "text": "Each removed file is logged with Write-Verbose or Write-Information, and a -WhatIf dry run against sample/ is shown",
+      "passed": false,
+      "evidence": "Logging goes through a custom Write-Log that uses Write-Output and Add-Content, not Write-Verbose or Write-Information. No -WhatIf dry run was executed because pwsh was not installed. The agent only gave dry-run instructions in prose, so no dry-run output was shown."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:53:49.593Z"
+  }
+}

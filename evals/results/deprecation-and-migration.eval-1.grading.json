@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Consumers are notified with a timeline before any breaking change",
+      "passed": true,
+      "evidence": "Section 3 announces at week 8 (~2026-12-17) by emailing each consumer with per-consumer v1 endpoint usage. It also posts docs, changelog and status-page notices and adds Deprecation/Sunset headers stating the sunset date. All of this happens about 10 months before the ~Oct 2027 sunset. A timeline table and reminder waves at T-6mo and T-1mo are included."
+    },
+    {
+      "id": 2,
+      "text": "A compatibility or migration window exists with monitoring of remaining usage",
+      "passed": true,
+      "evidence": "The plan sets a roughly 12-month migration window (Dec 2026–Jul 2027, with sunset in Oct 2027). Section 1 instruments v1 with per-key and per-endpoint counts and a dashboard. Section 4 tracks per-consumer migration status. It also suggests an optional v1-compat adapter and fallback routing during the window."
+    },
+    {
+      "id": 3,
+      "text": "Removal is gated on measured migration, not a calendar date alone",
+      "passed": true,
+      "evidence": "Section 5 says to proceed only when the gate is met: v1 traffic is at or near zero, every remaining key is accounted for, and brownouts have run clean. The usage dashboard is described as the gate for removal. The pre-removal checklist requires all 200 consumers to be migrated or accounted for, verified by metrics and logs. Removal is also staged, with a 410 Gone before the code is deleted."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:47:43.134Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "On-call questions are written before instrumentation is added",
+      "passed": true,
+      "evidence": "The agent read operations.md (listing the on-call questions) before writing any code, stated it would map each signal to those questions, and the telemetry file header maps Q1–Q4 to specific signals before the instrumentation code. It did not write a new questions list, but it used the existing one first."
+    },
+    {
+      "id": 2,
+      "text": "Logs are structured events with a correlation id, not prose strings",
+      "passed": true,
+      "evidence": "The console.log prose string was replaced with a JSON logger. Each line carries a stable `event` name (charge_attempt_failed, payment_retry_exhausted) plus requestId, paymentId and entryPoint. The run output showed JSON lines with requestId 'req-1'. error.message was omitted."
+    },
+    {
+      "id": 3,
+      "text": "Metrics avoid unbounded label cardinality",
+      "passed": true,
+      "evidence": "Metric labels are gateway, outcome and failure_class. failure_class comes from a fixed enum of 6 values via classifyFailure. paymentId and requestId are not used as metric labels and appear only in logs and spans."
+    },
+    {
+      "id": 4,
+      "text": "Alerts are symptom-based and actionable",
+      "passed": true,
+      "evidence": "The page alert fires on exhaustion rate above 2% for 5m, which is a user-facing symptom. The second alert is a ticket-severity alert on retries after ambiguous failures. Both have runbook annotations and runbook files with first-check queries and escalation. The thresholds are flagged as placeholders. The duplicate-charge alert is a weaker proxy for the symptom, but it is still actionable."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:53:07.775Z"
+  }
+}

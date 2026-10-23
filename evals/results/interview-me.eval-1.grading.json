@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Questions are asked one at a time, not in batches",
+      "passed": true,
+      "evidence": "The agent asked a single explicit question: \"Is this a redesign of an existing admin page, or a new one from scratch?\" The other unknowns (who uses it, what's wrong, what \"better\" means) were listed as missing information under CONFIDENCE, not asked as questions."
+    },
+    {
+      "id": 2,
+      "text": "The agent does not propose solutions before understanding the need",
+      "passed": true,
+      "evidence": "The agent proposed no solution, design, or implementation. It gave a hypothesis about the need, a low confidence of ~15%, and one clarifying question. The GUESS is a guess about the user's situation (a redesign of an internal tool), not a solution."
+    },
+    {
+      "id": 3,
+      "text": "The interview surfaces the underlying goal behind the stated ask",
+      "passed": true,
+      "evidence": "The agent said \"'better' is standing in for a specific pain you've run into\" and listed what is missing: who uses the page, what is wrong today, and whether \"better\" means faster, safer, prettier, or more capable. The question it asked aims at what exists and why it is annoying. This is only the first turn, so the underlying goal is not yet found, but the agent is clearly probing for it rather than accepting the surface request."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:50:22.332Z"
+  }
+}

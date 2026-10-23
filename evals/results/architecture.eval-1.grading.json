@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "An ADR file is added under docs/adr/ following the README's numbering, with Status, Context, Decision, and Consequences sections",
+      "passed": true,
+      "evidence": "Created architecture/docs/adr/0001-report-scheduler-job-lock.md. The README, which lives in that same docs/adr directory, says to number ADRs 0001-short-title.md. The file has ## Status, ## Context, ## Decision and ## Consequences sections. The path is architecture/docs/adr/, not a top-level docs/adr/, but it sits beside the existing README, so it follows the convention."
+    },
+    {
+      "id": 2,
+      "text": "The trade-offs of Redis versus PostgreSQL locks are evaluated against the stated constraints (unowned non-persistent Redis, duplicate runs being unrecoverable, low contention)",
+      "passed": true,
+      "evidence": "The ADR has an options section covering Redis (SET NX/Redlock), advisory locks and a lease table. It says Redis has no persistence and lost keys in two restarts, so locks vanish and cause duplicates. It says nobody owns or has run Redis. It states the failure asymmetry (duplicate unrecoverable, missed run recoverable). It notes about 200 starts a night, so low contention and performance is not a differentiator."
+    },
+    {
+      "id": 3,
+      "text": "The decision favors operational simplicity for a two-person team and names the chosen mechanism (for example PostgreSQL advisory locks or a lease table)",
+      "passed": true,
+      "evidence": "The Decision section says to use a PostgreSQL lease table on the existing primary and not Redis. The Consequences section cites no new infrastructure or on-call burden, existing backups and monitoring, and fit with the team's expertise. The Context section names the two-engineer team."
+    },
+    {
+      "id": 4,
+      "text": "No lock implementation code is written",
+      "passed": true,
+      "evidence": "The only file written was the ADR markdown. It has one inline SQL fragment (INSERT ... ON CONFLICT ... WHERE lease_expires_at < now()) used as an illustrative design constraint. It has no implementation code, and the ADR states the lock is not implemented by it."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:43:43.633Z"
+  }
+}

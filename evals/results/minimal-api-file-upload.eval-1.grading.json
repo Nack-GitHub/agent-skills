@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The endpoint is created with MapPost and accepts IFormFile (or a streamed body) with antiforgery handled explicitly",
+      "passed": true,
+      "evidence": "Uses app.MapPost(\"/api/contracts\", async (IFormFile file) => ...) and explicitly calls .DisableAntiforgery() with a comment explaining why (cookie-less, unauthenticated API) and what to do if cookie auth is added."
+    },
+    {
+      "id": 2,
+      "text": "Size is limited to 5 MB and content is verified as PDF by its signature, not only by extension or Content-Type",
+      "passed": true,
+      "evidence": "MaxFileBytes = 5*1024*1024 is enforced in the handler (413), and Kestrel and FormOptions limits are set. The handler reads the first 5 bytes and compares them to \"%PDF-\". Curl showed a .pdf file containing 'hello' returned 400."
+    },
+    {
+      "id": 3,
+      "text": "Files are saved under ./uploads with a server-generated name",
+      "passed": true,
+      "evidence": "The handler writes to Path.Combine(\"uploads\", $\"{Guid.NewGuid()}.pdf\") after Directory.CreateDirectory(\"uploads\"). The client file name is never used. The curl test listed a GUID-named file in uploads."
+    },
+    {
+      "id": 4,
+      "text": "Failures return problem-details responses with correct status codes (400, 413 or 415)",
+      "passed": true,
+      "evidence": "The handler uses Results.Problem with 400, 413 and 415. AddProblemDetails and UseStatusCodePages are configured. Curl returned problem JSON with 400 and 415. The Kestrel 413 was also problem-details JSON ({\"title\":\"Payload Too Large\",\"status\":413}), though it had no detail field."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:51:16.351Z"
+  }
+}

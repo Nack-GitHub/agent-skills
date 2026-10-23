@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "A capability map with module ids and their dependencies is proposed before any full spec is written",
+      "passed": true,
+      "evidence": "The agent wrote CAPABILITY-MAP.md with a table of module ids (identity, billing, notifications, reporting) and a 'Depends on' column. It wrote no module spec."
+    },
+    {
+      "id": 2,
+      "text": "Dependency direction is one-way (no cycles) and drives the proposed build order",
+      "passed": true,
+      "evidence": "The dependencies form a DAG: identity has none, billing depends on identity, notifications on identity and billing, reporting on all three. The build order identity → billing → notifications → reporting follows that order. The file says 'Dependencies run one way with no cycles' and that billing emits events instead of calling notifications."
+    },
+    {
+      "id": 3,
+      "text": "Approval of the map is requested before per-module specs are drafted",
+      "passed": true,
+      "evidence": "The map is marked 'DRAFT, awaiting human review. No module spec is written until this map is approved.' The final message says 'Please approve the map or tell me what to change' and that SPEC-identity.md comes only after approval."
+    },
+    {
+      "id": 4,
+      "text": "Any module spec produced is scoped to a single module rather than restating the whole initiative",
+      "passed": true,
+      "evidence": "No module spec was produced, so there is nothing that could restate the whole initiative. The map only plans one spec per module (SPEC-<module id>.md), so the expectation holds vacuously."
+    },
+    {
+      "id": 5,
+      "text": "No implementation code is written",
+      "passed": true,
+      "evidence": "The only file written was CAPABILITY-MAP.md, a markdown planning document. There were no code files or implementation edits."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:16:32.220Z"
+  }
+}

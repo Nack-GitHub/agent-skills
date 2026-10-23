@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The bottleneck is identified (all 10,000 rows rendered and re-rendered on each keystroke) before changing code",
+      "passed": false,
+      "evidence": "The agent read the source files and then immediately wrote the changes in its next tool call. The bottleneck only appears in the final summary, after the edits. The only reasoning before the edit was an empty thinking block, so nothing showed the diagnosis coming first."
+    },
+    {
+      "id": 2,
+      "text": "The list is virtualized or paginated, and the heavy ChartPanel is loaded with next/dynamic or otherwise deferred",
+      "passed": true,
+      "evidence": "page.tsx now windows the list by hand with scrollTop, start/end slicing and overscan, so it mounts about 25 rows. ChartPanel is loaded with `dynamic(() => import('./ChartPanel').then(...))`."
+    },
+    {
+      "id": 3,
+      "text": "Unnecessary re-renders are removed (memoized rows and callbacks, deferred or transitioned filtering)",
+      "passed": true,
+      "evidence": "ProductRow is wrapped in memo. onSelect is a stable useCallback that takes the id. The filter uses useDeferredValue and useMemo."
+    },
+    {
+      "id": 4,
+      "text": "The change states how the improvement is verified (React Profiler or INP/LCP measurement)",
+      "passed": true,
+      "evidence": "The final message says that before and after numbers (React Profiler render counts, INP) still need to be taken. It tells the user to run `npm install && next build` and profile the typing interaction in a browser. Nothing was measured, but it does state the verification method."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T17:40:04.882Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Sharpening questions are asked before converging",
+      "passed": true,
+      "evidence": "The agent asked five sharpening questions (who, concrete pain, what was tried, success in 3 months, constraints). It explicitly declined to generate variations until they were answered."
+    },
+    {
+      "id": 2,
+      "text": "Hidden assumptions are surfaced explicitly",
+      "passed": true,
+      "evidence": "It pointed out that 'share knowledge better' hides several distinct problems: findability, capture, staleness, and timing. It also noted that a wiki, a Slack bot, and a meeting ritual all fit the sentence. The restated How Might We includes a 'without extra documentation work' constraint. Question 3 distinguishes 'nobody maintains it' from 'nobody can find anything'."
+    },
+    {
+      "id": 3,
+      "text": "The output includes an explicit Not Doing list",
+      "passed": false,
+      "evidence": "The turn is only the Phase 1 questions. It contains no 'Not Doing' list or equivalent section of things being excluded."
+    },
+    {
+      "id": 4,
+      "text": "The agent pushes back on weak aspects instead of only agreeing",
+      "passed": true,
+      "evidence": "The agent challenged the vague framing by saying the goal hides several different problems. It also previewed uncomfortable options such as 'the best knowledge tool is no new tool'. This is mild pushback, but it did not simply accept the idea."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:50:05.811Z"
+  }
+}

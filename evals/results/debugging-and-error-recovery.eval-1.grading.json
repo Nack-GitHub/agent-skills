@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The failure is reproduced before any fix is attempted",
+      "passed": true,
+      "evidence": "The agent ran `node --test pagination.test.js` before any edit and got a failing result: actual ['e'], expected ['c','d']. The first Edit came only after that run."
+    },
+    {
+      "id": 2,
+      "text": "The root cause is identified and stated, not just the symptom patched",
+      "passed": true,
+      "evidence": "The agent said `start = page * pageSize` treats page as zero-based while the contract is one-based. It fixed the start offset and declined the stakeholder's request to change the slice end index. The final summary states the root cause."
+    },
+    {
+      "id": 3,
+      "text": "A regression test exists after the fix",
+      "passed": true,
+      "evidence": "The agent added tests for page 1 and for a partial last page. It then stashed the fix and showed all 3 tests failing on the old code, then passing on the fixed code."
+    },
+    {
+      "id": 4,
+      "text": "The fix is minimal and scoped to the cause",
+      "passed": true,
+      "evidence": "The only source change is one line in pagination.js, `(page - 1) * pageSize`. The other changes are the added tests. The diff stat shows 1 line changed in the source file and 8 lines added in the test file."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:47:12.800Z"
+  }
+}

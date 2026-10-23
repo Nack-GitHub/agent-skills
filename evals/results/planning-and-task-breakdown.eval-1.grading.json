@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Every task has acceptance criteria",
+      "passed": true,
+      "evidence": "In tasks/todo.md, Tasks 0 through 7 each have an \"Acceptance criteria\" section with checkbox items, plus a Verification section."
+    },
+    {
+      "id": 2,
+      "text": "Tasks are ordered by dependency",
+      "passed": true,
+      "evidence": "Each task lists its dependencies and every dependency points to an earlier task. Task 0 comes first, then 1 and 2, then 3 and 4. Task 5 depends on 2 and 3, Task 6 on 4 and 5, and Task 7 on 2 and 3 and is sequenced after 6. The jobs store and worker come before the event wiring."
+    },
+    {
+      "id": 3,
+      "text": "Tasks are vertical slices rather than horizontal layers",
+      "passed": true,
+      "evidence": "Most tasks cut through storage, endpoint or logic, and tests, for example Task 1 (migration, model, route, test) and Task 5 (hook, publisher, test). Task 3 (flag plus job store) and Task 4 (worker plus delivery status) are somewhat infrastructural, but each is independently testable and delivers behaviour (dedup, send and record). Task 0 is a docs-only setup task. Overall the plan is slice-oriented, not layer-based (no separate DB, API and UI tasks)."
+    },
+    {
+      "id": 4,
+      "text": "No implementation code is written during planning",
+      "passed": true,
+      "evidence": "The only Write calls created tasks/plan.md and tasks/todo.md, which are markdown planning documents. No source or test files were created. The \"Files likely touched\" entries are placeholder paths, and the agent's summary says no code was written."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:53:59.132Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "build.binlog is read with a binlog tool (binlog MCP server, MSBuild Structured Log Viewer CLI, or dotnet msbuild replay) rather than guessed from the source",
+      "passed": true,
+      "evidence": "The agent ran `dotnet msbuild build.binlog -noconlog -fl -flp:\"v=diag;...\"` to replay the binlog into text logs. It then grepped and read the replayed log."
+    },
+    {
+      "id": 2,
+      "text": "The failing target (GenerateBuildInfo in Inventory.Api) and error INV001 are identified from the log",
+      "passed": true,
+      "evidence": "The replayed log showed `Done building target \"GenerateBuildInfo\" in project \"Inventory.Api.csproj\" -- FAILED` and `error INV001`. The final answer names both."
+    },
+    {
+      "id": 3,
+      "text": "The root cause is explained: the BuildChannel property is empty",
+      "passed": true,
+      "evidence": "The final answer says nothing defines `BuildChannel`, so the target's condition `'$(BuildChannel)' == ''` is true and the Error task fires. It also notes no Directory.Build.props exists and no -p: was passed."
+    },
+    {
+      "id": 4,
+      "text": "A concrete mitigation is recommended (pass -p:BuildChannel=stable or set a default in the project)",
+      "passed": true,
+      "evidence": "The final answer recommends `dotnet build Inventory.sln -p:BuildChannel=stable` and, as an alternative, a default `<BuildChannel Condition=\"'$(BuildChannel)' == ''\">stable</BuildChannel>` in the project's PropertyGroup."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:44:38.601Z"
+  }
+}

@@ -138,3 +138,38 @@ Case อยู่ใน `evals/plugin/` (118 case × 3 run = 354 run, ไม่�
 | case เดิมของ upstream | 2/5 | 7/15 |
 
 ข้อสรุป: ไม่มีการเลือกผิด skill เลย (quiet ผ่าน 100%) ปัญหาเดียวคือ **under-triggering** ใน 27 case: skill อยู่ในรายการที่ model เห็น แต่ model เลือกทำงานเองโดยไม่เรียก Skill tool (ตรวจจาก trace ของ `routing-architecture-fires`) case เดิมของ upstream ก็เป็นแบบเดียวกัน (`code-review-fires` 1/3, `tdd-fires-on-pasted-bug` 0/3) จึงเป็นพฤติกรรมของ model กับ plugin นี้โดยรวม ไม่ใช่ผลจาก description ที่แก้ใน sync นี้ สาเหตุที่เป็นไปได้คือข้อ 5.3 ที่ upstream เลิก inject `using-agent-skills` ตอน SessionStart แต่ยังไม่ได้พิสูจน์
+
+## 7. อัปเดต 2026-10-24: แก้ skill ตามผล Tier 3 และวัดซ้ำ
+
+แก้ตามกลุ่ม "พฤติกรรมที่ขาดจริง" ในข้อ 6 รายละเอียดว่าแก้อะไรและทำไมอยู่ใน [fork-maintenance-notes.md](fork-maintenance-notes.md)
+
+- **กฎกลาง:** เพิ่มหัวข้อ "Checks You Could Not Run" ใน `references/definition-of-done.md` ถ้ารันเช็คเองไม่ได้ ต้องให้คำสั่งและผลที่ถือว่าผ่าน และบอกว่า "not verified" skill ทั้ง 5 ตัวด้านล่างลิงก์มาที่หัวข้อนี้
+- **doubt-driven-development:** ข้อกล่าวอ้างในแผนนับเป็นส่วนของ artifact ต้องทดสอบด้วย tool อย่างน้อย 1 ข้อ สรุปเป็นตาราง verified / refuted / surviving doubt และถามเรื่อง cross-model หลังให้ผลสรุปเบื้องต้นแล้ว
+- **performance-optimization:** ไม่มี CI ก็ต้องเขียน guard เป็น test หรือ script ไว้ใน repo
+- **nextjs-react-expert:** วัดผลก่อนและหลังด้วย Profiler หรือ INP/LCP
+- **optimizing-ef-core-queries:** ดู SQL ด้วย `ToQueryString()` หรือ `LogTo`
+- **tailwind-patterns, web-design-guidelines:** เพิ่ม section Verification ซึ่งเดิมไม่มี
+
+ผลวัดซ้ำ (Tier 3 model `sonnet` รันครั้งเดียว):
+
+| Skill | ก่อนแก้ | หลังแก้ |
+|---|---|---|
+| doubt-driven-development | 0/3 | 3/3 |
+| performance-optimization | 3/4 | 4/4 |
+| optimizing-ef-core-queries | 3/4 | 4/4 |
+| tailwind-patterns | 3/4 | 4/4 |
+| nextjs-react-expert | 3/4 | 3/4 |
+| web-design-guidelines | 3/4 | 3/4 |
+| **รวม** | **15/23** | **21/23** |
+
+ข้อที่ตั้งใจแก้ผ่านครบทุกตัว nextjs-react-expert กับ web-design-guidelines ยังได้ 3/4 แต่ไม่ผ่านคนละข้อกับรอบก่อน:
+- nextjs-react-expert ไม่ได้ระบุคอขวดก่อนแก้โค้ด
+- web-design-guidelines ไม่ได้ใส่ `aria-invalid` ให้ช่องที่ข้อมูลผิด
+
+แก้สองข้อนี้แล้ว (ระบุคอขวดก่อนแก้ใน Phase 1 และเพิ่มเรื่อง error ของฟอร์มใน Verification) แล้ววัดซ้ำ:
+- web-design-guidelines ผ่าน **4/4**
+- nextjs-react-expert ยังได้ 3/4 agent อ่านไฟล์แล้วแก้ทันที บอกว่าคอขวดอยู่ตรงไหนแค่ในสรุปท้ายงาน grader ต้องการเห็นการวินิจฉัย *ก่อน* แก้โค้ด กฎใน Phase 1 ไม่ได้บอกว่าต้องเขียนออกมาให้เห็นก่อนแก้
+
+รวม 6 skill ในรอบล่าสุดผ่าน **22/23**
+
+ระหว่างแก้ description ของสกิลนำเข้า 9 ตัว `run-evals.js` เคยตกจาก 100% เหลือ 96% (154/160) เพราะคำใหม่ชนกับสกิลอื่น ตัวอย่างคือคำว่า "accessible" ใน web-design-guidelines ดึง prompt ของ frontend-ui-engineering ไป หลังปรับคำแล้วกลับมาผ่าน 100% (160/160) และชุดเช็คของ CI ผ่านครบ

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "README.md has installation, usage, API/options, and contributing sections",
+      "passed": true,
+      "evidence": "The written README has an install command under Quick Start, usage examples, a Configuration options table, an API Reference section, and a Contributing section. The sections are not literally titled 'Installation' or 'Usage', but all the content is there."
+    },
+    {
+      "id": 2,
+      "text": "Usage examples are accurate code snippets that match the real retry() signature and defaults (retries 3, baseMs 100, jitter true)",
+      "passed": true,
+      "evidence": "The examples call `retry(fn)` and `retry(fn, {retries, baseMs, jitter})`, which match the source signature. The options table lists defaults of 3, 100 and true, which match `src/index.js`. The import is `{ retry }` from '@acme/retry-kit', which fits the ESM package."
+    },
+    {
+      "id": 3,
+      "text": "Prerequisites are stated from package.json (Node >= 18) along with the license",
+      "passed": true,
+      "evidence": "The README says 'Requires Node.js >= 18. The package is ESM-only.' and ends with a License section reading 'MIT'. Both match package.json (engines node >=18, license MIT, type module)."
+    },
+    {
+      "id": 4,
+      "text": "No features are documented that the source does not implement",
+      "passed": true,
+      "evidence": "The documented behavior is backed by the source: exponential backoff, optional jitter (a factor of 0.5 to 1.5), and rethrowing the last error. The README states that all errors trigger a retry and that there is no maximum delay. 'Zero dependencies' is consistent with package.json, which lists none. The README invents no unimplemented features."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:41:24.208Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The full list of files referencing oldHelper is gathered (for example with grep) before editing",
+      "passed": true,
+      "evidence": "The agent ran Grep for 'oldHelper' (excluding node_modules) and Glob for '*oldHelper*' before any edit. The results listed app.js, format.js, index.js and oldHelper.js. It also ran a case-variant grep."
+    },
+    {
+      "id": 2,
+      "text": "The class, its file name, every import and export, and the usage in src/app.js are renamed consistently",
+      "passed": true,
+      "evidence": "The agent ran `git mv` to rename oldHelper.js to newHelper.js, then sed over src/app.js and src/utils/*.js. The post-edit grep shows `export class newHelper`, the import in format.js, the re-export in index.js, and the import and usage in app.js. All use newHelper."
+    },
+    {
+      "id": 3,
+      "text": "No reference to oldHelper remains anywhere in the repository",
+      "passed": true,
+      "evidence": "The post-edit `grep -rn \"oldHelper\" .` printed nothing before the '--- remaining above' marker. That grep covered the batch-operations directory, which holds all the code. The earlier repo-wide grep found no occurrences outside that directory."
+    },
+    {
+      "id": 4,
+      "text": "The test suite (npm test) is run after the rename and passes",
+      "passed": true,
+      "evidence": "`npm test` ran after the rename in the same command. The output shows '# tests 1', '# pass 1' and '# fail 0'."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:43:57.002Z"
+  }
+}

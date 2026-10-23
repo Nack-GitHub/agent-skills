@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "scripts/compress-logs.sh starts with a bash shebang and enables fail-fast behavior (set -e or set -euo pipefail)",
+      "passed": true,
+      "evidence": "Script begins with `#!/bin/bash` and the next line is `set -euo pipefail`."
+    },
+    {
+      "id": 2,
+      "text": "A trap cleans up temporary files on error or exit",
+      "passed": true,
+      "evidence": "`trap cleanup EXIT` is defined; cleanup removes the TMP_FILE (`*.gz.tmp.$$`) if it exists."
+    },
+    {
+      "id": 3,
+      "text": "Only .log files are compressed, recursively, and logs/notes.txt is left untouched",
+      "passed": false,
+      "evidence": "The script uses `find \"$dir\" -type f -name \"*.log\"`, which is recursive and only matches .log files. But the agent never created logs/notes.txt, because the sample files were only three .log files. The final `find logs -type f` shows only .gz files. So the claim that notes.txt is left untouched was never demonstrated."
+    },
+    {
+      "id": 4,
+      "text": "Status output goes to stderr and the JSON summary goes to stdout",
+      "passed": true,
+      "evidence": "`log_info` and `log_error` both redirect with `>&2`. The JSON summary is printed with `printf` to stdout at the end of main."
+    },
+    {
+      "id": 5,
+      "text": "The script is run against logs/ and the result is shown",
+      "passed": true,
+      "evidence": "The agent ran `./scripts/compress-logs.sh logs`. The output showed the JSON summary with 3 files compressed and `exit=0`, and the agent repeated the summary in its final message."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 1,
+    "total": 5,
+    "pass_rate": 0.8
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:43:25.930Z"
+  }
+}

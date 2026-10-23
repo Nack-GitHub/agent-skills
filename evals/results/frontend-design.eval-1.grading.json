@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "A cohesive palette is defined as CSS custom properties that follow brand.md (teal primary, amber accent reserved for the active item) with a dark-mode variant",
+      "passed": true,
+      "evidence": "The CSS defines --color-primary (#0b5d5a, deep teal) and --color-accent (#d98a00) on :root. Amber is used only in .sidebar__link.is-active (border-left-color and accent-wash background). A prefers-color-scheme: dark block redefines all the color tokens. There are no gradients."
+    },
+    {
+      "id": 2,
+      "text": "Layout uses Flexbox or Grid with spacing tokens rather than ad-hoc pixel values",
+      "passed": true,
+      "evidence": "The body, .sidebar, .sidebar__nav and .sidebar__link all use display:flex. Gaps and padding use var(--space-1) through var(--space-5). The raw pixel values that remain are the 1px/2px/3px borders and outlines, which are not spacing, and the width and height tokens that are themselves defined as variables."
+    },
+    {
+      "id": 3,
+      "text": "Visual hierarchy is established through typography (brand, links, footer differ in weight or size)",
+      "passed": true,
+      "evidence": "The brand has font-weight 700 and teal color. Links use the normal weight at --text-md, and the active link is 600. The footer uses the smaller --text-sm with muted color. Weight, size and color all differ among the three."
+    },
+    {
+      "id": 4,
+      "text": "Hover, active, and keyboard focus-visible states are styled",
+      "passed": true,
+      "evidence": "The CSS has .sidebar__link:hover, .sidebar__link:focus-visible (a 2px outline) and .sidebar__link.is-active. There is no :active pseudo-class rule. The is-active class is the 'active item' state that brand.md describes, so I count this as met."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:49:28.778Z"
+  }
+}

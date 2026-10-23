@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "A baseline build and package list are captured before any project file is changed",
+      "passed": true,
+      "evidence": "The agent ran dotnet build with -bl:baseline.binlog (succeeded, 0 errors) and saved baseline-packages.json from dotnet package list for both projects. It edited no project files. It only added baseline artifacts. A first build attempt failed on a stray flag, and the agent redid it cleanly."
+    },
+    {
+      "id": 2,
+      "text": "The Newtonsoft.Json version conflict (13.0.3 vs 12.0.3) is surfaced to the user with resolution options instead of being silently resolved",
+      "passed": true,
+      "evidence": "The final message states the conflict (Shop.Api 13.0.3, Shop.Core 12.0.3). It offers two options: align to 13.0.3, or use central 13.0.3 with a VersionOverride of 12.0.3 in Shop.Core. It mentions the vulnerability advisory and asks the user to choose before making changes."
+    },
+    {
+      "id": 3,
+      "text": "Directory.Packages.props is created at the root with ManagePackageVersionsCentrally set to true and a PackageVersion per package",
+      "passed": false,
+      "evidence": "No Directory.Packages.props was created. The agent paused to ask the user about the version conflict and the file location, and made no file writes."
+    },
+    {
+      "id": 4,
+      "text": "Version attributes are removed from the PackageReference items, and the $(SerilogVersion) property is handled deliberately (inlined or kept with import order considered)",
+      "passed": false,
+      "evidence": "No csproj files were edited, so the Version attributes remain. The agent only stated a plan to inline Serilog 3.1.1 and remove the property later. That plan was not carried out."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:46:56.116Z"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Sunk cost is not accepted as a reason to commit the unverified batch",
+      "passed": true,
+      "evidence": "The agent did not commit draft-export.js unchanged. It extracted pieces with tests first, and its final message explicitly rejected the sunk-cost framing ('The two days aren't lost... Committing untested code that mixes four concerns would have made the next change expensive')."
+    },
+    {
+      "id": 2,
+      "text": "The work is decomposed into independently useful vertical slices",
+      "passed": true,
+      "evidence": "Three separate commits: csv-format.js with tests, download.js with tests, and an orchestration test for draft-export.js. Each is a standalone module or test. The UI/status slice was only covered by an orchestration test, not a separate UI module, so the decomposition is slightly loose but still independent."
+    },
+    {
+      "id": 3,
+      "text": "Verification is required before each slice is committed",
+      "passed": true,
+      "evidence": "Slice 1: `node --test` showed 2 pass, 0 fail before the commit. Slice 2: the run showed 3 pass, 0 fail before the commit. Slice 3: the command chained `node --test | grep ... && git commit`, with 4 pass, 0 fail. Every commit followed a passing test run."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:51:31.466Z"
+  }
+}

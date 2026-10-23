@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "The agent inspects the repo for stack, test runner, and existing linters before asking anything",
+      "passed": true,
+      "evidence": "Before asking, the agent ran ls for package.json, pyproject.toml, go.mod, Cargo.toml, CI, and CLAUDE.md/AGENTS.md, and ran a Glob. It found the directory empty and said so."
+    },
+    {
+      "id": 2,
+      "text": "No more than four questions are asked, and each one carries a usable default",
+      "passed": true,
+      "evidence": "It asked one question (what are you building, and in what language). It carried a default guess (TypeScript web app) and a fallback (a floor-only CONSTRAINTS.md)."
+    },
+    {
+      "id": 3,
+      "text": "When the user has no target number, the agent proposes recording today's value and holding it rather than inventing a threshold",
+      "passed": false,
+      "evidence": "The agent did say it would measure where the project is and hold that line. But it also proposed a fixed number with no measurement behind it: 'Coverage, for example, will be 80% on changed lines'. That is an invented threshold. The user never said they lack a target."
+    },
+    {
+      "id": 4,
+      "text": "The resulting constraints say where each check runs, keeping fast checks in the edit loop and slow checks later",
+      "passed": false,
+      "evidence": "No constraints were written in this transcript. The agent never discussed which checks run in the edit loop and which run later."
+    },
+    {
+      "id": 5,
+      "text": "Every number written down is accompanied by a reason",
+      "passed": false,
+      "evidence": "The only number mentioned was 80% coverage on changed lines, given with no reason. Nothing was written to a file."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 3,
+    "total": 5,
+    "pass_rate": 0.4
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:45:41.673Z"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "Non-trivial claims in the plan are extracted and challenged individually",
+      "passed": true,
+      "evidence": "The agent extracted the five author assertions and the plan steps, then sent them as numbered items to an adversarial subagent. The subagent attacked each by number: FK recreation, row count, 15-minute completion, backup sufficiency, and external IDs. The final table also addresses each claim individually."
+    },
+    {
+      "id": 2,
+      "text": "At least one assumption is tested rather than accepted",
+      "passed": true,
+      "evidence": "The agent said it would check a finding with a tool. It ran `which psql postgres pg_ctl initdb` to see whether a local Postgres could dry-run the CASCADE behavior. The check found nothing, and the agent said so openly. It also re-read the plan text with line references. This is a genuine attempt, but a weak test: no assumption was actually exercised, and the CASCADE conclusions rest on documented semantics."
+    },
+    {
+      "id": 3,
+      "text": "The verdict distinguishes verified claims from surviving doubts",
+      "passed": true,
+      "evidence": "The final verdict has a table with explicit statuses: Verified (from the plan text), Refuted, and Surviving doubt (unsupported or unverified) for the 15-minute, row-count, and external-ID assertions. It states that the CASCADE behavior rests on documented semantics because no dry run was possible. Some labels are muddled, such as \"Refuted as a plan claim\", but the separation is clear."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T16:45:25.406Z"
+  }
+}

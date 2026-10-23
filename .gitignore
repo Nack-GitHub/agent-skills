@@ -5,8 +5,11 @@ node_modules/
 *.log
 .claude/.simplify-ignore-cache/
 .claude/sdd-cache/
-evals/results/
-evals/plugin/results/
+evals/results/*.raw.txt
+evals/plugin/results/*
+!evals/plugin/results/2026-10-22T14-51-29-240Z/
+evals/plugin/results/2026-10-22T14-51-29-240Z/*
+!evals/plugin/results/2026-10-22T14-51-29-240Z/aggregate-result.json
 __pycache__/
 evals/fixtures/**/bin/
 evals/fixtures/**/obj/

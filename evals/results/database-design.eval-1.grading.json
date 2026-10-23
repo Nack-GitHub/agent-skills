@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "A db/NNN_*.sql migration defines posts, tags, and a post_tags join table with primary and foreign keys",
+      "passed": true,
+      "evidence": "Wrote database-design/db/001_create_posts_and_tags.sql defining posts, tags, and post_tags. Each table has an identity primary key, and post_tags has a composite PK (post_id, tag_id) with FKs to posts and tags."
+    },
+    {
+      "expectations_note": "",
+      "id": 2,
+      "text": "Foreign key actions match the requirements: deleting a post cascades to its links, deleting an in-use tag is restricted",
+      "passed": true,
+      "evidence": "post_tags.post_id REFERENCES posts(id) ON DELETE CASCADE; post_tags.tag_id REFERENCES tags(id) ON DELETE RESTRICT."
+    },
+    {
+      "id": 3,
+      "text": "Indexes cover the hot queries (tag to published posts by date, unique slug, case-insensitive unique tag name)",
+      "passed": true,
+      "evidence": "UNIQUE INDEX posts_slug_key ON posts(slug); UNIQUE INDEX tags_name_lower_key ON tags(lower(name)); post_tags(tag_id, post_id) index; partial index posts(published_at DESC, id DESC) WHERE status='published'. Together these cover tag-to-published-posts by date, slug lookup, and case-insensitive tag uniqueness."
+    },
+    {
+      "id": 4,
+      "text": "Column types and constraints are appropriate (status constrained to the three values, timestamps with time zone)",
+      "passed": true,
+      "evidence": "status uses the post_status ENUM ('draft','published','archived'), NOT NULL, default 'draft'. All timestamps (published_at, created_at, updated_at) are timestamptz. Also has a CHECK requiring published_at when status is published, and length checks on title, slug and name."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-22T14:47:05.056Z"
+  }
+}

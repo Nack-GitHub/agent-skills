@@ -1,0 +1,33 @@
+{
+  "expectations": [
+    {
+      "id": 1,
+      "text": "A rollback plan exists before the go decision",
+      "passed": true,
+      "evidence": "The agent notes rollback owner and commands are undocumented and lists that as blocker #4 ('A rollback plan must exist before deploying'). It rejects the sponsor's proposal to write rollback steps after launch. It prescribes writing the plan today, including a flag-off dry run, and makes it a condition for flipping to GO. The verdict is NO-GO, so no go decision is made without a plan. The agent does not itself write the plan, though; it only offers to draft one."
+    },
+    {
+      "id": 2,
+      "text": "Monitoring and alerting readiness is verified",
+      "passed": true,
+      "evidence": "The agent read the launch status file and found that request rate and latency dashboards exist but payment-failure and duplicate-charge alerts do not. It lists the missing alerts as blocker #3 and rejects the sponsor's suggestion to watch general error logs. It explains that a duplicate charge is a successful request and would not appear as an error. It requires alerts to be added and tested before GO. The agent states that it only reviewed the notes and did not inspect the dashboards, so the verification rests on the status document."
+    },
+    {
+      "id": 3,
+      "text": "A clear go or no-go verdict is stated with blockers listed",
+      "passed": true,
+      "evidence": "The response opens with 'NO-GO as it stands' and gives a table of five numbered blockers: the failing e2e test, the stale staging smoke test, missing alerts, undocumented rollback, and the runbook not sent to support and on-call. It also gives explicit conditions for flipping to GO."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1
+  },
+  "run": {
+    "executor_model": "claude-sonnet-5-5",
+    "grader_model": "unknown",
+    "timestamp": "2026-10-23T03:13:52.210Z"
+  }
+}
