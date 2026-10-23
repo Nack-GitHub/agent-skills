@@ -93,3 +93,48 @@ Merge `addyosmani/agent-skills` ถึง commit `aeac41d` (v0.6.13) และ�
 1. **Behavioral evals ของ 23 สกิลที่นำเข้า**: เลิกใช้ `trust_level: "provisional"` และเปลี่ยนเป็น `kind: "execution"` ที่มี fixture จริงใน `evals/fixtures/<skill>/` ตามกฎใหม่ของ upstream
 2. **Description**: เขียน description ของสกิลที่นำเข้าใหม่ให้ไม่แย่ง prompt ของสกิลอื่น และครอบ quote ให้ description ที่มี `: ` เพื่อให้ YAML parse ได้ถูกต้อง
 3. **SessionStart hook**: upstream ลบ `hooks/hooks.json` แล้ว ทำให้ `using-agent-skills` ไม่ถูก inject อัตโนมัติอีก การเลือกสกิลจึงอาศัย description ของแต่ละสกิลเป็นหลัก
+
+## 6. อัปเดต 2026-10-23: Behavioral evals และ routing ด้วย LLM จริง
+
+รันบน branch `sync/upstream-0.6.13` ด้วย Claude Code 2.1.284 และ model `sonnet` (`claude-sonnet-5-5`)
+
+### Tier 3: `node scripts/run-evals.js --behavioral <skill>`
+
+| | ผล |
+|---|---|
+| Eval ที่ให้คะแนนแล้ว | 57/57 (48 skills) |
+| ผ่านครบทุกข้อ | 37/57 |
+| Expectation ที่ผ่าน | 189/218 (87%) |
+
+Tier 3 ฉีด skill ผ่าน `--append-system-prompt` โดยตรง การแก้ description จึงไม่มีผลกับชุดนี้ ไม่มี baseline ก่อน sync ให้เทียบ ข้อที่ไม่ผ่านแบ่งได้ 3 กลุ่ม:
+
+1. **ปัญหาที่ eval หรือเครื่อง**
+   - bash-linux: agent สร้าง `logs/` เองแทนที่จะใช้ fixture ที่อยู่ใต้ `bash-linux/`
+   - powershell-windows: ไม่มี `pwsh` บนเครื่อง
+   - setup-local-sdk: เครื่องมี .NET 10 ไม่ใช่ 8
+   - convert-to-cpm: skill สั่งให้ถามเรื่อง property ก่อน แต่ eval คาดว่าจะทำเสร็จ
+   - code-review-and-quality: grader เข้าใจผิดว่าไม่ได้โหลด skill
+2. **Eval รอบเดียวแต่ skill ออกแบบให้คุยหลายรอบ:** idea-refine, constraint-driven-development (eval 1, 3), spec-driven-development eval 1 (หยุดที่ Phase 0 capability map)
+3. **พฤติกรรมที่ขาดจริง**
+   - doubt-driven-development 0/3: ไม่แยก claim มาตรวจและไม่ทดสอบสมมติฐาน
+   - api-and-interface-design: เพิ่ม requirement เอง
+   - documentation-and-adrs eval 4
+   - ไม่ตรวจผลหลังแก้หรือไม่เพิ่ม guard: performance-optimization, nextjs-react-expert, optimizing-ef-core-queries, tailwind-patterns, web-design-guidelines
+   - configuring-opentelemetry-dotnet: ไม่ได้กำหนด endpoint ชัด
+   - mobile-design: ไม่ได้จัดการ safe area
+   - security-and-hardening: ไม่ได้ระบุ trust boundary ก่อนแก้
+
+### Routing: `claude plugin eval . --runs 3 --ablation none --model sonnet`
+
+Case อยู่ใน `evals/plugin/` (118 case × 3 run = 354 run, ไม่มี error)
+
+| กลุ่ม | Case ที่ผ่าน 3/3 | Run ที่ผ่าน |
+|---|---|---|
+| `command-*` (9 slash commands) | 9/9 | 27/27 |
+| `persona-*-fires` (4 personas) | 4/4 | 12/12 |
+| `persona-*-quiet` | 4/4 | 12/12 |
+| `routing-*-quiet` (ไม่ควร fire) | 48/48 | 144/144 |
+| `routing-*-fires` (ควร fire) | 21/48 | 69/144 (สกิลนำเข้า 29/69, สกิล upstream 40/75) |
+| case เดิมของ upstream | 2/5 | 7/15 |
+
+ข้อสรุป: ไม่มีการเลือกผิด skill เลย (quiet ผ่าน 100%) ปัญหาเดียวคือ **under-triggering** ใน 27 case: skill อยู่ในรายการที่ model เห็น แต่ model เลือกทำงานเองโดยไม่เรียก Skill tool (ตรวจจาก trace ของ `routing-architecture-fires`) case เดิมของ upstream ก็เป็นแบบเดียวกัน (`code-review-fires` 1/3, `tdd-fires-on-pasted-bug` 0/3) จึงเป็นพฤติกรรมของ model กับ plugin นี้โดยรวม ไม่ใช่ผลจาก description ที่แก้ใน sync นี้ สาเหตุที่เป็นไปได้คือข้อ 5.3 ที่ upstream เลิก inject `using-agent-skills` ตอน SessionStart แต่ยังไม่ได้พิสูจน์
