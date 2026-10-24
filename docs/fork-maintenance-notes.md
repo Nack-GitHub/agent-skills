@@ -190,7 +190,7 @@ run "/agent-skills:ship" | tee tasks/ship.md
 ## 7. งานค้าง
 
 ต้องทำ:
-- [ ] เปิด plugin กลับ: `claude plugin enable agent-skills@addy-agent-skills --scope user && claude plugin enable agent-skills@hrmapp-agent-skills --scope user`
+- [ ] เปิด plugin กลับ: `claude plugin enable agent-skills@nack-agent-skills --scope user && claude plugin enable agent-skills@hrmapp-agent-skills --scope user`
 - [ ] Commit การแก้ของวันที่ 2026-10-24
 - [ ] ตัดสินใจ merge `sync/upstream-0.6.13` เข้า `main` แล้ว push เอง
 - [ ] ก่อน push ขึ้น public ตัดสินใจว่าจะเอาชื่อผู้ใช้ "nack" ออกจาก `evals/fixtures/binlog-failure-analysis/build.binlog` ไหม
